@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto — Saúl Expósito</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="./img/logo.png">
+
+<!-- Icono para iOS / Android -->
+<link rel="apple-touch-icon" href="./img/favicon.png">
+<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080808;
+      --bg2: #0f0f0f;
+      --bg3: #161616;
+      --surface: #1c1c1c;
+      --surface2: #222222;
+      --border: #232323;
+      --border2: #2e2e2e;
+      --text: #e2e2e2;
+      --text-muted: #7a7a7a;
+      --text-dim: #444;
+      --accent: #2979ff;
+      --accent2: #448aff;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); }
+
+    /* ===========================
+       NAV
+    =========================== */
+    nav {
+      position: fixed;
+      top: 16px; left: 16px; right: 16px;
+      z-index: 200;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      background: rgba(8,8,8,0.72);
+      backdrop-filter: blur(28px) saturate(200%) brightness(1.08);
+      -webkit-backdrop-filter: blur(28px) saturate(200%) brightness(1.08);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 30px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.04);
+    }
+    nav::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%, rgba(41,121,255,0.04) 100%);
+      pointer-events: none; z-index: 0;
+    }
+    nav > * { position: relative; z-index: 1; }
+
+    .nav-logo {
+      font-size: 15px; font-weight: 600;
+      color: var(--white);
+      letter-spacing: -0.3px;
+      text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    .nav-logo-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+
+    .btn-sm {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px; font-weight: 500;
+      letter-spacing: -0.1px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+
+    .btn-ghost { background: transparent; border: 1px solid var(--border2); color: var(--text-muted); }
+    .btn-ghost:hover { border-color: #444; color: var(--white); }
+    .btn-white { background: var(--white); border: 1px solid var(--white); color: #000; }
+    .btn-white:hover { background: #e8e8e8; }
+    .btn-accent { background: var(--accent); border: 1px solid var(--accent); color: var(--white); }
+    .btn-accent:hover { background: var(--accent2); }
+    .btn-md { padding: 9px 20px; font-size: 13px; border-radius: 7px; }
+
+    /* Social icon links */
+    .nav-social-link {
+      display: inline-flex; align-items: center; justify-content: center;
+      text-decoration: none;
+    }
+    .nav-social-link img {
+      width: 28px; height: 28px; object-fit: contain; display: block;
+      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1);
+    }
+    .nav-social-link:hover img { transform: scale(1.22); }
+
+    /* Back arrow */
+    .nav-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 500; color: var(--text-muted);
+      text-decoration: none; letter-spacing: -0.1px;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--white); }
+    .nav-back svg { transition: transform 0.15s ease; }
+    .nav-back:hover svg { transform: translateX(-3px); }
+
+    /* Hamburger */
+    .hamburger-btn {
+      display: none; flex-direction: column; justify-content: center;
+      align-items: center; gap: 5px; width: 36px; height: 36px;
+      background: transparent; border: 1px solid var(--border2);
+      border-radius: 7px; cursor: pointer; padding: 0;
+    }
+    .hamburger-btn span {
+      display: block; width: 18px; height: 1.5px;
+      background: var(--text-muted); border-radius: 2px;
+    }
+    .mobile-menu-overlay {
+      display: none; position: fixed; inset: 0; z-index: 190;
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+    }
+    .mobile-menu-panel {
+      position: fixed; top: 84px; left: 16px; right: 16px; z-index: 195;
+      background: rgba(12,12,12,0.97); backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--border); border-radius: 16px; padding: 16px 20px 24px;
+      transform: translateY(-110%);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1), opacity 0.3s, visibility 0.3s;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .mobile-menu-panel.open {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .mobile-menu-bottom {
+      display: flex; gap: 8px; flex-wrap: wrap; padding-top: 12px;
+      border-top: 1px solid var(--border); align-items: center;
+    }
+
+    /* Nav center links */
+    .nav-center {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-link {
+      font-size: 13px; font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 5px 12px;
+      border-radius: 20px;
+      transition: color 0.15s, background 0.15s;
+      letter-spacing: -0.1px;
+    }
+    .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+    .nav-link-active { color: var(--white); }
+
+    /* Mobile panel ul */
+    .mobile-menu-panel ul {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 2px;
+      margin-bottom: 16px;
+    }
+    .mobile-menu-panel ul a {
+      display: block; padding: 10px 8px;
+      font-size: 15px; font-weight: 500;
+      color: var(--text-muted); text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .mobile-menu-panel ul a:hover { background: var(--surface); color: var(--white); }
+
+    /* CV button */
+    .btn-cv-nav {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      background: linear-gradient(to bottom, #4dc7d9 0%, #66a6ff 100%);
+      color: white;
+      padding: 0 14px;
+      height: 34px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: none; border-radius: 25px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.25);
+      transition: all 0.3s;
+      text-decoration: none; cursor: pointer;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .btn-cv-nav:hover { transform: translateY(-2px); box-shadow: 0px 6px 14px rgba(0,0,0,0.3); }
+    .btn-cv-nav:active { transform: scale(0.95); box-shadow: 0px 2px 5px rgba(0,0,0,0.2); }
+    .btn-cv-nav span { display: block; margin-left: 0.3em; transition: all 0.3s; font-weight: 500; }
+    .btn-cv-nav svg { width: 15px; height: 15px; fill: white; transition: all 0.3s; }
+    .btn-cv-nav .svg-wrapper {
+      display: flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: 50%;
+      background-color: rgba(255,255,255,0.2); transition: all 0.3s;
+    }
+    .btn-cv-nav:hover .svg-wrapper { background-color: rgba(255,255,255,0.45); }
+    .btn-cv-nav:hover svg { transform: rotate(45deg); }
+    .svg-wrapper-1 { display: flex; align-items: center; justify-content: center; }
+
+
+    .page-header {
+      padding: 96px 0 64px;
+    }
+
+    .page-header-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
+      padding: 4px 12px 4px 8px;
+      font-size: 11.5px; font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: -0.1px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .hero-label-dot {
+      width: 5px; height: 5px;
+      background: var(--accent); border-radius: 50%;
+      animation: blink 2.5s ease infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .page-header h1 {
+      font-size: clamp(40px, 5.5vw, 68px);
+      font-weight: 600; letter-spacing: -2.5px; line-height: 1.0;
+      color: var(--white);
+      animation: fadeUp 0.7s 0.08s ease both;
+      max-width: 600px;
+    }
+
+    .page-header h1 .muted-word { color: rgba(255,255,255,0.35); }
+
+    .page-header-body {
+      font-size: 15px; font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: -0.2px; line-height: 1.65;
+      max-width: 440px; margin: 18px 0 0;
+      animation: fadeUp 0.7s 0.16s ease both;
+    }
+
+    /* ===========================
+       SECTION UTILITIES
+    =========================== */
+    .section-wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.6px; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 18px;
+    }
+    .section-label::before {
+      content: ''; width: 14px; height: 1px;
+      background: var(--text-dim); display: block;
+    }
+
+    h2 {
+      font-size: clamp(28px, 3.8vw, 48px);
+      font-weight: 600; letter-spacing: -1.5px; line-height: 1.05;
+      color: var(--white);
+    }
+    h2 .dim { color: var(--text-muted); }
+
+    .rule { height: 1px; background: var(--border); }
+
+    .reveal {
+      opacity: 1; transform: none;
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .js-loaded .reveal { opacity: 0; transform: translateY(22px); }
+    .js-loaded .reveal.on { opacity: 1; transform: none; }
+
+    /* ===========================
+       CONTACT SECTION
+    =========================== */
+    .contact-section { padding: 100px 0; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* Left column — info */
+    .contact-info { }
+
+    .contact-tagline {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      letter-spacing: -0.1px;
+      margin-top: 20px;
+      margin-bottom: 40px;
+    }
+
+    .contact-channels { display: flex; flex-direction: column; gap: 12px; margin-bottom: 44px; }
+
+    .contact-channel {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 16px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      transition: border-color 0.15s, background 0.15s;
+      cursor: pointer;
+    }
+    .contact-channel:hover { border-color: var(--border2); background: var(--bg3); }
+
+    .contact-channel-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-channel-body { flex: 1; min-width: 0; }
+    .contact-channel-label {
+      font-size: 11px; font-weight: 500;
+      color: var(--text-dim);
+      letter-spacing: 0.4px; text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .contact-channel-value {
+      font-size: 13.5px; font-weight: 500;
+      color: var(--white);
+      letter-spacing: -0.2px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .contact-channel-arrow { color: var(--text-dim); font-size: 14px; }
+
+    /* Availability badge */
+    .avail-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(41,121,255,0.06);
+      border: 1px solid rgba(41,121,255,0.15);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 32px;
+    }
+    .avail-dot {
+      width: 7px; height: 7px;
+      background: #2eff7a; border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(46,255,122,0.15);
+      animation: pulse-green 2s ease infinite;
+    }
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(46,255,122,0.15); }
+      50% { box-shadow: 0 0 0 6px rgba(46,255,122,0.06); }
+    }
+    .avail-text { font-size: 12.5px; color: var(--text-muted); letter-spacing: -0.1px; }
+    .avail-text strong { color: var(--white); font-weight: 500; }
+
+    /* Right column — form */
+    .contact-form-wrap {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 36px;
+    }
+
+    .form-title {
+      font-size: 17px; font-weight: 600;
+      color: var(--white); letter-spacing: -0.4px;
+      margin-bottom: 6px;
+    }
+    .form-subtitle {
+      font-size: 13px; color: var(--text-muted);
+      letter-spacing: -0.1px; margin-bottom: 28px;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .form-row.full { grid-template-columns: 1fr; }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+
+    .form-label {
+      font-size: 11.5px; font-weight: 500;
+      color: var(--text-muted); letter-spacing: -0.1px;
+    }
+
+    .form-input, .form-textarea, .form-select {
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px; font-weight: 400;
+      color: var(--text);
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      border-radius: 8px;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+      letter-spacing: -0.1px;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-dim); }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: var(--accent);
+      background: #0a0a14;
+    }
+
+    .form-textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+
+    .form-select { cursor: pointer; }
+    .form-select option { background: var(--bg3); color: var(--text); }
+
+    .form-type-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .form-chip {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px; font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--border2);
+      background: var(--bg3);
+      color: var(--text-muted);
+      cursor: pointer; transition: all 0.15s;
+      letter-spacing: -0.1px;
+    }
+    .form-chip:hover { border-color: #444; color: var(--white); }
+    .form-chip.selected { border-color: var(--accent); background: rgba(41,121,255,0.08); color: var(--accent2); }
+
+    .form-submit {
+      width: 100%; margin-top: 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13.5px; font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 8px;
+      background: var(--white); border: 1px solid var(--white); color: #000;
+      cursor: pointer; transition: all 0.15s;
+      letter-spacing: -0.2px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .form-submit:hover { background: #e8e8e8; }
+    .form-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .form-note {
+      font-size: 11.5px; color: var(--text-dim);
+      text-align: center; margin-top: 12px;
+      letter-spacing: -0.1px;
+    }
+
+    /* Success state */
+    .form-success {
+      display: none;
+      flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 48px 0;
+      gap: 12px;
+    }
+    .form-success.visible { display: flex; }
+    .form-wrap.sent .form-fields { display: none; }
+    .form-wrap.sent .form-success { display: flex; }
+
+    .success-icon {
+      width: 48px; height: 48px;
+      background: rgba(46,255,122,0.08);
+      border: 1px solid rgba(46,255,122,0.2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 4px;
+    }
+    .success-title { font-size: 17px; font-weight: 600; color: var(--white); letter-spacing: -0.4px; }
+    .success-body { font-size: 13.5px; color: var(--text-muted); letter-spacing: -0.1px; line-height: 1.6; }
+
+    /* ===========================
+       FAQ / QUICK CARDS
+    =========================== */
+    .faq-section { padding: 80px 0; }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .faq-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .faq-card:hover { border-color: var(--border2); background: var(--bg3); }
+
+    .faq-icon { font-size: 20px; margin-bottom: 12px; }
+    .faq-q { font-size: 13.5px; font-weight: 600; color: var(--white); letter-spacing: -0.3px; margin-bottom: 8px; }
+    .faq-a { font-size: 12.5px; color: var(--text-muted); line-height: 1.65; letter-spacing: -0.1px; }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    .footer-rule { height: 1px; background: var(--border); }
+
+    footer {
+      padding: 60px 24px 0;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 80px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .footer-brand-name { font-size: 15px; font-weight: 600; letter-spacing: -0.3px; color: var(--white); margin-bottom: 10px; }
+    .footer-brand-desc { font-size: 13px; color: var(--text-dim); line-height: 1.65; letter-spacing: -0.1px; max-width: 180px; }
+
+    .footer-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+    .footer-col-head { font-size: 12px; font-weight: 500; color: var(--text-muted); letter-spacing: -0.1px; margin-bottom: 14px; }
+    .footer-col-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col-links a { font-size: 12.5px; color: var(--text-dim); text-decoration: none; letter-spacing: -0.1px; transition: color 0.15s; }
+    .footer-col-links a:hover { color: var(--text-muted); }
+
+    .footer-bottom {
+      padding: 20px 0 28px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-bottom span { font-size: 12px; color: var(--text-dim); letter-spacing: -0.1px; }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { font-size: 12px; color: var(--text-dim); text-decoration: none; letter-spacing: -0.1px; transition: color 0.15s; }
+    .footer-social a:hover { color: var(--text-muted); }
+    .footer-legal { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .footer-legal a { font-size: 11.5px; color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+    .footer-legal a:hover { color: var(--accent); }
+    .footer-legal span { font-size: 11.5px; }
+
+    .footer-watermark {
+      font-size: clamp(80px, 16vw, 160px);
+      font-weight: 700; letter-spacing: -4px;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, 0.461);
+      text-align: center;
+      padding: 20px 0 0;
+      display: flex; align-items: center; justify-content: center; gap: 20px;
+    }
+    .footer-watermark span { font-size: 0.5em; -webkit-text-stroke: 1px rgba(255,255,255,0.03); margin-top: 10px; }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .faq-grid { grid-template-columns: 1fr; }
+      nav .nav-right { display: none !important; }
+      nav .nav-back-desktop { display: none !important; }
+      nav .nav-center { display: none !important; }
+      .hamburger-btn { display: flex; }
+      .mobile-menu-overlay.open { display: block; }
+      .footer-top { grid-template-columns: 1fr; gap: 40px; }
+      .footer-cols { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form-wrap { padding: 24px 20px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- PARTICLES BG -->
+  <canvas id="particles-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="./img/logo.png" alt="Logo" style="height:32px;object-fit:contain;">
+    </a>
+    <div class="nav-center">
+      <a href="proyectos.html" class="nav-link">Proyectos</a>
+      <a href="index.html#fusion-section" class="nav-link">Skills</a>
+      <a href="index.html#habilidades-toolkit" class="nav-link">Habilidades</a>
+      <a href="contacto.html" class="nav-link nav-link-active">Contacto</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://es.linkedin.com/in/sa%C3%BAl-exp%C3%B3sito-jim%C3%A9nez-25b630386" class="nav-social-link" target="_blank" rel="noopener"><img src="./img/linkedin.png" alt="LinkedIn"></a>
+      <a href="https://github.com/saul-expositojimenez" class="nav-social-link" target="_blank" rel="noopener"><img src="./img/github.png" alt="GitHub"></a>
+      <a href="./CV-SaulExposito.pdf" download class="btn-cv-nav">
+        <div class="svg-wrapper-1">
+          <div class="svg-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+            </svg>
+          </div>
+        </div>
+        <span>Descargar CV</span>
+      </a>
+    </div>
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu overlay + panel -->
+  <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+  <div class="mobile-menu-panel" id="mobile-menu-panel">
+    <ul>
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="index.html#fusion-section">Skills</a></li>
+      <li><a href="index.html#habilidades-toolkit">Habilidades</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+    <div class="mobile-menu-bottom">
+      <a href="https://es.linkedin.com/in/sa%C3%BAl-exp%C3%B3sito-jim%C3%A9nez-25b630386" class="nav-social-link" target="_blank" rel="noopener"><img src="./img/linkedin.png" alt="LinkedIn"></a>
+      <a href="https://github.com/saul-expositojimenez" class="nav-social-link" target="_blank" rel="noopener"><img src="./img/github.png" alt="GitHub"></a>
+      <a href="./CV-SaulExposito.pdf" download class="btn-cv-nav">
+        <div class="svg-wrapper-1">
+          <div class="svg-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+            </svg>
+          </div>
+        </div>
+        <span>Descargar CV</span>
+      </a>
+    </div>
+  </div>
+
+
+
+  <!-- CONTACT SECTION -->
+  <div class="rule"></div>
+  <div class="contact-section">
+    <div class="section-wrap">
+      <div class="contact-grid">
+
+        <!-- LEFT: Info -->
+        <div class="contact-info reveal">
+          <div class="section-label">Contacto</div>
+          <h2>¿Tienes un proyecto<br><span class="dim">o una oportunidad?</span></h2>
+          <p class="contact-tagline">Estoy disponible para prácticas, trabajo freelance o incorporación a equipo. No dudes en contactarme por el canal que prefieras.</p>
+
+          <div class="avail-badge">
+            <div class="avail-dot"></div>
+            <span class="avail-text"><strong>Disponible ahora</strong> · Incorporación inmediata</span>
+          </div>
+
+          <div class="contact-channels">
+           <a href="/cdn-cgi/l/email-protection#8bf8eafee7a5eef3fbe4f8e2ffe4cbeef8e8feeee7eaeef8ffeee8e3a5eef8"></a>
+              <div class="contact-channel-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2979ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                </svg>
+              </div>
+              <div class="contact-channel-body">
+
+              </div>
+              <span class="contact-channel-arrow">→</span>
+            </a>
+
+            <a href="https://es.linkedin.com/in/sa%C3%BAl-exp%C3%B3sito-jim%C3%A9nez-25b630386" target="_blank" rel="noopener" class="contact-channel">
+              <div class="contact-channel-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#0a66c2">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                  <rect x="2" y="9" width="4" height="12"/>
+                  <circle cx="4" cy="4" r="2"/>
+                </svg>
+              </div>
+              <div class="contact-channel-body">
+                <div class="contact-channel-label">LinkedIn</div>
+                <div class="contact-channel-value">linkedin.com/in/Saúl Expósito Jiménez</div>
+              </div>
+              <span class="contact-channel-arrow">→</span>
+            </a>
+
+            <a href="https://github.com/saul-expositojimenez" target="_blank" rel="noopener" class="contact-channel">
+              <div class="contact-channel-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#e2e2e2">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                </svg>
+              </div>
+              <div class="contact-channel-body">
+                <div class="contact-channel-label">GitHub</div>
+                <div class="contact-channel-value">github.com/saul-expositojimenez</div>
+              </div>
+              <span class="contact-channel-arrow">→</span>
+            </a>
+
+            <div class="contact-channel" style="cursor:default;">
+              <div class="contact-channel-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7a7a7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <div class="contact-channel-body">
+                <div class="contact-channel-label">Ubicación</div>
+                <div class="contact-channel-value">Linares, Jaén · Remoto disponible</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Form -->
+        <div class="contact-form-wrap reveal" id="form-wrap">
+          <div class="form-fields">
+            <div class="form-title">Enviar mensaje</div>
+            <div class="form-subtitle">Te responderé en menos de 24 horas.</div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="fname">Nombre</label>
+                <input type="text" id="fname" class="form-input" placeholder="Tu nombre">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="femail">Email</label>
+                <input type="email" id="femail" class="form-input" placeholder="tu@email.com">
+              </div>
+            </div>
+
+            <div class="form-row full" style="margin-bottom:14px;">
+              <div class="form-group">
+                <label class="form-label">Tipo de contacto</label>
+                <div class="form-type-chips" id="chips">
+                  <button class="form-chip selected" onclick="selectChip(this)">Prácticas / Trabajo</button>
+                  <button class="form-chip" onclick="selectChip(this)">Proyecto freelance</button>
+                  <button class="form-chip" onclick="selectChip(this)">Colaboración</button>
+                  <button class="form-chip" onclick="selectChip(this)">Otro</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row full" style="margin-bottom:14px;">
+              <div class="form-group">
+                <label class="form-label" for="fsubject">Asunto</label>
+                <input type="text" id="fsubject" class="form-input" placeholder="Breve descripción">
+              </div>
+            </div>
+
+            <div class="form-row full">
+              <div class="form-group">
+                <label class="form-label" for="fmessage">Mensaje</label>
+                <textarea id="fmessage" class="form-textarea" placeholder="Cuéntame tu proyecto, oferta o cualquier cosa que quieras comentar..."></textarea>
+              </div>
+            </div>
+
+            <button class="form-submit" id="submit-btn" onclick="handleSubmit()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>
+              </svg>
+              Enviar mensaje
+            </button>
+            <p class="form-note">No envío spam ni comparto tus datos con terceros.</p>
+          </div>
+
+          <!-- Success -->
+          <div class="form-success" id="form-success">
+            <div class="success-icon">✓</div>
+            <div class="success-title">¡Mensaje enviado!</div>
+            <p class="success-body">Gracias por escribirme.<br>Te responderé lo antes posible, normalmente en menos de 24h.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ CARDS -->
+  <div class="rule"></div>
+  <div class="faq-section">
+    <div class="section-wrap">
+      <div class="reveal">
+        <div class="section-label">Preguntas frecuentes</div>
+        <h2>Respuestas rápidas <span class="dim">antes de escribirme</span></h2>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-card reveal">
+          <div class="faq-q">¿Estás disponible para prácticas?</div>
+          <div class="faq-a">Sí, busco activamente prácticas en desarrollo full stack, frontend o arquitectura cloud. Disponibilidad inmediata tanto presencial en Jaén/Andalucía como en remoto.</div>
+        </div>
+        <div class="faq-card reveal">
+
+          <div class="faq-q">¿Trabajas en remoto?</div>
+          <div class="faq-a">Sin problema. Tengo experiencia colaborando en entornos asíncronos y con herramientas como Git, Slack, Azure DevOps y Figma. Disponible para cualquier zona horaria europea.</div>
+        </div>
+        <div class="faq-card reveal">
+
+          <div class="faq-q">¿Cuánto tardan las respuestas?</div>
+          <div class="faq-a">Normalmente respondo en menos de 24 horas entre semana. Si es urgente, LinkedIn suele ser el canal más rápido.</div>
+        </div>
+        <div class="faq-card reveal">
+
+          <div class="faq-q">¿Aceptas proyectos freelance?</div>
+          <div class="faq-a">Sí, dependiendo del alcance. Me interesan proyectos de web, apps multiplataforma o interfaces con foco en buena UX. Contáctame con los detalles.</div>
+        </div>
+        <div class="faq-card reveal">
+         
+          <div class="faq-q">¿Con qué tecnologías trabajas?</div>
+          <div class="faq-a">HTML/CSS/JS, Java, Swift, Python, Azure, Docker, Figma y Git como principales. Siempre dispuesto a aprender el stack del equipo.</div>
+        </div>
+        <div class="faq-card reveal">
+          <div class="faq-q">¿Puedo ver tu CV?</div>
+          <div class="faq-a">Claro, puedes descargarlo directamente desde el botón de la barra de navegación o pedírmelo por email y te lo envío personalizado.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-rule"></div>
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Saúl Expósito</div>
+        <p class="footer-brand-desc">Desarrollador Multiplataforma & Técnico en Diseño. Linares, Jaén (España).</p>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <div class="footer-col-head">Navegación</div>
+          <ul class="footer-col-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="index.html#proyectos">Proyectos</a></li>
+            <li><a href="index.html#experiencia">Experiencia</a></li>
+            <li><a href="index.html#habilidades">Habilidades</a></li>
+            <li><a href="index.html#formacion">Formación</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Tecnologías</div>
+          <ul class="footer-col-links">
+            <li><a href="#">Frontend</a></li>
+            <li><a href="#">Backend</a></li>
+            <li><a href="#">Cloud & DevOps</a></li>
+            <li><a href="#">Diseño</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Certificaciones</div>
+          <ul class="footer-col-links">
+            <li><a href="#">CS50 Harvard</a></li>
+            <li><a href="#">IBM Cloud</a></li>
+            <li><a href="#">Azure AZ-900</a></li>
+            <li><a href="#">Azure AI-900</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Contacto</div>
+          <p style="font-size:12.5px;color:var(--text-dim);letter-spacing:-0.1px;margin-bottom:10px;line-height:1.5;">¿Tienes un proyecto o una oportunidad? Hablemos.</p>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <a href="https://es.linkedin.com/in/sa%C3%BAl-exp%C3%B3sito-jim%C3%A9nez-25b630386" class="btn-sm btn-ghost" style="justify-content:center;">LinkedIn →</a>
+            <a href="https://github.com/saul-expositojimenez" class="btn-sm btn-ghost" style="justify-content:center;">GitHub →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Saúl Expósito · Linares, Jaén (España)</span>
+      <div class="footer-legal">
+        <a href="#privacidad" onclick="document.getElementById('modal-privacidad').style.display='flex'">Política de privacidad</a>
+        <span style="color:var(--border2)">·</span>
+        <a href="#aviso" onclick="document.getElementById('modal-aviso').style.display='flex'">Aviso legal</a>
+        <span style="color:var(--border2)">·</span>
+        <span style="color:var(--text-dim);font-size:11px;"> Tus datos están seguros</span>
+      </div>
+      <div class="footer-social">
+        <a href="https://es.linkedin.com/in/sa%C3%BAl-exp%C3%B3sito-jim%C3%A9nez-25b630386">LinkedIn</a>
+        <a href="https://github.com/saul-expositojimenez">GitHub</a>
+        <a href="/cdn-cgi/l/email-protection#daa9bbafb6f4bfa2aab5a9b3aeb59abfa9b9afbfb6bbbfa9aebfb9b2f4bfa9">Email</a>
+      </div>
+    </div>
+
+    <!-- Modal Política de Privacidad -->
+    <div id="modal-privacidad" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px;">
+      <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:16px;max-width:560px;width:100%;padding:36px;position:relative;max-height:80vh;overflow-y:auto;">
+        <button onclick="document.getElementById('modal-privacidad').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text-muted);font-size:20px;cursor:pointer;line-height:1;">✕</button>
+        <h3 style="font-size:16px;font-weight:600;color:var(--white);margin-bottom:6px;">Política de Privacidad</h3>
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:20px;">Última actualización: 2026</p>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.7;display:flex;flex-direction:column;gap:14px;">
+          <p><strong style="color:var(--text);">Responsable:</strong> Saúl Expósito · <a href="/cdn-cgi/l/email-protection#b2c1d3c7de9cd7cac2ddc1dbc6ddf2d7c1d1c7d7ded3d7c1c6d7d1da9cd7c1" style="color:var(--accent);"><span class="__cf_email__" data-cfemail="fd8e9c8891d398858d928e948992bd988e9e8898919c988e89989e95d3988e">[email&#160;protected]</span></a></p>
+          <p><strong style="color:var(--text);">Datos recogidos:</strong> A través del formulario de contacto se recogen nombre, email y mensaje. Estos datos se utilizan exclusivamente para responder a tu consulta y no se ceden a terceros.</p>
+          <p><strong style="color:var(--text);">Base legal:</strong> Consentimiento del interesado al enviar el formulario (art. 6.1.a RGPD).</p>
+          <p><strong style="color:var(--text);">Conservación:</strong> Los datos se conservan el tiempo necesario para gestionar la comunicación y, como máximo, 1 año.</p>
+          <p><strong style="color:var(--text);">Tus derechos:</strong> Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición y portabilidad escribiendo a <a href="/cdn-cgi/l/email-protection#6d1e0c18014308151d021e0419022d081e0e1808010c081e19080e0543081e" style="color:var(--accent);"><span class="__cf_email__" data-cfemail="ccbfadb9a0e2a9b4bca3bfa5b8a38ca9bfafb9a9a0ada9bfb8a9afa4e2a9bf">[email&#160;protected]</span></a>.</p>
+          <p><strong style="color:var(--text);">Seguridad:</strong> No se comparten tus datos con terceros ni se usan con fines publicitarios.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Aviso Legal -->
+    <div id="modal-aviso" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:20px;">
+      <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:16px;max-width:560px;width:100%;padding:36px;position:relative;max-height:80vh;overflow-y:auto;">
+        <button onclick="document.getElementById('modal-aviso').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;color:var(--text-muted);font-size:20px;cursor:pointer;line-height:1;">✕</button>
+        <h3 style="font-size:16px;font-weight:600;color:var(--white);margin-bottom:6px;">Aviso Legal</h3>
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:20px;">Última actualización: 2025</p>
+        <div style="font-size:13px;color:var(--text-muted);line-height:1.7;display:flex;flex-direction:column;gap:14px;">
+          <p><strong style="color:var(--text);">Titular:</strong> Saúl Expósito Ibáñez · Linares, Jaén (España)</p>
+          <p><strong style="color:var(--text);">Contacto:</strong> <a href="/cdn-cgi/l/email-protection#93e0f2e6ffbdf6ebe3fce0fae7fcd3f6e0f0e6f6fff2f6e0e7f6f0fbbdf6e0" style="color:var(--accent);"><span class="__cf_email__" data-cfemail="e99a889c85c78c9199869a809d86a98c9a8a9c8c85888c9a9d8c8a81c78c9a">[email&#160;protected]</span></a></p>
+          <p><strong style="color:var(--text);">Finalidad:</strong> Este sitio web es un portfolio personal con fines informativos y de presentación profesional. No realiza actividad comercial directa.</p>
+          <p><strong style="color:var(--text);">Propiedad intelectual:</strong> Todos los contenidos de este sitio (textos, diseño, código) son de titularidad del autor salvo que se indique lo contrario. Queda prohibida su reproducción sin autorización.</p>
+          <p><strong style="color:var(--text);">Responsabilidad:</strong> El titular no se hace responsable del contenido de sitios externos enlazados desde este portfolio.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="footer-watermark">CONTACTO<span>✳</span></div>
+
+  <!-- ===== PARTICLES BACKGROUND ===== -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    (function () {
+      var canvas = document.getElementById('particles-bg');
+      var gl = canvas.getContext('webgl', { alpha: true, depth: false }) ||
+        canvas.getContext('experimental-webgl', { alpha: true, depth: false });
+      if (!gl) return;
+      gl.clearColor(0, 0, 0, 0);
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+      var vertSrc = ['attribute vec3 aPos;','attribute vec4 aRand;','attribute vec3 aColor;','uniform mat4 uProj;','uniform mat4 uView;','uniform float uTime;','uniform float uSpread;','uniform float uBase;','varying vec4 vRand;','varying vec3 vColor;','void main(){','  vRand = aRand; vColor = aColor;','  vec3 p = aPos * uSpread;','  p.z *= 10.0;','  p.x += sin(uTime * aRand.z + 6.28 * aRand.w) * mix(0.1, 1.5, aRand.x);','  p.y += sin(uTime * aRand.y + 6.28 * aRand.x) * mix(0.1, 1.5, aRand.w);','  p.z += sin(uTime * aRand.w + 6.28 * aRand.y) * mix(0.1, 1.5, aRand.z);','  vec4 mv = uView * vec4(p, 1.0);','  gl_PointSize = uBase / length(mv.xyz);','  gl_Position = uProj * mv;','}'].join('\n');
+      var fragSrc = ['precision highp float;','uniform float uTime;','varying vec4 vRand;','varying vec3 vColor;','void main(){','  vec2 uv = gl_PointCoord.xy;','  float d = length(uv - vec2(0.5));','  float circle = smoothstep(0.5, 0.35, d) * 0.55;','  gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRand.y * 6.28), circle);','}'].join('\n');
+      function mkShader(type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; }
+      var prog = gl.createProgram();
+      gl.attachShader(prog, mkShader(gl.VERTEX_SHADER, vertSrc));
+      gl.attachShader(prog, mkShader(gl.FRAGMENT_SHADER, fragSrc));
+      gl.linkProgram(prog); gl.useProgram(prog);
+      var COUNT = 180;
+      var pos = new Float32Array(COUNT * 3), rand = new Float32Array(COUNT * 4), col = new Float32Array(COUNT * 3);
+      var palette = [[0.16,0.47,1.0],[0.27,0.54,1.0],[0.38,0.29,0.82],[0.55,0.71,1.0],[1.0,1.0,1.0]];
+      for (var i = 0; i < COUNT; i++) {
+        var x,y,z,len; do { x=Math.random()*2-1; y=Math.random()*2-1; z=Math.random()*2-1; len=x*x+y*y+z*z; } while(len>1||len===0);
+        var r=Math.cbrt(Math.random()); pos[i*3]=x*r; pos[i*3+1]=y*r; pos[i*3+2]=z*r;
+        rand[i*4]=Math.random(); rand[i*4+1]=Math.random(); rand[i*4+2]=Math.random(); rand[i*4+3]=Math.random();
+        var c=palette[Math.floor(Math.random()*palette.length)]; col[i*3]=c[0]; col[i*3+1]=c[1]; col[i*3+2]=c[2];
+      }
+      function mkBuf(data){var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);return b;}
+      var bPos=mkBuf(pos),bRand=mkBuf(rand),bCol=mkBuf(col);
+      var aPos=gl.getAttribLocation(prog,'aPos'),aRand=gl.getAttribLocation(prog,'aRand'),aColor=gl.getAttribLocation(prog,'aColor');
+      var uProj=gl.getUniformLocation(prog,'uProj'),uView=gl.getUniformLocation(prog,'uView'),uTime=gl.getUniformLocation(prog,'uTime'),uSpread=gl.getUniformLocation(prog,'uSpread'),uBase=gl.getUniformLocation(prog,'uBase');
+      function perspective(fov,aspect,near,far){var f=1/Math.tan(fov/2),nf=1/(near-far);return new Float32Array([f/aspect,0,0,0,0,f,0,0,0,0,(far+near)*nf,-1,0,0,(2*far*near)*nf,0]);}
+      function lookAt(eye){var ez=[eye[0],eye[1],eye[2]],len=Math.sqrt(ez[0]*ez[0]+ez[1]*ez[1]+ez[2]*ez[2]);ez=[ez[0]/len,ez[1]/len,ez[2]/len];var up=[0,1,0],ex=[up[1]*ez[2]-up[2]*ez[1],up[2]*ez[0]-up[0]*ez[2],up[0]*ez[1]-up[1]*ez[0]];len=Math.sqrt(ex[0]*ex[0]+ex[1]*ex[1]+ex[2]*ex[2]);ex=[ex[0]/len,ex[1]/len,ex[2]/len];var ey=[ez[1]*ex[2]-ez[2]*ex[1],ez[2]*ex[0]-ez[0]*ex[2],ez[0]*ex[1]-ez[1]*ex[0]];return new Float32Array([ex[0],ey[0],ez[0],0,ex[1],ey[1],ez[1],0,ex[2],ey[2],ez[2],0,-(ex[0]*eye[0]+ex[1]*eye[1]+ex[2]*eye[2]),-(ey[0]*eye[0]+ey[1]*eye[1]+ey[2]*eye[2]),-(ez[0]*eye[0]+ez[1]*eye[1]+ez[2]*eye[2]),1]);}
+      function resize(){var dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.floor(window.innerWidth*dpr);canvas.height=Math.floor(window.innerHeight*dpr);canvas.style.width=window.innerWidth+'px';canvas.style.height=window.innerHeight+'px';gl.viewport(0,0,canvas.width,canvas.height);}
+      window.addEventListener('resize',resize,{passive:true}); resize();
+      var start=performance.now(),eye=[0,0,20];
+      function loop(t){requestAnimationFrame(loop);var elapsed=(t-start)*.001,aspect=canvas.width/canvas.height;gl.clear(gl.COLOR_BUFFER_BIT);var proj=perspective(15*Math.PI/180,aspect,0.1,100),view=lookAt(eye);gl.uniformMatrix4fv(uProj,false,proj);gl.uniformMatrix4fv(uView,false,view);gl.uniform1f(uTime,elapsed*.1);gl.uniform1f(uSpread,10);gl.uniform1f(uBase,80*Math.min(window.devicePixelRatio||1,2));gl.bindBuffer(gl.ARRAY_BUFFER,bPos);gl.enableVertexAttribArray(aPos);gl.vertexAttribPointer(aPos,3,gl.FLOAT,false,0,0);gl.bindBuffer(gl.ARRAY_BUFFER,bRand);gl.enableVertexAttribArray(aRand);gl.vertexAttribPointer(aRand,4,gl.FLOAT,false,0,0);gl.bindBuffer(gl.ARRAY_BUFFER,bCol);gl.enableVertexAttribArray(aColor);gl.vertexAttribPointer(aColor,3,gl.FLOAT,false,0,0);gl.drawArrays(gl.POINTS,0,COUNT);}
+      requestAnimationFrame(loop);
+    })();
+  </script>
+
+  <!-- ===== HERO GRAINIENT WEBGL (removed) ===== -->
+  <script>
+    (function () {
+      var canvas = document.getElementById('hero-contact-canvas');
+      if (!canvas) return;
+      var container = canvas.parentElement;
+      var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (!gl) return;
+      var MAX_COLORS = 8;
+      function hexToRGB(hex) { var c=hex.replace('#','').padEnd(6,'0'); return [parseInt(c.slice(0,2),16)/255,parseInt(c.slice(2,4),16)/255,parseInt(c.slice(4,6),16)/255]; }
+      function prepStops(stops) { var base=stops.slice(0,MAX_COLORS); if(base.length===1) base.push(base[0]); while(base.length<MAX_COLORS) base.push(base[base.length-1]); var arr=[]; for(var i=0;i<MAX_COLORS;i++) arr.push(hexToRGB(base[i])); return {arr:arr,count:Math.max(2,Math.min(MAX_COLORS,stops.length))}; }
+      var p = prepStops(['#0a0a1e','#0d1b6e','#2979ff','#60a5fa']);
+      var colorArr=p.arr, colorCount=p.count;
+      var angle=0, noise=0.3, blindCount=12, blindMinWidth=50;
+      var spotlightRadius=0.5, spotlightSoftness=1.0, spotlightOpacity=1.0;
+      var mouseDampening=0.15, mirror=0, distort=0, shineFlip=0;
+      var vertSrc="attribute vec2 position;attribute vec2 uv;varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,0.0,1.0);}";
+      var fragLines=["#ifdef GL_ES","precision mediump float;","#endif","uniform vec3 iResolution;","uniform vec2 iMouse;","uniform float iTime;","uniform float uAngle;","uniform float uNoise;","uniform float uBlindCount;","uniform float uSpotlightRadius;","uniform float uSpotlightSoftness;","uniform float uSpotlightOpacity;","uniform float uMirror;","uniform float uDistort;","uniform float uShineFlip;","uniform vec3 uColor0;","uniform vec3 uColor1;","uniform vec3 uColor2;","uniform vec3 uColor3;","uniform vec3 uColor4;","uniform vec3 uColor5;","uniform vec3 uColor6;","uniform vec3 uColor7;","uniform int uColorCount;","varying vec2 vUv;","float rand(vec2 co){return fract(sin(dot(co,vec2(12.9898,78.233)))*43758.5453);}","vec2 rotate2D(vec2 p,float a){float c=cos(a);float s=sin(a);return mat2(c,-s,s,c)*p;}","vec3 getGradientColor(float t){float tt=clamp(t,0.0,1.0);int count=uColorCount;if(count<2)count=2;float scaled=tt*float(count-1);float seg=floor(scaled);float f=fract(scaled);if(seg<1.0)return mix(uColor0,uColor1,f);if(seg<2.0&&count>2)return mix(uColor1,uColor2,f);if(seg<3.0&&count>3)return mix(uColor2,uColor3,f);if(seg<4.0&&count>4)return mix(uColor3,uColor4,f);if(seg<5.0&&count>5)return mix(uColor4,uColor5,f);if(seg<6.0&&count>6)return mix(uColor5,uColor6,f);if(seg<7.0&&count>7)return mix(uColor6,uColor7,f);if(count>7)return uColor7;if(count>6)return uColor6;if(count>5)return uColor5;if(count>4)return uColor4;if(count>3)return uColor3;if(count>2)return uColor2;return uColor1;}","void mainImage(out vec4 fragColor,in vec2 fragCoord){vec2 uv0=fragCoord.xy/iResolution.xy;float aspect=iResolution.x/iResolution.y;vec2 p2=uv0*2.0-1.0;p2.x*=aspect;vec2 pr=rotate2D(p2,uAngle);pr.x/=aspect;vec2 uv=pr*0.5+0.5;vec2 uvMod=uv;if(uDistort>0.0){float a=uvMod.y*6.0;float b=uvMod.x*6.0;float w=0.01*uDistort;uvMod.x+=sin(a)*w;uvMod.y+=cos(b)*w;}float t=uvMod.x;if(uMirror>0.5){t=1.0-abs(1.0-2.0*fract(t));}vec3 base=getGradientColor(t);vec2 offset=vec2(iMouse.x/iResolution.x,iMouse.y/iResolution.y);float d=length(uv0-offset);float r=max(uSpotlightRadius,1e-4);float dn=d/r;float spot=(1.0-2.0*pow(dn,uSpotlightSoftness))*uSpotlightOpacity;vec3 cir=vec3(spot);float stripe=fract(uvMod.x*max(uBlindCount,1.0));if(uShineFlip>0.5)stripe=1.0-stripe;vec3 ran=vec3(stripe);vec3 col=cir+base-ran;col+=(rand(gl_FragCoord.xy+iTime)-0.5)*uNoise;fragColor=vec4(col,1.0);}","void main(){vec4 color;mainImage(color,vUv*iResolution.xy);gl_FragColor=color;}"];
+      var fragSrc=fragLines.join("\n");
+      function mkShader(type,src){var sh=gl.createShader(type);gl.shaderSource(sh,src);gl.compileShader(sh);return sh;}
+      var prog=gl.createProgram();
+      gl.attachShader(prog,mkShader(gl.VERTEX_SHADER,vertSrc));
+      gl.attachShader(prog,mkShader(gl.FRAGMENT_SHADER,fragSrc));
+      gl.linkProgram(prog); gl.useProgram(prog);
+      var verts=new Float32Array([-1,-1,0,0,3,-1,2,0,-1,3,0,2]);
+      var buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf); gl.bufferData(gl.ARRAY_BUFFER,verts,gl.STATIC_DRAW);
+      var S=4*4;
+      var aPos=gl.getAttribLocation(prog,'position'); gl.enableVertexAttribArray(aPos); gl.vertexAttribPointer(aPos,2,gl.FLOAT,false,S,0);
+      var aUv=gl.getAttribLocation(prog,'uv'); gl.enableVertexAttribArray(aUv); gl.vertexAttribPointer(aUv,2,gl.FLOAT,false,S,8);
+      function u(n){return gl.getUniformLocation(prog,n);}
+      var uRes=u('iResolution'),uMouse=u('iMouse'),uTime=u('iTime');
+      gl.uniform1f(u('uAngle'),angle*Math.PI/180); gl.uniform1f(u('uNoise'),noise); gl.uniform1f(u('uBlindCount'),blindCount);
+      gl.uniform1f(u('uSpotlightRadius'),spotlightRadius); gl.uniform1f(u('uSpotlightSoftness'),spotlightSoftness); gl.uniform1f(u('uSpotlightOpacity'),spotlightOpacity);
+      gl.uniform1f(u('uMirror'),mirror); gl.uniform1f(u('uDistort'),distort); gl.uniform1f(u('uShineFlip'),shineFlip);
+      for(var i=0;i<MAX_COLORS;i++) gl.uniform3fv(u('uColor'+i),colorArr[i]);
+      gl.uniform1i(u('uColorCount'),colorCount);
+      var mTgt=[0,0],mCur=[0,0],lastT=0,firstR=true;
+      canvas.addEventListener('pointermove',function(e){var rect=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);mTgt[0]=(e.clientX-rect.left)*dpr;mTgt[1]=(rect.height-(e.clientY-rect.top))*dpr;});
+      function resize(){var dpr=Math.min(window.devicePixelRatio||1,2);var W=Math.max(1,container.offsetWidth),H=Math.max(1,container.offsetHeight);canvas.width=Math.floor(W*dpr);canvas.height=Math.floor(H*dpr);canvas.style.width=W+'px';canvas.style.height=H+'px';gl.viewport(0,0,canvas.width,canvas.height);gl.uniform3f(uRes,canvas.width,canvas.height,1.0);if(firstR){firstR=false;mCur[0]=mTgt[0]=canvas.width*.5;mCur[1]=mTgt[1]=canvas.height*.5;}}
+      window.addEventListener('resize',resize); resize();
+      function loop(t){requestAnimationFrame(loop);gl.uniform1f(uTime,t*.001);if(mouseDampening>0){if(!lastT)lastT=t;var dt=(t-lastT)/1000;lastT=t;var tau=Math.max(1e-4,mouseDampening);var fac=1-Math.exp(-dt/tau);if(fac>1)fac=1;mCur[0]+=(mTgt[0]-mCur[0])*fac;mCur[1]+=(mTgt[1]-mCur[1])*fac;}else{lastT=t;}gl.uniform2f(uMouse,mCur[0],mCur[1]);gl.drawArrays(gl.TRIANGLES,0,3);}
+      requestAnimationFrame(loop);
+    })();
+  </script>
+
+  <!-- ===== PAGE JS ===== -->
+  <script>
+    document.body.classList.add('js-loaded');
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+    revealEls.forEach(el => io.observe(el));
+
+    // Chip selection
+    function selectChip(el) {
+      document.querySelectorAll('.form-chip').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    // Hover glow on faq cards
+    document.querySelectorAll('.faq-card, .contact-form-wrap').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        card.style.background = `radial-gradient(350px circle at ${e.clientX-r.left}px ${e.clientY-r.top}px, rgba(41,121,255,0.05) 0%, transparent 60%), var(--bg2)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.background = ''; });
+    });
+
+    // Form submit — envía a saul.exposito@escuelaestech.es
+    function handleSubmit() {
+      const name    = document.getElementById('fname').value.trim();
+      const email   = document.getElementById('femail').value.trim();
+      const subject = document.getElementById('fsubject') ? document.getElementById('fsubject').value.trim() : '';
+      const msg     = document.getElementById('fmessage').value.trim();
+      const chip    = document.querySelector('.form-chip.selected');
+      const tipo    = chip ? chip.textContent : '';
+
+      const fields = [
+        {id:'fname',    val:name},
+        {id:'femail',   val:email},
+        {id:'fmessage', val:msg}
+      ];
+      let valid = true;
+      fields.forEach(f => {
+        const el = document.getElementById(f.id);
+        if (!f.val) { el.style.borderColor = '#ff4444'; valid = false; }
+        else { el.style.borderColor = ''; }
+      });
+      if (!valid) return;
+
+      const btn = document.getElementById('submit-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Enviando...';
+
+      fetch('https://formspree.io/f/saul.exposito@escuelaestech.es', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name:    name,
+          email:   email,
+          subject: subject || '[Portfolio] ' + tipo + ' — ' + name,
+          message: msg,
+          tipo:    tipo
+        })
+      })
+      .then(res => {
+        if (res.ok) {
+          const formFields = document.querySelector('.form-fields');
+          const success    = document.getElementById('form-success');
+          if (formFields) formFields.style.display = 'none';
+          if (success)    success.style.display    = 'flex';
+        } else {
+          throw new Error('Error');
+        }
+      })
+      .catch(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Enviar mensaje';
+        alert('Error al enviar. Inténtalo de nuevo.');
+      });
+    }
+  </script>
+
+  <script>
+  (function(){
+    var btn = document.getElementById('hamburger-btn');
+    var panel = document.getElementById('mobile-menu-panel');
+    var overlay = document.getElementById('mobile-menu-overlay');
+    if (!btn || !panel) return;
+
+    function openMenu() {
+      panel.classList.add('open');
+      if (overlay) overlay.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+    function closeMenu() {
+      panel.classList.remove('open');
+      if (overlay) overlay.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+    function toggleMenu() {
+      panel.classList.contains('open') ? closeMenu() : openMenu();
+    }
+
+    btn.addEventListener('click', function(e) { e.stopPropagation(); toggleMenu(); });
+    if (overlay) overlay.addEventListener('click', closeMenu);
+    panel.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeMenu(); });
+  })();
+  </script>
+</body>
+</html>

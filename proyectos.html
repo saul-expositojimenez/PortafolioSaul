@@ -1,0 +1,2401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyectos — Saúl Expósito</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Favicon -->
+<link rel="icon" type="image/png" href="./img/favicon.png">
+
+<!-- Icono para iOS / Android -->
+<link rel="apple-touch-icon" href="./img/favicon.png">
+<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #080808;
+      --bg2:      #0f0f0f;
+      --bg3:      #161616;
+      --surface:  #1c1c1c;
+      --border:   #232323;
+      --border2:  #2e2e2e;
+      --text:     #e2e2e2;
+      --text-muted: #7a7a7a;
+      --text-dim: #444;
+      --accent:   #2979ff;
+      --accent2:  #448aff;
+      --white:    #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); }
+
+    /* ===========================  NAV  =========================== */
+    nav {
+      position: fixed;
+      top: 16px; left: 16px; right: 16px;
+      z-index: 200;
+      height: 52px;
+      display: flex; align-items: center;
+      justify-content: space-between; padding: 0 18px;
+      background: rgba(8,8,8,0.72);
+      backdrop-filter: blur(28px) saturate(200%) brightness(1.08);
+      -webkit-backdrop-filter: blur(28px) saturate(200%) brightness(1.08);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 30px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.35), 0 1px 0 rgba(255,255,255,0.04);
+    }
+    nav::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%, rgba(41,121,255,0.04) 100%);
+      pointer-events: none; z-index: 0;
+    }
+    nav > * { position: relative; z-index: 1; }
+    .nav-logo {
+      font-size: 15px; font-weight: 600; color: var(--white);
+      letter-spacing: -0.3px; text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .nav-logo-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .btn-sm {
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+      letter-spacing: -0.1px; padding: 6px 14px; border-radius: 6px;
+      cursor: pointer; transition: all 0.15s; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-ghost { background: transparent; border: 1px solid var(--border2); color: var(--text-muted); }
+    .btn-ghost:hover { border-color: #444; color: var(--white); }
+    .btn-white { background: var(--white); border: 1px solid var(--white); color: #000; }
+    .btn-white:hover { background: #e8e8e8; }
+    .btn-accent { background: var(--accent); border: 1px solid var(--accent); color: var(--white); }
+    .btn-accent:hover { background: var(--accent2); }
+    /* Social icon links */
+    .nav-social-link {
+      display: inline-flex; align-items: center; justify-content: center;
+      text-decoration: none; transition: transform 0.2s ease;
+    }
+    .nav-social-link img {
+      width: 28px; height: 28px; object-fit: contain; display: block;
+      transition: transform 0.25s cubic-bezier(.34,1.56,.64,1);
+    }
+    .nav-social-link:hover img { transform: scale(1.22); }
+    /* Back arrow */
+    .nav-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 500; color: var(--text-muted);
+      text-decoration: none; letter-spacing: -0.1px;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--white); }
+    .nav-back svg { transition: transform 0.15s ease; }
+    .nav-back:hover svg { transform: translateX(-3px); }
+    /* Mobile hamburger */
+    .hamburger-btn {
+      display: none; flex-direction: column; justify-content: center;
+      align-items: center; gap: 5px; width: 36px; height: 36px;
+      background: transparent; border: 1px solid var(--border2);
+      border-radius: 7px; cursor: pointer; padding: 0;
+    }
+    .hamburger-btn span {
+      display: block; width: 18px; height: 1.5px;
+      background: var(--text-muted); border-radius: 2px; transition: all 0.25s ease;
+    }
+    .mobile-menu-overlay {
+      display: none; position: fixed; inset: 0; z-index: 190;
+      background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+    }
+    .mobile-menu-panel {
+      position: fixed; top: 84px; left: 16px; right: 16px; z-index: 195;
+      background: rgba(12,12,12,0.97); backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--border); border-radius: 16px; padding: 16px 20px 24px;
+      transform: translateY(-110%);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1), opacity 0.3s, visibility 0.3s;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .mobile-menu-panel.open {
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+    .mobile-menu-panel .mobile-menu-bottom {
+      display: flex; gap: 8px; flex-wrap: wrap; padding-top: 12px;
+      border-top: 1px solid var(--border); align-items: center;
+    }
+    /* Nav center links */
+    .nav-center {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-link {
+      font-size: 13px; font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 5px 12px;
+      border-radius: 20px;
+      transition: color 0.15s, background 0.15s;
+      letter-spacing: -0.1px;
+    }
+    .nav-link:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+    .nav-link-active { color: var(--white); }
+
+    /* Mobile panel ul */
+    .mobile-menu-panel ul {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 2px;
+      margin-bottom: 16px;
+    }
+    .mobile-menu-panel ul a {
+      display: block; padding: 10px 8px;
+      font-size: 15px; font-weight: 500;
+      color: var(--text-muted); text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .mobile-menu-panel ul a:hover { background: var(--surface); color: var(--white); }
+
+    /* CV button */
+    .btn-cv-nav {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      background: linear-gradient(to bottom, #4dc7d9 0%, #66a6ff 100%);
+      color: white;
+      padding: 0 14px;
+      height: 34px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: none; border-radius: 25px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.25);
+      transition: all 0.3s;
+      text-decoration: none; cursor: pointer;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .btn-cv-nav:hover { transform: translateY(-2px); box-shadow: 0px 6px 14px rgba(0,0,0,0.3); }
+    .btn-cv-nav:active { transform: scale(0.95); box-shadow: 0px 2px 5px rgba(0,0,0,0.2); }
+    .btn-cv-nav span { display: block; margin-left: 0.3em; transition: all 0.3s; font-weight: 500; }
+    .btn-cv-nav svg { width: 15px; height: 15px; fill: white; transition: all 0.3s; }
+    .btn-cv-nav .svg-wrapper {
+      display: flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; border-radius: 50%;
+      background-color: rgba(255,255,255,0.2); transition: all 0.3s;
+    }
+    .btn-cv-nav:hover .svg-wrapper { background-color: rgba(255,255,255,0.45); }
+    .btn-cv-nav:hover svg { transform: rotate(45deg); }
+    .svg-wrapper-1 { display: flex; align-items: center; justify-content: center; }
+
+    @media (max-width: 900px) {
+      .hamburger-btn { display: flex; }
+      .mobile-menu-overlay.open { display: block; }
+      nav .nav-right { display: none !important; }
+      nav .nav-back-desktop { display: none !important; }
+      nav .nav-center { display: none !important; }
+    }
+
+    /* ===========================  PAGE HEADER  =========================== */
+    .page-header {
+      position: relative; overflow: hidden;
+      padding: 96px 0 72px;
+      background: var(--bg);
+    }
+    .page-header::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 20% 60%, rgba(41,121,255,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-header-inner {
+      position: relative; z-index: 2;
+      max-width: 1600px; margin: 0 auto; padding: 0 32px;
+    }
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px; padding: 4px 12px 4px 8px;
+      font-size: 11.5px; font-weight: 500; color: var(--text-muted);
+      letter-spacing: -0.1px; margin-bottom: 28px;
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-label-dot { width: 5px; height: 5px; background: var(--accent); border-radius: 50%; animation: blink 2.5s ease infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+    .page-header h1 {
+      font-size: clamp(40px,5.5vw,68px); font-weight: 600;
+      letter-spacing: -2.5px; line-height: 1.0; color: var(--white);
+      animation: fadeUp 0.7s 0.08s ease both; max-width: 680px;
+    }
+    .page-header h1 .dim { color: rgba(255,255,255,0.32); }
+    .page-header-body {
+      font-size: 15px; color: var(--text-muted); letter-spacing: -0.2px;
+      line-height: 1.65; max-width: 460px; margin: 18px 0 0;
+      animation: fadeUp 0.7s 0.16s ease both;
+    }
+
+    /* ===========================  UTILS  =========================== */
+    .rule { height: 1px; background: var(--border); }
+    .section-wrap { max-width: 1600px; margin: 0 auto; padding: 0 32px; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.6px;
+      text-transform: uppercase; color: var(--text-dim); margin-bottom: 18px;
+    }
+    .section-label::before { content:''; width:14px; height:1px; background:currentColor; display:block; }
+    .section-h2 {
+      font-size: clamp(28px,3.8vw,48px); font-weight: 600;
+      letter-spacing: -1.5px; line-height: 1.05; color: var(--white);
+    }
+    .section-h2 .dim { color: var(--text-muted); }
+    .reveal { transition: opacity 0.65s ease, transform 0.65s ease; }
+    .js-loaded .reveal { opacity: 0; transform: translateY(22px); }
+    .js-loaded .reveal.on { opacity: 1; transform: none; }
+
+    /* ===========================  FILTER TABS  =========================== */
+    .filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 28px; }
+    .filter-btn {
+      font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+      padding: 5px 13px; border-radius: 6px; background: transparent;
+      border: 1px solid var(--border2); color: var(--text-muted);
+      cursor: pointer; transition: all 0.15s; letter-spacing: -0.1px;
+    }
+    .filter-btn:hover { border-color: #444; color: var(--white); }
+    .filter-btn.active { background: var(--accent); border-color: var(--accent); color: var(--white); }
+
+    /* ===========================  BENTO GRID  =========================== */
+    .projects-section { padding: 72px 0 100px; }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+      margin-top: 44px;
+    }
+
+    /* spans */
+    .bc-3  { grid-column: span 3; }
+    .bc-7  { grid-column: span 7; }
+    .bc-5  { grid-column: span 5; }
+    .bc-4  { grid-column: span 4; }
+    .bc-8  { grid-column: span 8; }
+    .bc-12 { grid-column: span 12; }
+    .bc-6  { grid-column: span 6; }
+
+    /* BASE CARD */
+    .bcard {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s ease;
+      cursor: pointer;
+      min-height: 260px;
+
+    }
+    .bcard::before {
+      content: '';
+      position: absolute; inset: 0; border-radius: 16px;
+      opacity: 0; transition: opacity 0.3s;
+      background: radial-gradient(600px circle at var(--mx,50%) var(--my,50%), rgba(41,121,255,0.10) 0%, transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
+    .bcard:hover::before { opacity: 1; }
+    .bcard:hover { border-color: var(--border2); }
+    .bcard > * { position: relative; z-index: 1; }
+
+    /* CARD ATOMS */
+    .bcard-eyebrow {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 10px; margin-bottom: 14px;
+    }
+    .bcard-num {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.5px;
+      text-transform: uppercase; color: var(--text-dim);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .bcard-num::before { content:''; width:10px; height:1px; background:currentColor; display:block; }
+    .bcard-tag {
+      font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 4px;
+      background: var(--surface); border: 1px solid var(--border2); color: var(--text-muted);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .bcard-tag.blue  { background: rgba(41,121,255,0.08); border-color: rgba(41,121,255,0.22); color: #82a8ff; }
+    .bcard-tag.green { background: rgba(50,180,100,0.08); border-color: rgba(50,180,100,0.22); color: #5ec87a; }
+    .bcard-tag.amber { background: rgba(255,160,50,0.08); border-color: rgba(255,160,50,0.22); color: #e8a44a; }
+    .bcard-tag.lime  { background: rgba(190,242,100,0.08); border-color: rgba(190,242,100,0.22); color: #bef264; }
+
+    .bcard-title {
+      font-size: 20px; font-weight: 600; letter-spacing: -0.6px;
+      color: var(--white); line-height: 1.15; margin-bottom: 8px;
+    }
+    .bcard-desc {
+      font-size: 13px; color: var(--text-muted); line-height: 1.65; letter-spacing: -0.1px;
+    }
+    .bcard-stack { display: flex; flex-wrap: wrap; gap: 5px; margin-top: auto; padding-top: 16px; }
+    .bcard-chip {
+      font-size: 10.5px; font-weight: 500; padding: 3px 8px; border-radius: 4px;
+      background: var(--surface); border: 1px solid var(--border2); color: var(--text-dim);
+    }
+    .bcard-cta {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 500; color: var(--accent2);
+      margin-top: 14px; transition: gap 0.15s; text-decoration: none;
+    }
+    .bcard-cta:hover { gap: 9px; }
+
+    /* ---- MOCKUP ATOMS ---- */
+    .mock-win {
+      width: 100%; border-radius: 8px; background: var(--bg3);
+      border: 1px solid var(--border2); overflow: hidden;
+      margin: 14px 0; flex-shrink: 0;
+    }
+    .mock-bar {
+      height: 24px; background: #111; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 10px; gap: 5px;
+    }
+    .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .dot.r { background: #ff5f57; } .dot.y { background: #febc2e; } .dot.g { background: #28c840; }
+    .mock-body { padding: 10px 12px; }
+    .mline { height: 6px; border-radius: 2px; background: var(--border2); margin-bottom: 6px; }
+    .mline.accent { background: rgba(41,121,255,0.35); }
+    .mline.s { width: 50%; } .mline.m { width: 72%; } .mline.xs { width: 32%; }
+
+    /* API rows */
+    .api-row {
+      height: 26px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 5px; display: flex; align-items: center;
+      padding: 0 9px; gap: 8px; margin-bottom: 5px;
+    }
+    .api-method { font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 3px; }
+    .api-method.get  { color: #49cc90; background: rgba(73,204,144,0.12); }
+    .api-method.post { color: #fca130; background: rgba(252,161,48,0.12); }
+    .api-method.del  { color: #f93e3e; background: rgba(249,62,62,0.12); }
+    .api-path { font-family: monospace; font-size: 10px; color: var(--text-muted); }
+
+    /* Terminal */
+    .mock-term {
+      background: #0c0c0c; font-family: monospace; font-size: 10.5px;
+      color: #bef264; padding: 14px 16px; line-height: 1.75;
+      margin: 14px 0; border-radius: 8px; border: 1px solid var(--border2);
+      flex-shrink: 0;
+    }
+    .mock-term .dim { color: #444; }
+    .mock-term .cursor { background: #bef264; color: #0c0c0c; animation: blink 1s step-end infinite; padding: 0 2px; }
+
+    /* Dashboard */
+    .mock-dash { display: flex; gap: 6px; padding: 8px; }
+    .mock-sidebar { width: 26px; background: var(--surface); border-radius: 4px; flex-shrink: 0; }
+    .mock-main { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+    .mock-stat {
+      background: var(--surface); border-radius: 4px; height: 26px;
+      display: flex; align-items: center; padding: 0 8px; gap: 6px;
+    }
+    .mock-badge { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .mock-bar-chart { display: flex; align-items: flex-end; gap: 3px; padding: 6px 8px 4px; height: 48px; }
+    .mock-bar-chart div { flex: 1; background: var(--accent); opacity: 0.45; border-radius: 2px 2px 0 0; }
+
+    /* Floating tilt */
+    .tilt-wrap {
+      transform: perspective(700px) rotateY(-9deg) rotateX(4deg) scale(0.97);
+      transition: transform 0.5s cubic-bezier(0.25,1,0.5,1);
+    }
+    .bcard:hover .tilt-wrap { transform: perspective(700px) rotateY(0) rotateX(0) scale(1); }
+
+    /* Marquee */
+    .marquee-track { overflow: hidden; mask-image: linear-gradient(to bottom, transparent 0%, #000 30%, #000 70%, transparent 100%); margin: 12px 0; flex: 1; }
+    .marquee-inner { display: flex; flex-direction: column; gap: 6px; animation: marqueeY 18s linear infinite; }
+    .marquee-inner:hover { animation-play-state: paused; }
+    @keyframes marqueeY { from{transform:translateY(0)} to{transform:translateY(-50%)} }
+    .mq-file {
+      background: var(--surface); border: 1px solid var(--border2);
+      border-radius: 8px; padding: 8px 12px;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .mq-file-name { font-size: 11px; font-weight: 500; color: var(--text); }
+    .mq-file-desc { font-size: 10px; color: var(--text-dim); line-height: 1.4; }
+
+    /* Animated list (notification stream) */
+    .notif-list { display: flex; flex-direction: column; gap: 6px; margin: 12px 0; flex: 1; overflow: hidden; mask-image: linear-gradient(to bottom, transparent 0%, #000 20%, #000 80%, transparent 100%); }
+    .notif-item {
+      background: var(--surface); border: 1px solid var(--border2);
+      border-radius: 8px; padding: 7px 11px;
+      display: flex; align-items: center; gap: 9px;
+      animation: slideInNotif 0.4s ease both;
+    }
+    @keyframes slideInNotif { from{opacity:0;transform:translateX(-12px)} to{opacity:1;transform:none} }
+    .notif-icon { width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+    .notif-text { font-size: 11px; color: var(--text-muted); line-height: 1.3; }
+    .notif-text strong { color: var(--text); font-weight: 500; font-size: 11px; }
+
+    /* Beam graph (animated beam) */
+    .beam-wrap { position: relative; height: 90px; margin: 12px 0; }
+    .beam-svg { width: 100%; height: 100%; }
+
+    /* ---- ACCENT CARD VARIANTS ---- */
+    .bcard.v-blue   { background: linear-gradient(135deg, #07103a 0%, #0d1f6b 60%, rgba(41,121,255,0.08) 100%); border-color: rgba(41,121,255,0.2); }
+    .bcard.v-dark   { background: linear-gradient(140deg, #09090f 0%, #0f0f1c 100%); border-color: rgba(41,121,255,0.1); }
+    .bcard.v-lime   { background: linear-gradient(135deg, #0a1608 0%, #172b12 100%); border-color: rgba(190,242,100,0.14); }
+
+    /* Wide hero card */
+    .bcard.wide { flex-direction: row; align-items: center; gap: 32px; flex-wrap: wrap; min-height: 180px; }
+    .bcard.wide .wide-l { flex: 1; min-width: 260px; }
+    .bcard.wide .wide-r { flex: 1; min-width: 260px; }
+
+    /* ===========================  MODAL  =========================== */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(0,0,0,0.82); backdrop-filter: blur(14px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px; opacity: 0; pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--bg2); border: 1px solid var(--border2);
+      border-radius: 18px; max-width: 800px; width: 100%;
+      max-height: 90vh; overflow-y: auto;
+      transform: translateY(18px) scale(0.985);
+      transition: transform 0.22s ease;
+    }
+    .modal-overlay.open .modal { transform: none; }
+
+    .modal-hero {
+      width: 100%; height: 220px; background: var(--bg3);
+      border-radius: 18px 18px 0 0; overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .modal-hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .modal-hero-content { position: relative; z-index: 2; padding: 28px; width: 100%; }
+
+    .modal-head { padding: 24px 28px 0; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .modal-close {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: var(--surface); border: 1px solid var(--border2);
+      color: var(--text-muted); font-size: 14px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.15s; flex-shrink: 0;
+    }
+    .modal-close:hover { color: var(--white); border-color: #555; }
+    .modal-body { padding: 20px 28px 32px; }
+
+    .modal-title { font-size: 24px; font-weight: 600; letter-spacing: -0.7px; color: var(--white); line-height: 1.1; margin-bottom: 4px; }
+    .modal-sub { font-size: 12.5px; color: var(--text-muted); letter-spacing: -0.1px; margin-bottom: 18px; }
+
+    .modal-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 620px) { .modal-cols { grid-template-columns: 1fr; } }
+
+    .modal-sec-title {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.6px; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .modal-sec-title::before { content:''; width:10px; height:1px; background:var(--text-dim); }
+    .modal-sec p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+    .modal-features { display: flex; flex-direction: column; gap: 7px; }
+    .modal-feature { font-size: 13px; color: var(--text-muted); display: flex; align-items: flex-start; gap: 8px; }
+    .modal-feature::before { content:'✓'; color: var(--accent); font-size: 10px; font-weight: 700; flex-shrink: 0; padding-top: 3px; }
+
+    .modal-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .stack-pill {
+      font-size: 11.5px; font-weight: 500; padding: 3px 10px; border-radius: 5px;
+      background: var(--surface); border: 1px solid var(--border2); color: var(--text-muted);
+    }
+    .modal-actions { display: flex; gap: 8px; margin-top: 24px; }
+
+    /* ===========================  FOOTER  =========================== */
+    .footer-rule { height: 1px; background: var(--border); }
+    footer { padding: 60px 24px 0; max-width: 1160px; margin: 0 auto; }
+    .footer-top {
+      display: grid; grid-template-columns: 240px 1fr; gap: 80px;
+      padding-bottom: 48px; border-bottom: 1px solid var(--border);
+    }
+    .footer-brand-name { font-size: 15px; font-weight: 600; letter-spacing: -0.3px; color: var(--white); margin-bottom: 10px; }
+    .footer-brand-desc { font-size: 13px; color: var(--text-dim); line-height: 1.65; letter-spacing: -0.1px; max-width: 180px; }
+    .footer-cols { display: grid; grid-template-columns: repeat(4,1fr); gap: 40px; }
+    .footer-col-head { font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 14px; }
+    .footer-col-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col-links a { font-size: 12.5px; color: var(--text-dim); text-decoration: none; transition: color 0.15s; }
+    .footer-col-links a:hover { color: var(--text-muted); }
+    .footer-bottom { padding: 20px 0 28px; display: flex; align-items: center; justify-content: space-between; }
+    .footer-bottom span { font-size: 12px; color: var(--text-dim); }
+    .footer-social { display: flex; gap: 16px; }
+    .footer-social a { font-size: 12px; color: var(--text-dim); text-decoration: none; transition: color 0.15s; }
+    .footer-social a:hover { color: var(--text-muted); }
+    .footer-watermark {
+      font-size: clamp(80px, 16vw, 160px); font-weight: 700; letter-spacing: -4px;
+      color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.652);
+      text-align: center; padding: 20px 0 0;
+      display: flex; align-items: center; justify-content: center; gap: 20px;
+    }
+    .footer-watermark span { font-size: 0.5em; -webkit-text-stroke: 1px rgba(255,255,255,0.03); margin-top: 10px; }
+
+
+    /* ===========================  NEW BENTO EFFECTS  =========================== */
+
+    /* Shine sweep on hover */
+    .bcard-shine::after {
+      content: '';
+      position: absolute; inset: 0; border-radius: 16px;
+      background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.04) 50%, transparent 60%);
+      background-size: 200% 100%; background-position: 200% 0;
+      transition: background-position 0.6s ease;
+      pointer-events: none; z-index: 2;
+    }
+    .bcard:hover.bcard-shine::after { background-position: -200% 0; }
+
+    /* Animated gradient border on featured cards */
+    .bcard-featured {
+      position: relative;
+    }
+    .bcard-featured::before {
+      content: '';
+      position: absolute; inset: -1px; border-radius: 17px; z-index: -1;
+      background: linear-gradient(135deg, rgba(41,121,255,0.0), rgba(41,121,255,0.4), rgba(68,138,255,0.0));
+      background-size: 300% 300%;
+      animation: borderGlow 4s ease infinite;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .bcard-featured:hover::before { opacity: 1; }
+    @keyframes borderGlow {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Typing cursor blink on terminal card */
+    .cursor-blink { animation: blink 1s step-end infinite; }
+
+    /* Pulsing dot on availability */
+    .pulse-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #2979ff; display: inline-block; flex-shrink: 0;
+      box-shadow: 0 0 0 0 rgba(41,121,255,0.6);
+      animation: pulseRing 2s ease infinite;
+    }
+    @keyframes pulseRing {
+      0%   { box-shadow: 0 0 0 0 rgba(41,121,255,0.6); }
+      70%  { box-shadow: 0 0 0 8px rgba(41,121,255,0); }
+      100% { box-shadow: 0 0 0 0 rgba(41,121,255,0); }
+    }
+
+    /* Floating numbers/stats animation */
+    .stat-pop {
+      animation: statPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes statPop { from{opacity:0;transform:scale(0.7)} to{opacity:1;transform:scale(1)} }
+
+    /* Beam connection lines (SVG animated) */
+    .beam-path {
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      animation: beamDraw 1.8s ease forwards;
+    }
+    @keyframes beamDraw { to { stroke-dashoffset: 0; } }
+
+    /* Card scroll-in stagger */
+    .bcard.reveal { transition-delay: 0ms; }
+    .bcard.reveal:nth-child(1) { transition-delay: 0ms; }
+    .bcard.reveal:nth-child(2) { transition-delay: 60ms; }
+    .bcard.reveal:nth-child(3) { transition-delay: 120ms; }
+    .bcard.reveal:nth-child(4) { transition-delay: 180ms; }
+    .bcard.reveal:nth-child(5) { transition-delay: 240ms; }
+    .bcard.reveal:nth-child(6) { transition-delay: 300ms; }
+
+    /* Animated tag badge shimmer */
+    .bcard-tag.animated {
+      background-size: 200% 100%;
+      animation: tagShimmer 3s ease infinite;
+    }
+    @keyframes tagShimmer {
+      0%,100% { opacity: 1; } 50% { opacity: 0.6; }
+    }
+
+    /* Tech orbit ring on card 03 */
+    .orbit-wrap {
+      position: relative; width: 80px; height: 80px;
+      margin: 16px auto 8px;
+    }
+    .orbit-center {
+      position: absolute; top:50%; left:50%;
+      transform: translate(-50%,-50%);
+      font-size: 1.6rem; z-index: 2;
+    }
+    .orbit-ring {
+      position: absolute; inset: 0; border-radius: 50%;
+      border: 1px dashed rgba(41,121,255,0.3);
+      animation: orbitSpin 8s linear infinite;
+    }
+    .orbit-ring::before {
+      content: '⚡';
+      position: absolute; top: -8px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+    }
+    @keyframes orbitSpin { to { transform: rotate(360deg); } }
+
+    /* Heatmap cells animated */
+    .heatmap { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; margin: 14px 0; }
+    .hm-cell {
+      aspect-ratio: 1; border-radius: 2px;
+      background: var(--surface); border: 1px solid var(--border);
+      transition: background 0.3s, transform 0.2s;
+    }
+    .hm-cell:hover { transform: scale(1.4); z-index: 10; }
+    .hm-cell.l1 { background: rgba(41,121,255,0.15); }
+    .hm-cell.l2 { background: rgba(41,121,255,0.30); }
+    .hm-cell.l3 { background: rgba(41,121,255,0.55); }
+    .hm-cell.l4 { background: rgba(41,121,255,0.80); }
+
+    /* Progress bars animated */
+    .prog-bar {
+      height: 4px; background: var(--border); border-radius: 2px;
+      overflow: hidden; margin-bottom: 8px;
+    }
+    .prog-fill {
+      height: 100%; border-radius: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 1s cubic-bezier(0.25,1,0.5,1);
+    }
+    .bcard.on .prog-fill { transform: scaleX(1); }
+
+    /* Animated count-up numbers */
+    .count-num { font-variant-numeric: tabular-nums; }
+
+
+    /* Animated beam canvas */
+    .abeam-wrap { position: relative; margin: 12px 0; flex: 1; }
+    #beam-canvas { background: transparent; }
+
+    /* IconCloud specific styles */
+    .icon-cloud-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      width: 100%; /* Adjust as needed */
+      height: 100%; /* Adjust as needed */
+      min-height: 180px; /* Ensure visibility */
+    }
+
+    /* ===========================  NEW PROJECT CARDS STYLES  =========================== */
+
+    /* Animated Beam (MagicUI style, pure SVG canvas) */
+    .abeam-container {
+      position: relative; width: 100%; margin: 14px 0;
+      background: var(--bg3); border-radius: 10px;
+      border: 1px solid var(--border2); overflow: hidden;
+    }
+    .abeam-container canvas { display: block; }
+
+    /* Globe card overlay */
+    .globe-wrap {
+      position: relative; width: 100%; height: 140px;
+      margin: 12px 0; overflow: hidden; border-radius: 10px;
+      background: radial-gradient(ellipse at 50% 60%, rgba(41,121,255,0.08) 0%, transparent 70%);
+    }
+    .globe-wrap canvas { position: absolute; left: 50%; transform: translateX(-50%); }
+
+    /* Animated terminal (MagicUI Terminal style) */
+    .ani-term {
+      background: #0c0c0c; border: 1px solid var(--border2);
+      border-radius: 10px; overflow: hidden; margin: 12px 0;
+    }
+    .ani-term-bar {
+      background: #141414; border-bottom: 1px solid var(--border);
+      padding: 7px 12px; display: flex; align-items: center; gap: 5px;
+    }
+    .ani-term-body {
+      font-family: 'Courier New', monospace; font-size: 10.5px;
+      color: #bef264; line-height: 1.7; padding: 10px 14px;
+      min-height: 90px;
+    }
+    .ani-term-body .t-dim  { color: #444; }
+    .ani-term-body .t-blue { color: #82a8ff; }
+    .ani-term-body .t-grn  { color: #5ec87a; }
+    .ani-term-body .t-wht  { color: #e2e2e2; }
+    .ani-term-body .t-red  { color: #f93e3e; }
+    .ani-term-line { display: block; min-height: 1.7em; }
+    .t-cursor { display: inline-block; width: 6px; height: 11px; background: #bef264; vertical-align: middle; animation: blink 1s step-end infinite; margin-left: 1px; }
+
+    /* iOS status bar mockup */
+    .ios-mock {
+      background: #0a0a0f; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px; overflow: hidden; margin: 12px 0;
+      box-shadow: 0 0 0 1px rgba(41,121,255,0.1);
+    }
+    .ios-bar {
+      background: rgba(255,255,255,0.03); height: 22px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 12px; font-size: 9px; color: rgba(255,255,255,0.35);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .ios-body { padding: 10px 12px; }
+
+    /* Figma mockup */
+    .figma-screen {
+      background: #1e1e1e; border-radius: 8px; border: 1px solid #333;
+      padding: 12px; margin: 12px 0; position: relative; overflow: hidden;
+    }
+    .figma-screen::before {
+      content: 'FIGMA';
+      position: absolute; top: 8px; right: 8px;
+      font-size: 8px; font-weight: 700; letter-spacing: 1px;
+      color: rgba(255,255,255,0.15);
+    }
+
+    /* AWS diagram card */
+    .aws-diagram { margin: 10px 0; width: 100%; }
+
+    /* IBM service pills */
+    .ibm-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 5px; margin: 12px 0; }
+    .ibm-cell {
+      background: rgba(41,121,255,0.06); border: 1px solid rgba(41,121,255,0.16);
+      border-radius: 6px; padding: 7px 6px; text-align: center;
+      font-size: 9.5px; color: #82a8ff; line-height: 1.4;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .ibm-cell:hover { background: rgba(41,121,255,0.12); border-color: rgba(41,121,255,0.3); }
+
+    /* Kotlin / Android card */
+    .android-list { display: flex; flex-direction: column; gap: 5px; margin: 12px 0; }
+    .android-row {
+      border-radius: 8px; padding: 7px 10px;
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; animation: slideInNotif 0.4s ease both;
+    }
+
+    /* Section break row */
+    .bento-section-sep {
+      grid-column: span 12; padding: 12px 0 2px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .bento-section-sep-line { flex: 1; height: 1px; background: var(--border); }
+    .bento-section-sep-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 0.6px;
+      text-transform: uppercase; color: var(--text-dim);
+      white-space: nowrap; display: flex; align-items: center; gap: 6px;
+    }
+    .bento-section-sep-label::before { content:''; width:10px; height:1px; background:currentColor; }
+
+    /* Shine sweep on hover */
+    .bcard-shine::after {
+      content: '';
+      position: absolute; inset: 0; border-radius: 16px;
+      background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.04) 50%, transparent 60%);
+      background-size: 200% 100%; background-position: 200% 0;
+      transition: background-position 0.6s ease;
+      pointer-events: none; z-index: 2;
+    }
+    .bcard:hover.bcard-shine::after { background-position: -200% 0; }
+
+    /* Animated gradient border on featured cards */
+    .bcard-featured { position: relative; }
+    .bcard-featured::before {
+      content: '';
+      position: absolute; inset: -1px; border-radius: 17px; z-index: -1;
+      background: linear-gradient(135deg, rgba(41,121,255,0.0), rgba(41,121,255,0.4), rgba(68,138,255,0.0));
+      background-size: 300% 300%;
+      animation: borderGlow 4s ease infinite;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .bcard-featured:hover::before { opacity: 1; }
+    @keyframes borderGlow {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ===========================  RESPONSIVE  =========================== */
+    @media (max-width: 1024px) {
+      .bc-7, .bc-8 { grid-column: span 12; }
+      .bc-5, .bc-4, .bc-3 { grid-column: span 6; }
+    }
+    @media (max-width: 768px) {
+      .bento-grid { grid-template-columns: 1fr; }
+      .bc-7,.bc-8,.bc-5,.bc-4,.bc-6,.bc-12,.bc-3 { grid-column: span 1; }
+      .bcard.wide { flex-direction: column; }
+      nav .nav-links { display: none; }
+      .footer-top { grid-template-columns: 1fr; gap: 40px; }
+      .footer-cols { grid-template-columns: 1fr 1fr; }
+      .modal-head, .modal-body { padding-left: 18px; padding-right: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PARTICLES BG -->
+  <canvas id="particles-bg" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="./img/logo.png" alt="Logo" style="height:32px;object-fit:contain;">
+    </a>
+    <div class="nav-center">
+      <a href="proyectos.html" class="nav-link nav-link-active">Proyectos</a>
+      <a href="index.html#fusion-section" class="nav-link">Skills</a>
+      <a href="index.html#habilidades-toolkit" class="nav-link">Habilidades</a>
+      <a href="contacto.html" class="nav-link">Contacto</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://linkedin.com" class="nav-social-link" target="_blank" rel="noopener"><img src="./img/linkedin.png" alt="LinkedIn"></a>
+      <a href="https://github.com" class="nav-social-link" target="_blank" rel="noopener"><img src="./img/github.png" alt="GitHub"></a>
+      <a href="./CV-SaulExposito.pdf" download class="btn-cv-nav">
+        <span>Descargar CV</span>
+      </a>
+    </div>
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu overlay + panel -->
+  <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+  <div class="mobile-menu-panel" id="mobile-menu-panel">
+    <ul>
+      <li><a href="proyectos.html">Proyectos</a></li>
+      <li><a href="index.html#fusion-section">Skills</a></li>
+      <li><a href="index.html#habilidades-toolkit">Habilidades</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+    <div class="mobile-menu-bottom">
+      <a href="https://linkedin.com" class="nav-social-link" target="_blank" rel="noopener"><img src="./img/linkedin.png" alt="LinkedIn"></a>
+      <a href="https://github.com" class="nav-social-link" target="_blank" rel="noopener"><img src="./img/github.png" alt="GitHub"></a>
+      <a href="./CV-SaulExposito.pdf" download class="btn-cv-nav">
+        <span>Descargar CV</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="hero-label">
+        <span class="hero-label-dot"></span>
+        16 proyectos · Backend, Frontend, Cloud, iOS &amp; Más
+      </div>
+      <h1>Proyectos que<br><span class="dim">hablan</span><br>por sí solos.</h1>
+      <p class="page-header-body">Desde APIs REST y apps iOS con Swift hasta infraestructura cloud en AWS e IBM, diseño UI en Figma y algoritmia en C++. Haz clic en cualquier proyecto para ver el detalle completo.</p>
+    </div>
+  </div>
+
+  <!-- PROJECTS SECTION -->
+  <div class="rule"></div>
+  <div class="projects-section">
+    <div class="section-wrap">
+
+      <div class="reveal">
+        <div class="section-label">Proyectos</div>
+        <div class="section-h2">Selecciona un proyecto <span class="dim">para explorar</span></div>
+        <div class="filter-row">
+          <button class="filter-btn active" onclick="filterCards(this,'all')">Todos</button>
+          <button class="filter-btn" onclick="filterCards(this,'backend')">Backend</button>
+          <button class="filter-btn" onclick="filterCards(this,'frontend')">Frontend</button>
+          <button class="filter-btn" onclick="filterCards(this,'native')">Nativo / Sistema</button>
+          <button class="filter-btn" onclick="filterCards(this,'enterprise')">Enterprise</button>
+          <button class="filter-btn" onclick="filterCards(this,'mobile')">Mobile</button>
+          <button class="filter-btn" onclick="filterCards(this,'cloud')">Cloud</button>
+          <button class="filter-btn" onclick="filterCards(this,'academic')">Académico</button>
+        </div>
+      </div>
+
+      <!-- ============  BENTO GRID  ============ -->
+      <div class="bento-grid" id="bento">
+
+        <!-- FILA 1: 4 columnas -->
+        <!-- 07 — Diamond Gym (HTML/CSS/JS) — Animated Beam network -->
+        <div class="bcard bc-3 v-dark reveal bcard-featured bcard-shine" data-cat="frontend" onclick="openModal('diamond')" style="--mx:50%;--my:50%;">
+          <div class="bcard-eyebrow">
+            <span class="bcard-num">07 — Frontend</span>
+            <span class="bcard-tag blue">HTML · CSS · JS</span>
+          </div>
+          <div class="bcard-title">Diamond Gym</div>
+          <div class="bcard-desc">Web completa para gimnasio: responsive, animaciones CSS, secciones de servicios, planes y formulario de contacto.</div>
+          <div class="abeam-container" style="height:100px;">
+            <canvas id="beam-diamond" style="width:100%;height:100px;"></canvas>
+          </div>
+          <div class="bcard-stack">
+            <span class="bcard-chip">HTML5</span><span class="bcard-chip">CSS3</span><span class="bcard-chip">JavaScript</span><span class="bcard-chip">Responsive</span>
+          </div>
+          <span class="bcard-cta">Ver sitio web →</span>
+        </div>
+
+        <!-- 04 — Drupal -->
+        <div class="bcard bc-3 reveal" data-cat="enterprise" onclick="openModal('drupal')"
+             style="--mx:50%;--my:50%;">
+          <div class="bcard-eyebrow">
+            <span class="bcard-num">04 — Enterprise</span>
+            <span class="bcard-tag amber">CMS</span>
+          </div>
+          <div class="bcard-title">Drupal Corp</div>
+          <div class="bcard-desc">Theme custom, módulos PHP y content types complejos para arquitectura empresarial.</div>
+          <div class="heatmap">
+            <div class="hm-cell"></div><div class="hm-cell l1"></div><div class="hm-cell l2"></div><div class="hm-cell l1"></div><div class="hm-cell l3"></div><div class="hm-cell l2"></div><div class="hm-cell l1"></div>
+            <div class="hm-cell l2"></div><div class="hm-cell l4"></div><div class="hm-cell l3"></div><div class="hm-cell l2"></div><div class="hm-cell l4"></div><div class="hm-cell l3"></div><div class="hm-cell l2"></div>
+            <div class="hm-cell l1"></div><div class="hm-cell l2"></div><div class="hm-cell l4"></div><div class="hm-cell l3"></div><div class="hm-cell l2"></div><div class="hm-cell l1"></div><div class="hm-cell l3"></div>
+          </div>
+          <div style="margin-top:6px;">
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim);margin-bottom:4px;"><span>PHP</span><span>85%</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="--w:0.85;transition-delay:0.1s;width:85%;"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim);margin-bottom:4px;"><span>Twig / CMS</span><span>90%</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:90%;transition-delay:0.2s;"></div></div>
+          </div>
+          <div class="bcard-stack">
+            <span class="bcard-chip">PHP 8</span><span class="bcard-chip">Drupal</span><span class="bcard-chip">MySQL</span>
+          </div>
+          <span class="bcard-cta">Ver proyecto →</span>
+        </div>
+
+        <!-- 12 — Creación BBDD -->
+        <div class="bcard bc-3 reveal" data-cat="academic" onclick="openModal('bbdd')" style="--mx:50%;--my:50%;">
+          <div class="bcard-eyebrow">
+            <span class="bcard-num">12 — Académico</span>
+            <span class="bcard-tag amber">MySQL · SQL</span>
+          </div>
+          <div class="bcard-title">Creación Base<br>de Datos</div>
+          <div class="bcard-desc">Diseño relacional MySQL en clase. Tablas, relaciones FK y consultas esenciales.</div>
+          <svg class="aws-diagram" viewBox="0 0 180 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin:12px 0;">
+            <rect x="5" y="10" width="52" height="34" rx="5" fill="rgba(232,164,74,0.07)" stroke="rgba(232,164,74,0.35)" stroke-width="1"/>
+            <text x="31" y="22" text-anchor="middle" font-size="7.5" fill="#e8a44a" font-weight="600">USERS</text>
+            <line x1="10" y1="26" x2="52" y2="26" stroke="rgba(232,164,74,0.2)" stroke-width="0.5"/>
+            <text x="13" y="33" font-size="6.5" fill="rgba(255,255,255,0.3)">id · name · email</text>
+            <rect x="5" y="56" width="52" height="34" rx="5" fill="rgba(41,121,255,0.07)" stroke="rgba(41,121,255,0.3)" stroke-width="1"/>
+            <text x="31" y="68" text-anchor="middle" font-size="7.5" fill="#82a8ff" font-weight="600">ORDERS</text>
+            <line x1="10" y1="72" x2="52" y2="72" stroke="rgba(41,121,255,0.2)" stroke-width="0.5"/>
+            <text x="13" y="79" font-size="6.5" fill="rgba(255,255,255,0.3)">id · user_id · total</text>
+            <line x1="31" y1="44" x2="31" y2="56" stroke="rgba(232,164,74,0.4)" stroke-width="1" stroke-dasharray="3 2"/>
+            <circle cx="31" cy="44" r="2" fill="rgba(232,164,74,0.6)"/>
+            <circle cx="31" cy="56" r="2" fill="rgba(41,121,255,0.6)"/>
+            <rect x="70" y="10" width="52" height="34" rx="5" fill="rgba(94,200,122,0.07)" stroke="rgba(94,200,122,0.3)" stroke-width="1"/>
+            <text x="96" y="22" text-anchor="middle" font-size="7.5" fill="#5ec87a" font-weight="600">PRODUCTS</text>
+            <line x1="75" y1="26" x2="117" y2="26" stroke="rgba(94,200,122,0.2)" stroke-width="0.5"/>
+            <text x="78" y="33" font-size="6.5" fill="rgba(255,255,255,0.3)">id · name · price</text>
+            <rect x="70" y="56" width="52" height="34" rx="5" fill="rgba(180,100,220,0.07)" stroke="rgba(180,100,220,0.3)" stroke-width="1"/>
+            <text x="96" y="67" text-anchor="middle" font-size="7" fill="#c084fc" font-weight="600">ORDER_ITEMS</text>
+            <line x1="75" y1="71" x2="117" y2="71" stroke="rgba(180,100,220,0.2)" stroke-width="0.5"/>
+            <text x="78" y="78" font-size="6" fill="rgba(255,255,255,0.3)">order_id · product_id</text>
+            <line x1="96" y1="44" x2="96" y2="56" stroke="rgba(94,200,122,0.3)" stroke-width="1" stroke-dasharray="3 2"/>
+            <circle cx="96" cy="44" r="2" fill="rgba(94,200,122,0.6)"/>
+            <rect x="130" y="10" width="46" height="34" rx="5" fill="rgba(232,164,74,0.05)" stroke="rgba(232,164,74,0.2)" stroke-width="1"/>
+            <text x="153" y="22" text-anchor="middle" font-size="7" fill="#e8a44a" font-weight="600">CATEGORIES</text>
+            <line x1="135" y1="26" x2="171" y2="26" stroke="rgba(232,164,74,0.15)" stroke-width="0.5"/>
+            <text x="138" y="33" font-size="6" fill="rgba(255,255,255,0.25)">id · name</text>
+            <line x1="122" y1="27" x2="130" y2="27" stroke="rgba(94,200,122,0.3)" stroke-width="1" stroke-dasharray="3 2"/>
+            <circle cx="122" cy="27" r="2" fill="rgba(94,200,122,0.5)"/>
+            <circle r="2" fill="#82a8ff" opacity="0.85">
+              <animateMotion dur="2.5s" repeatCount="indefinite" path="M31,44 L31,56"/>
+            </circle>
+            <circle r="2" fill="#5ec87a" opacity="0.85">
+              <animateMotion dur="2s" repeatCount="indefinite" begin="0.8s" path="M96,44 L96,56"/>
+            </circle>
+          </svg>
+          <div class="bcard-stack">
+            <span class="bcard-chip">MySQL</span><span class="bcard-chip">DDL/DML</span><span class="bcard-chip">JOINs</span>
+          </div>
+          <span class="bcard-cta">Ver en GitHub →</span>
+        </div>
+
+        <!-- 14 — JuegoDeTronos API (Kotlin) -->
+        <div class="bcard bc-3 reveal bcard-shine" data-cat="mobile" onclick="openModal('gots')" style="--mx:50%;--my:50%;background:linear-gradient(140deg,#09090d,#0d0a16);">
+          <div class="bcard-eyebrow">
+            <span class="bcard-num">14 — Mobile</span>
+            <span class="bcard-tag" style="background:rgba(192,132,252,0.1);border-color:rgba(192,132,252,0.3);color:#c084fc;">Kotlin</span>
+          </div>
+          <div class="bcard-title">JuegoDeTronos<br>API</div>
+          <div class="bcard-desc">App Android con Kotlin y Retrofit que consume la API de GoT. RecyclerView, detalle de personajes y navegación.</div>
+          <div class="android-list">
+            <div class="android-row" style="background:rgba(192,132,252,0.07);border:1px solid rgba(192,132,252,0.2);animation-delay:0s;">
+              <span></span><span style="color:rgba(255,255,255,0.7);">Jon Snow · Casa Stark</span>
+              <span style="margin-left:auto;font-size:9px;color:var(--text-dim);">›</span>
+            </div>
+            <div class="android-row" style="background:var(--surface);border:1px solid var(--border);animation-delay:0.12s;">
+              <span></span><span style="color:var(--text-muted);">Daenerys · Targaryen</span>
+              <span style="margin-left:auto;font-size:9px;color:var(--text-dim);">›</span>
+            </div>
+            <div class="android-row" style="background:var(--surface);border:1px solid var(--border);animation-delay:0.24s;">
+              <span></span><span style="color:var(--text-muted);">Cersei · Lannister</span>
+              <span style="margin-left:auto;font-size:9px;color:var(--text-dim);">›</span>
+            </div>
+          </div>
+          <div class="bcard-stack">
+            <span class="bcard-chip">Kotlin</span><span class="bcard-chip">Android Studio</span><span class="bcard-chip">Retrofit</span><span class="bcard-chip">MVVM</span>
+          </div>
+          <span class="bcard-cta" style="color:#c084fc;">Ver en GitHub →</span>
+        </div>
+
+
+        <!-- FILA 2: 3 columnas -->
+        <!-- 15 — IBM Cloud Essentials -->
+        <div class="bcard bc-4 v-dark reveal bcard-featured" data-cat="cloud" onclick="openModal('ibm')" style="--mx:50%;--my:50%;">
+          <div class="bcard-eyebrow">
+            <span class="bcard-num">15 — Cloud</span>
+            <span class="bcard-tag blue">IBM Cloud</span>
+          </div>
+          <div class="bcard-title">IBM Cloud<br>Essentials ☁️</div>
+          <div class="bcard-desc">Certificación IBM Cloud cubriendo virtualización, almacenamiento, redes, IA Watson, DevOps y más.</div>
+          <div class="globe-wrap" id="globe-ibm-wrap">
+            <canvas id="globe-ibm" style="opacity:0;transition:opacity 0.6s;"></canvas>
+          </div>
+          <div class="ibm-grid">
+            <div class="ibm-cell"><br>Virtual Servers</div>
+            <div class="ibm-cell"><br>Object Storage</div>
+            <div class="ibm-cell"><br>AI Watson</div>
+            <div class="ibm-cell"><br>VPC Network</div>
+            <div class="ibm-cell"><br>DevOps</div>
+            <div class="ibm-cell"><br>Blockchain</div>
+          </div>
+          <div class="bcard-stack">
+            <span class="bcard-chip">IBM Cloud</span><span class="bcard-chip">Cloud Native</span><span class="bcard-chip">DevOps</span><span class="bcard-chip">Watson AI</span>
+          </div>
+          <span class="bcard-cta">Ver certificación →</span>
+        </div>
+
+        <!-- 16 — AWS Infraestructura -->
+        <div class="bcard bc-4 reveal bcard-shine" data-cat="cloud" onclick="openModal('aws')" style="--mx:50%;--my:50%;background:linear-gradient(140deg,#070a04,#0e1508);">
+          <div class="bcard-eyebrow">
+            <span class="bcard-num">16 — Cloud</span>
+            <span class="bcard-tag lime">AWS</span>
+          </div>
+          <div class="bcard-title">AWS<br>Infraestructura ⚡</div>
+          <div class="bcard-desc">Repositorio de esquemas de arquitecturas AWS resueltos: alta disponibilidad, serverless, VPC y microservicios.</div>
+          <svg class="aws-diagram" viewBox="0 0 240 90" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin:12px 0;">
+            <rect x="2" y="30" width="32" height="24" rx="5" fill="rgba(190,242,100,0.07)" stroke="rgba(190,242,100,0.35)" stroke-width="1"/>
+            <text x="18" y="43" text-anchor="middle" font-size="7.5" fill="rgba(190,242,100,0.7)" font-weight="600"></text>
+            <text x="18" y="52" text-anchor="middle" font-size="5.5" fill="rgba(190,242,100,0.5)">Internet</text>
+            <line x1="34" y1="42" x2="52" y2="42" stroke="rgba(190,242,100,0.3)" stroke-width="1" stroke-dasharray="4 2"/>
+            <rect x="53" y="28" width="38" height="28" rx="5" fill="rgba(190,242,100,0.06)" stroke="rgba(190,242,100,0.3)" stroke-width="1"/>
+            <text x="72" y="41" text-anchor="middle" font-size="7" fill="rgba(190,242,100,0.8)" font-weight="600">ALB</text>
+            <text x="72" y="51" text-anchor="middle" font-size="5.5" fill="rgba(190,242,100,0.4)">Load Balancer</text>
+            <line x1="91" y1="35" x2="110" y2="20" stroke="rgba(41,121,255,0.3)" stroke-width="1"/>
+            <line x1="91" y1="49" x2="110" y2="64" stroke="rgba(41,121,255,0.3)" stroke-width="1"/>
+            <rect x="111" y="8" width="36" height="24" rx="5" fill="rgba(41,121,255,0.08)" stroke="rgba(41,121,255,0.3)" stroke-width="1"/>
+            <text x="129" y="19" text-anchor="middle" font-size="7" fill="#82a8ff" font-weight="600">EC2-A</text>
+            <text x="129" y="28" text-anchor="middle" font-size="5.5" fill="rgba(41,121,255,0.5)">App Server</text>
+            <rect x="111" y="52" width="36" height="24" rx="5" fill="rgba(41,121,255,0.08)" stroke="rgba(41,121,255,0.3)" stroke-width="1"/>
+            <text x="129" y="63" text-anchor="middle" font-size="7" fill="#82a8ff" font-weight="600">EC2-B</text>
+            <text x="129" y="72" text-anchor="middle" font-size="5.5" fill="rgba(41,121,255,0.5)">App Server</text>
+            <line x1="147" y1="20" x2="168" y2="38" stroke="rgba(232,164,74,0.3)" stroke-width="1"/>
+            <line x1="147" y1="64" x2="168" y2="50" stroke="rgba(232,164,74,0.3)" stroke-width="1"/>
+            <rect x="169" y="30" width="38" height="24" rx="5" fill="rgba(232,164,74,0.07)" stroke="rgba(232,164,74,0.35)" stroke-width="1"/>
+            <text x="188" y="42" text-anchor="middle" font-size="7" fill="#e8a44a" font-weight="600">RDS</text>
+            <text x="188" y="51" text-anchor="middle" font-size="5.5" fill="rgba(232,164,74,0.5)">MySQL DB</text>
+            <rect x="169" y="66" width="38" height="20" rx="5" fill="rgba(94,200,122,0.07)" stroke="rgba(94,200,122,0.3)" stroke-width="1"/>
+            <text x="188" y="78" text-anchor="middle" font-size="6.5" fill="#5ec87a" font-weight="600">S3 Bucket</text>
+            <circle r="2.5" fill="rgba(190,242,100,0.9)">
+              <animateMotion dur="2s" repeatCount="indefinite" path="M18,42 L53,42 L72,35 L111,20"/>
+            </circle>
+            <circle r="2.5" fill="rgba(41,121,255,0.9)">
+              <animateMotion dur="2.4s" repeatCount="indefinite" begin="0.6s" path="M72,49 L111,64 L147,64 L168,50"/>
+            </circle>
+            <circle r="2" fill="rgba(232,164,74,0.8)">
+              <animateMotion dur="1.8s" repeatCount="indefinite" begin="1.2s" path="M147,20 L168,38"/>
+            </circle>
+          </svg>
+          <div class="bcard-stack">
+            <span class="bcard-chip">AWS</span><span class="bcard-chip">EC2</span><span class="bcard-chip">S3</span><span class="bcard-chip">RDS</span><span class="bcard-chip">VPC</span><span class="bcard-chip">ALB</span>
+          </div>
+          <span class="bcard-cta" style="color:#bef264;">Ver esquemas →</span>
+        </div>
+
+        <!-- 09 — PrimeFoodist (iOS Swift, en desarrollo) -->
+        <div class="bcard bc-4 v-blue reveal bcard-featured bcard-shine" data-cat="mobile" onclick="openModal('primefoodist')" style="--mx:50%;--my:50%;">
+          <div class="bcard-eyebrow">
+            <span class="bcard-num" style="color:rgba(255,255,255,0.3);">09 — iOS</span>
+            <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
+              <span class="bcard-tag blue">Swift</span>
+              <span style="font-size:9px;padding:2px 7px;border-radius:4px;background:rgba(94,200,122,0.12);border:1px solid rgba(94,200,122,0.3);color:#5ec87a;font-weight:600;animation:pulseRing 2.5s ease infinite;">● EN DESARROLLO</span>
+            </div>
+          </div>
+        <a href="#">
+  <img src="./img/primefoodist.png" alt="PrimeFoodist" style="width:24px;">
+</a>
+          <div class="bcard-desc" style="color:rgba(255,255,255,0.5);">App iOS para descubrir restaurantes mediante geolocalización. Menús, precios, alérgenos y valoraciones.</div>
+          <div class="ios-mock">
+            <div class="ios-bar"><span>9:41</span><span>●●● WiFi </span></div>
+            <div class="ios-body">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;"><span style="font-size:12px;">📍</span><span style="font-size:11px;font-weight:600;color:#fff;">Cerca de ti</span></div>
+              <div style="display:flex;flex-direction:column;gap:4px;">
+                <div style="background:rgba(255,255,255,0.06);border-radius:7px;padding:6px 9px;display:flex;align-items:center;gap:6px;font-size:10px;color:rgba(255,255,255,0.7);"> <span>Pizzería Roma</span><span style="margin-left:auto;color:#e8a44a;"> 4.5 · 0.3km</span></div>
+                <div style="background:rgba(255,255,255,0.04);border-radius:7px;padding:6px 9px;display:flex;align-items:center;gap:6px;font-size:10px;color:rgba(255,255,255,0.5);">🍣<span>Sushi Zen</span><span style="margin-left:auto;color:var(--text-dim);"> 4.8 · 0.7km</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="bcard-stack">
+            <span class="bcard-chip">Swift</span><span class="bcard-chip">iOS</span><span class="bcard-chip">CoreLocation</span><span class="bcard-chip">MapKit</span>
+          </div>
+          <span class="bcard-cta" style="color:#82a8ff;">Ver repo →</span>
+        </div>
+
+
+        <!-- FILA 3: 2 columnas -->
+        <!-- 06 — C++ Inventario (wide) -->
+        <div class="bcard bc-6 v-lime reveal" data-cat="native" onclick="openModal('cpp')"
+             style="--mx:50%;--my:50%;">
+          <div class="wide-l">
+            <div class="bcard-eyebrow">
+              <span class="bcard-num" style="color:rgba(190,242,100,0.35);">06 — System Logic</span>
+              <span class="bcard-tag lime">C++</span>
+            </div>
+            <div class="bcard-title" style="font-size:32px;line-height:0.95;margin-bottom:10px;">Gestor C++<br>Inventario</div>
+            <div class="bcard-desc">Algoritmia pura. Vectores, structs, manejo de archivos y menús dinámicos en consola. Sin dependencias externas.</div>
+            <div class="bcard-stack" style="padding-top:12px;">
+              <span class="bcard-chip" style="border-color:rgba(190,242,100,0.2);color:#bef264;">C++17</span>
+              <span class="bcard-chip">STL</span><span class="bcard-chip">File I/O</span><span class="bcard-chip">OOP</span>
+            </div>
+            <span class="bcard-cta" style="color:#bef264;">Ver código →</span>
+          </div>
+          <div class="wide-r">
+            <div class="mock-term">
+              <span class="dim">$ </span>./inventory<br>
+              <span class="dim">Cargando base de datos... OK</span><br>
+              <span class="dim">Registros: 148 · Stock bajo: 7</span><br><br>
+              1. Agregar Producto<br>
+              2. Buscar por ID<br>
+              3. Listar Stock Bajo<br>
+              4. Exportar CSV<br>
+              5. Salir<br><br>
+              Selecciona opción: <span class="cursor">_</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SECTION BREAK ── -->
+        <!-- 05 — Magento -->
+        <div class="bcard bc-6 reveal" data-cat="enterprise" onclick="openModal('magento')"
+             style="--mx:50%;--my:50%;">
+          <div class="bcard-eyebrow">
+            <span class="bcard-num">05 — E-commerce</span>
+            <span class="bcard-tag amber">Shop</span>
+          </div>
+          <div class="bcard-title">Magento<br>Store</div>
+          <div class="bcard-desc">Catálogo configurable, sistema de pedidos transaccional y panel de gestión completo.</div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;margin:14px 0;">
+            <div style="flex:1;min-width:70px;background:var(--surface);border:1px solid var(--border2);border-radius:7px;padding:9px 10px;font-size:10px;color:var(--text-muted);text-align:center;"><br>Pedidos</div>
+            <div style="flex:1;min-width:70px;background:var(--surface);border:1px solid var(--border2);border-radius:7px;padding:9px 10px;font-size:10px;color:var(--text-muted);text-align:center;"><br>Catálogo</div>
+            <div style="flex:1;min-width:70px;background:var(--surface);border:1px solid var(--border2);border-radius:7px;padding:9px 10px;font-size:10px;color:var(--text-muted);text-align:center;"><br>Pagos</div>
+          </div>
+          <!-- Animated beam SVG -->
+          <svg class="beam-svg" viewBox="0 0 220 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:28px;overflow:visible;">
+            <circle cx="20" cy="14" r="4" fill="rgba(232,164,74,0.6)"/>
+            <path class="beam-path" d="M24 14 L100 14" stroke="rgba(41,121,255,0.4)" stroke-width="1.5" stroke-dasharray="6 3"/>
+            <circle cx="104" cy="14" r="4" fill="rgba(41,121,255,0.6)" style="animation:pulseRing 2s 0.5s ease infinite;"/>
+            <path class="beam-path" d="M108 14 L185 14" stroke="rgba(41,121,255,0.4)" stroke-width="1.5" stroke-dasharray="6 3" style="animation-delay:0.4s;"/>
+            <circle cx="189" cy="14" r="4" fill="rgba(80,180,100,0.6)" style="animation:pulseRing 2s 1s ease infinite;"/>
+          </svg>
+          <div class="bcard-stack">
+            <span class="bcard-chip">Magento 2</span><span class="bcard-chip">PHP</span><span class="bcard-chip">MySQL</span>
+          </div>
+          <span class="bcard-cta">Ver proyecto →</span>
+        </div>
+
+
+        <!-- FILA 4 -->
+        <!-- 11 — PHP Ejercicios + Juego Baraja (wide, terminal animado) -->
+        <div class="bcard bc-8 reveal" data-cat="academic" onclick="openModal('php')" style="--mx:50%;--my:50%;">
+          <div class="wide-l">
+            <div class="bcard-eyebrow">
+              <span class="bcard-num">11 — Académico</span>
+              <span class="bcard-tag amber">PHP · Java</span>
+            </div>
+            <div class="bcard-title" style="font-size:24px;line-height:1.05;margin-bottom:10px;">EjerciciosPHP<br><span style="color:var(--text-muted);">&</span> Juego de la Baraja</div>
+            <div class="bcard-desc">Ejercicios PHP con formularios, sesiones y PDO. Acompañado del clásico juego de cartas en Java con lógica completa de reglas.</div>
+            <div class="bcard-stack" style="padding-top:12px;">
+              <span class="bcard-chip">PHP 8</span><span class="bcard-chip">Java</span><span class="bcard-chip">MySQL</span><span class="bcard-chip">PDO</span><span class="bcard-chip">OOP</span>
+            </div>
+            <span class="bcard-cta">Ver repositorios →</span>
+          </div>
+          <div class="wide-r">
+            <div class="ani-term">
+              <div class="ani-term-bar">
+                <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+                <span style="margin-left:8px;font-size:10px;color:var(--text-dim);">php & java</span>
+              </div>
+              <div class="ani-term-body" id="term-php"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02 — Admin Panel (IconCloud) -->
+        <div class="bcard bc-4 reveal bcard-featured bcard-shine" data-cat="frontend" onclick="openModal('admin')"
+             style="--mx:50%;--my:50%;">
+          <div class="bcard-eyebrow">
+            <span class="bcard-num">02 — Frontend</span>
+            <span class="bcard-tag blue">Dashboard</span>
+          </div>
+          <div class="bcard-title">Panel Admin</div>
+          <div class="bcard-desc">Interfaz de gestión reactiva con gráficos en tiempo real y control de roles diferenciado.</div>
+
+          <!-- IconCloud Component -->
+          <div class="icon-cloud-container" id="admin-icon-cloud">
+            <canvas id="icon-cloud-canvas" class="rounded-lg"></canvas>
+          </div>
+
+          <div class="bcard-stack">
+            <span class="bcard-chip">React</span><span class="bcard-chip">Redux</span>
+            <span class="bcard-chip">Angular</span><span class="bcard-chip">TypeScript</span>
+          </div>
+          <span class="bcard-cta">Ver proyecto →</span>
+        </div>
+
+
+        <!-- RESTO -->
+        <!-- Fila penúltima: 3 columnas -->
+        <div class="bcard bc-4 v-blue reveal bcard-shine" data-cat="frontend" onclick="openModal('landing')"
+             style="--mx:50%;--my:50%;">
+          <div class="bcard-eyebrow">
+            <span class="bcard-num" style="color:rgba(255,255,255,0.3)">03 — Native</span>
+            <span class="bcard-tag blue">Vanilla JS</span>
+          </div>
+          <div class="bcard-title" style="font-size:24px;line-height:1.05;">Landing<br>JS Puro ⚡</div>
+          <div class="bcard-desc" style="color:rgba(255,255,255,0.5);">Cero dependencias. Slider táctil a mano y 60 fps constantes.</div>
+          <div class="tilt-wrap">
+            <div class="mock-win" style="height:100px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);">
+              <div class="orbit-wrap">
+                <div class="orbit-center">⚡</div>
+                <div class="orbit-ring"></div>
+              </div>
+            </div>
+          </div>
+          <div class="bcard-stack">
+            <span class="bcard-chip">HTML</span><span class="bcard-chip">CSS</span><span class="bcard-chip">JS ES6+</span>
+          </div>
+          <span class="bcard-cta" style="color:#82a8ff;">Ver demo →</span>
+        </div>
+
+        <!-- 08 — Caloriapp (Figma) -->
+        <div class="bcard bc-4 reveal bcard-shine" data-cat="mobile" onclick="openModal('voleibol')" style="--mx:50%;--my:50%;">
+          <div class="bcard-eyebrow">
+            <span class="bcard-num">13 — Mobile</span>
+            <span class="bcard-tag green">Java · Android</span>
+          </div>
+          <div class="bcard-title">App de<br>Voleibol <a href="./img/java.png"></a></div>
+          <div class="bcard-desc">Marcador Android en Java con lógica de sets, turnos y reglas oficiales de voleibol.</div>
+          <div class="ios-mock" style="background:#090f09;">
+            <div class="ios-bar" style="background:rgba(255,255,255,0.02);">
+              <span>Marcador</span>
+              <span style="color:#5ec87a;">Set 2</span>
+            </div>
+            <div class="ios-body" style="text-align:center;">
+              <div style="display:flex;justify-content:space-around;align-items:center;margin-bottom:8px;">
+                <div>
+                  <div style="font-size:32px;font-weight:800;color:#fff;line-height:1;">15</div>
+                  <div style="font-size:9px;color:#5ec87a;margin-top:2px;">EQUIPO A ●</div>
+                </div>
+                <div style="font-size:18px;color:var(--text-dim);">—</div>
+                <div>
+                  <div style="font-size:32px;font-weight:800;color:var(--text-dim);line-height:1;">12</div>
+                  <div style="font-size:9px;color:var(--text-dim);margin-top:2px;">EQUIPO B</div>
+                </div>
+              </div>
+              <div style="font-size:9px;color:var(--text-dim);background:var(--surface);border-radius:4px;padding:3px 8px;display:inline-block;">SAQUE → EQUIPO A</div>
+            </div>
+          </div>
+          <div class="bcard-stack">
+            <span class="bcard-chip">Java</span><span class="bcard-chip">Android</span><span class="bcard-chip">XML</span>
+          </div>
+          <span class="bcard-cta">Ver en GitHub →</span>
+        </div>
+
+        <!-- 10 — CS50 Web (marquee de proyectos) -->
+        <div class="bcard bc-4 reveal bcard-shine" data-cat="frontend" onclick="openModal('caloriapp')" style="--mx:50%;--my:50%;background:linear-gradient(140deg,#060e08,#0d1a0d);">
+          <div class="bcard-eyebrow">
+            <span class="bcard-num">08 — Diseño UI</span>
+            <span class="bcard-tag green">Figma</span>
+          </div>
+          <div class="bcard-title">Caloriapp <a href="./img/swift.png"></a></div>
+          <div class="bcard-desc">Diseño de app de seguimiento calórico maquetado en Figma. Sistema de diseño completo con prototipo interactivo.</div>
+          <div class="figma-screen">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+<a href="./img/swift.png">
+  <img src="./img/swift.png" alt="Swift" style="width:28px;height:28px;border-radius:50%;border:1px solid rgba(94,200,122,0.4);">
+</a>
+              <div>
+                <div style="font-size:11px;font-weight:600;color:#fff;">Caloriapp</div>
+                <div style="font-size:9px;color:var(--text-dim);">Diseño UI · Figma</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <div style="position:relative;width:52px;height:52px;flex-shrink:0;">
+                <svg viewBox="0 0 52 52" style="transform:rotate(-90deg);">
+                  <circle cx="26" cy="26" r="22" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="5"/>
+                  <circle cx="26" cy="26" r="22" fill="none" stroke="#5ec87a" stroke-width="5"
+                    stroke-dasharray="138.2" stroke-dashoffset="45.6" stroke-linecap="round"/>
+                </svg>
+                <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#5ec87a;">67%</div>
+              </div>
+              <div style="flex:1;">
+                <div style="font-size:18px;font-weight:700;color:#5ec87a;line-height:1;">1340<span style="font-size:10px;font-weight:400;color:var(--text-dim);"> / 2000 kcal</span></div>
+                <div style="display:flex;gap:6px;margin-top:6px;">
+                  <div style="font-size:9px;color:var(--text-dim);background:rgba(41,121,255,0.1);border-radius:3px;padding:2px 6px;"> P</div>
+                  <div style="font-size:9px;color:var(--text-dim);background:rgba(232,164,74,0.1);border-radius:3px;padding:2px 6px;"> C</div>
+                  <div style="font-size:9px;color:var(--text-dim);background:rgba(249,62,62,0.1);border-radius:3px;padding:2px 6px;"> G</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bcard-stack">
+            <span class="bcard-chip">Figma</span><span class="bcard-chip">UI Design</span><span class="bcard-chip">Auto Layout</span><span class="bcard-chip">Prototipado</span>
+          </div>
+          <span class="bcard-cta" style="color:#5ec87a;">Ver diseño →</span>
+        </div>
+
+        <!-- 13 — App Voleibol (Android Java) -->
+        <!-- Última fila: 2 columnas -->
+        <div class="bcard bc-7 v-dark reveal bcard-featured bcard-shine" data-cat="backend" onclick="openModal('api')"
+             style="--mx:50%;--my:50%;">
+          <div class="bcard-eyebrow">
+            <span class="bcard-num">01 — Backend</span>
+            <span class="bcard-tag blue">REST API</span>
+          </div>
+          <div class="bcard-title">API Gestión<br>Deportiva</div>
+          <div class="bcard-desc">Arquitectura limpia, JWT, Swagger UI y tests unitarios. CRUD completo con validaciones en capa de servicio.</div>
+
+          <!-- Marquee de endpoints -->
+          <div class="marquee-track" style="height:130px;">
+            <div class="marquee-inner">
+              <!-- set 1 -->
+              <div class="mq-file"><div class="mq-file-name" style="color:#49cc90;">GET /api/v1/users</div><div class="mq-file-desc">Lista paginada · JWT required</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#fca130;">POST /api/v1/bookings</div><div class="mq-file-desc">Crear reserva · Validation layer</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#f93e3e;">DELETE /api/v1/bookings/{id}</div><div class="mq-file-desc">Borrar reserva · Owner check</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#82a8ff;">POST /api/v1/auth/login</div><div class="mq-file-desc">Login · Devuelve access + refresh token</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#49cc90;">GET /api/v1/facilities</div><div class="mq-file-desc">Instalaciones disponibles</div></div>
+              <!-- set 2 (bucle infinito) -->
+              <div class="mq-file"><div class="mq-file-name" style="color:#49cc90;">GET /api/v1/users</div><div class="mq-file-desc">Lista paginada · JWT required</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#fca130;">POST /api/v1/bookings</div><div class="mq-file-desc">Crear reserva · Validation layer</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#f93e3e;">DELETE /api/v1/bookings/{id}</div><div class="mq-file-desc">Borrar reserva · Owner check</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#82a8ff;">POST /api/v1/auth/login</div><div class="mq-file-desc">Login · Devuelve access + refresh token</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#49cc90;">GET /api/v1/facilities</div><div class="mq-file-desc">Instalaciones disponibles</div></div>
+            </div>
+          </div>
+
+          <div class="bcard-stack">
+            <span class="bcard-chip">Java</span><span class="bcard-chip">.NET</span>
+            <span class="bcard-chip">JWT</span><span class="bcard-chip">Swagger</span><span class="bcard-chip">JUnit</span>
+          </div>
+          <span class="bcard-cta">Ver proyecto completo →</span>
+        </div>
+
+        <!-- 03 — JS Landing (tilt) -->
+        <div class="bcard bc-5 reveal bcard-shine" data-cat="academic" onclick="openModal('cs50')" style="--mx:50%;--my:50%;">
+          <div class="bcard-eyebrow">
+            <span class="bcard-num">10 — Académico</span>
+            <span class="bcard-tag amber">Harvard CS50</span>
+          </div>
+          <div class="bcard-title">CS50 Web Programming</div>
+          <div class="bcard-desc">5 aplicaciones web del curso CS50 de Harvard usando Python, Django, JavaScript y SQL.</div>
+          <div class="marquee-track" style="height:110px;">
+            <div class="marquee-inner">
+              <div class="mq-file"><div class="mq-file-name" style="color:#fca130;"> Search · HTML/CSS</div><div class="mq-file-desc">Clon de Google Search — frontend puro</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#82a8ff;"> Wiki · Django</div><div class="mq-file-desc">Enciclopedia con Markdown y búsqueda dinámica</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#49cc90;"> Commerce · Django ORM</div><div class="mq-file-desc">Subastas online — watchlist y sistema de pujas</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#f93e3e;"> Mail · SPA + Django API</div><div class="mq-file-desc">Cliente de email — JavaScript asíncrono puro</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#bef264;"> Network · Django + JS</div><div class="mq-file-desc">Red social — posts, follows y paginación</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#fca130;"> Search · HTML/CSS</div><div class="mq-file-desc">Clon de Google Search — frontend puro</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#82a8ff;"> Wiki · Django</div><div class="mq-file-desc">Enciclopedia con Markdown y búsqueda dinámica</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#49cc90;"> Commerce · Django ORM</div><div class="mq-file-desc">Subastas online — watchlist y sistema de pujas</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#f93e3e;"> Mail · SPA + Django API</div><div class="mq-file-desc">Cliente de email — JavaScript asíncrono puro</div></div>
+              <div class="mq-file"><div class="mq-file-name" style="color:#bef264;"> Network · Django + JS</div><div class="mq-file-desc">Red social — posts, follows y paginación</div></div>
+            </div>
+          </div>
+          <div class="bcard-stack">
+            <span class="bcard-chip">Python</span><span class="bcard-chip">Django</span><span class="bcard-chip">JavaScript</span><span class="bcard-chip">SQL</span><span class="bcard-chip">HTML/CSS</span>
+          </div>
+          <span class="bcard-cta">Ver en GitHub →</span>
+        </div>
+
+      </div><!-- /bento-grid -->
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-rule"></div>
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">Saúl Expósito</div>
+        <p class="footer-brand-desc">Desarrollador Multiplataforma & Técnico en Diseño. Linares, Jaén (España).</p>
+      </div>
+      <div class="footer-cols">
+        <div>
+          <div class="footer-col-head">Navegación</div>
+          <ul class="footer-col-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="proyectos.html">Proyectos</a></li>
+            <li><a href="index.html#experiencia">Experiencia</a></li>
+            <li><a href="index.html#habilidades">Habilidades</a></li>
+            <li><a href="index.html#formacion">Formación</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Tecnologías</div>
+          <ul class="footer-col-links">
+            <li><a href="#">Frontend</a></li>
+            <li><a href="#">Backend</a></li>
+            <li><a href="#">Cloud & DevOps</a></li>
+            <li><a href="#">Diseño</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Certificaciones</div>
+          <ul class="footer-col-links">
+            <li><a href="#">CS50 Harvard</a></li>
+            <li><a href="#">IBM Cloud</a></li>
+            <li><a href="#">Azure AZ-900</a></li>
+            <li><a href="#">Azure AI-900</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-head">Contacto</div>
+          <p style="font-size:12.5px;color:var(--text-dim);margin-bottom:10px;line-height:1.5;">¿Proyecto u oportunidad? Hablemos.</p>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <a href="https://linkedin.com" class="btn-sm btn-ghost" style="justify-content:center;">LinkedIn →</a>
+            <a href="contacto.html" class="btn-sm btn-ghost" style="justify-content:center;">Contacto →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Saúl Expósito · Linares, Jaén (España)</span>
+      <div class="footer-social">
+        <a href="https://linkedin.com">LinkedIn</a>
+        <a href="https://github.com">GitHub</a>
+        <a href="contacto.html">Email</a>
+      </div>
+    </div>
+  </footer>
+  <div class="footer-watermark">PROYECTOS<span>✳</span></div>
+
+  <!-- =========  MODAL  ========= -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModalBg(event)">
+    <div class="modal" id="modal">
+      <!-- Hero visual inside modal -->
+      <div class="modal-hero" id="modal-hero"></div>
+
+      <div class="modal-head">
+        <div>
+          <div id="modal-tag-el" style="margin-bottom:8px;"></div>
+          <div class="modal-title" id="modal-title"></div>
+          <div class="modal-sub" id="modal-sub"></div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-cols">
+          <div>
+            <div class="modal-sec" style="margin-bottom:20px;">
+              <div class="modal-sec-title">Descripción</div>
+              <p id="modal-desc"></p>
+            </div>
+            <div class="modal-sec">
+              <div class="modal-sec-title">Stack tecnológico</div>
+              <div class="modal-stack" id="modal-stack"></div>
+            </div>
+          </div>
+          <div>
+            <div class="modal-sec">
+              <div class="modal-sec-title">Características clave</div>
+              <div class="modal-features" id="modal-features"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-actions" id="modal-actions"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========  PARTICLES BG (exacto de contacto.html)  ========= -->
+  <script>
+    (function () {
+      var canvas = document.getElementById('particles-bg');
+      var gl = canvas.getContext('webgl', { alpha: true, depth: false }) ||
+        canvas.getContext('experimental-webgl', { alpha: true, depth: false });
+      if (!gl) return;
+      gl.clearColor(0, 0, 0, 0);
+      gl.enable(gl.BLEND);
+      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+      var vertSrc = ['attribute vec3 aPos;','attribute vec4 aRand;','attribute vec3 aColor;','uniform mat4 uProj;','uniform mat4 uView;','uniform float uTime;','uniform float uSpread;','uniform float uBase;','varying vec4 vRand;','varying vec3 vColor;','void main(){','  vRand = aRand; vColor = aColor;','  vec3 p = aPos * uSpread;','  p.z *= 10.0;','  p.x += sin(uTime * aRand.z + 6.28 * aRand.w) * mix(0.1, 1.5, aRand.x);','  p.y += sin(uTime * aRand.y + 6.28 * aRand.x) * mix(0.1, 1.5, aRand.w);','  p.z += sin(uTime * aRand.w + 6.28 * aRand.y) * mix(0.1, 1.5, aRand.z);','  vec4 mv = uView * vec4(p, 1.0);','  gl_PointSize = uBase / length(mv.xyz);','  gl_Position = uProj * mv;','}'].join('\n');
+      var fragSrc = ['precision highp float;','uniform float uTime;','varying vec4 vRand;','varying vec3 vColor;','void main(){','  vec2 uv = gl_PointCoord.xy;','  float d = length(uv - vec2(0.5));','  float circle = smoothstep(0.5, 0.35, d) * 0.55;','  gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRand.y * 6.28), circle);','}'].join('\n');
+      function mkShader(type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; }
+      var prog = gl.createProgram();
+      gl.attachShader(prog, mkShader(gl.VERTEX_SHADER, vertSrc));
+      gl.attachShader(prog, mkShader(gl.FRAGMENT_SHADER, fragSrc));
+      gl.linkProgram(prog); gl.useProgram(prog);
+      var COUNT = 180;
+      var pos = new Float32Array(COUNT * 3), rand = new Float32Array(COUNT * 4), col = new Float32Array(COUNT * 3);
+      var palette = [[0.16,0.47,1.0],[0.27,0.54,1.0],[0.38,0.29,0.82],[0.55,0.71,1.0],[1.0,1.0,1.0]];
+      for (var i = 0; i < COUNT; i++) {
+        var x,y,z,len; do { x=Math.random()*2-1; y=Math.random()*2-1; z=Math.random()*2-1; len=x*x+y*y+z*z; } while(len>1||len===0);
+        var r=Math.cbrt(Math.random()); pos[i*3]=x*r; pos[i*3+1]=y*r; pos[i*3+2]=z*r;
+        rand[i*4]=Math.random(); rand[i*4+1]=Math.random(); rand[i*4+2]=Math.random(); rand[i*4+3]=Math.random();
+        var c=palette[Math.floor(Math.random()*palette.length)]; col[i*3]=c[0]; col[i*3+1]=c[1]; col[i*3+2]=c[2];
+      }
+      function mkBuf(data){var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);return b;}
+      var bPos=mkBuf(pos),bRand=mkBuf(rand),bCol=mkBuf(col);
+      var aPos=gl.getAttribLocation(prog,'aPos'),aRand=gl.getAttribLocation(prog,'aRand'),aColor=gl.getAttribLocation(prog,'aColor');
+      var uProj=gl.getUniformLocation(prog,'uProj'),uView=gl.getUniformLocation(prog,'uView'),uTime=gl.getUniformLocation(prog,'uTime'),uSpread=gl.getUniformLocation(prog,'uSpread'),uBase=gl.getUniformLocation(prog,'uBase');
+      function perspective(fov,aspect,near,far){var f=1/Math.tan(fov/2),nf=1/(near-far);return new Float32Array([f/aspect,0,0,0,0,f,0,0,0,0,(far+near)*nf,-1,0,0,(2*far*near)*nf,0]);}
+      function lookAt(eye){var ez=[eye[0],eye[1],eye[2]],len=Math.sqrt(ez[0]*ez[0]+ez[1]*ez[1]+ez[2]*ez[2]);ez=[ez[0]/len,ez[1]/len,ez[2]/len];var up=[0,1,0],ex=[up[1]*ez[2]-up[2]*ez[1],up[2]*ez[0]-up[0]*ez[2],up[0]*ez[1]-up[1]*ez[0]];len=Math.sqrt(ex[0]*ex[0]+ex[1]*ex[1]+ex[2]*ex[2]);ex=[ex[0]/len,ex[1]/len,ex[2]/len];var ey=[ez[1]*ex[2]-ez[2]*ex[1],ez[2]*ex[0]-ez[0]*ex[2],ez[0]*ex[1]-ez[1]*ex[0]];return new Float32Array([ex[0],ey[0],ez[0],0,ex[1],ey[1],ez[1],0,ex[2],ey[2],ez[2],0,-(ex[0]*eye[0]+ex[1]*eye[1]+ex[2]*eye[2]),-(ey[0]*eye[0]+ey[1]*eye[1]+ey[2]*eye[2]),-(ez[0]*eye[0]+ez[1]*eye[1]+ez[2]*eye[2]),1]);}
+      function resize(){var dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.floor(window.innerWidth*dpr);canvas.height=Math.floor(window.innerHeight*dpr);canvas.style.width=window.innerWidth+'px';canvas.style.height=window.innerHeight+'px';gl.viewport(0,0,canvas.width,canvas.height);}
+      window.addEventListener('resize',resize,{passive:true}); resize();
+      var start=performance.now(),eye=[0,0,20];
+      function loop(t){requestAnimationFrame(loop);var elapsed=(t-start)*.001,aspect=canvas.width/canvas.height;gl.clear(gl.COLOR_BUFFER_BIT);var proj=perspective(15*Math.PI/180,aspect,0.1,100),view=lookAt(eye);gl.uniformMatrix4fv(uProj,false,proj);gl.uniformMatrix4fv(uView,false,view);gl.uniform1f(uTime,elapsed*.1);gl.uniform1f(uSpread,10);gl.uniform1f(uBase,80*Math.min(window.devicePixelRatio||1,2));gl.bindBuffer(gl.ARRAY_BUFFER,bPos);gl.enableVertexAttribArray(aPos);gl.vertexAttribPointer(aPos,3,gl.FLOAT,false,0,0);gl.bindBuffer(gl.ARRAY_BUFFER,bRand);gl.enableVertexAttribArray(aRand);gl.vertexAttribPointer(aRand,4,gl.FLOAT,false,0,0);gl.bindBuffer(gl.ARRAY_BUFFER,bCol);gl.enableVertexAttribArray(aColor);gl.vertexAttribPointer(aColor,3,gl.FLOAT,false,0,0);gl.drawArrays(gl.POINTS,0,COUNT);}
+      requestAnimationFrame(loop);
+    })();
+  </script>
+
+  <!-- =========  PAGE JS  ========= -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+        once: true,
+        mirror: false,
+    });
+
+    document.body.classList.add('js-loaded');
+
+    // Scroll reveal
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
+    }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Radial mouse glow on cards
+    document.querySelectorAll('.bcard').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+
+    // Filter
+    function filterCards(btn, cat) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.bcard[data-cat]').forEach(card => {
+        const show = (cat === 'all' || card.dataset.cat === cat);
+        card.style.display = show ? '' : 'none';
+        if (show) card.classList.add('on');
+      });
+      // Handle section separator visibility
+      document.querySelectorAll('.bento-section-sep').forEach(sep => {
+        if (cat === 'all') {
+          sep.style.display = '';
+          sep.classList.add('on');
+        } else {
+          let sepFound = false, hasAfter = false;
+          document.querySelectorAll('#bento > *').forEach(el => {
+            if (el.classList.contains('bento-section-sep')) { sepFound = true; return; }
+            if (sepFound && el.dataset && el.dataset.cat === cat) hasAfter = true;
+          });
+          sep.style.display = hasAfter ? '' : 'none';
+        }
+      });
+    }
+
+    // ---- PROJECT DATA ----
+    const projects = {
+      api: {
+        tag: '<span class="bcard-tag blue">Backend · REST API</span>',
+        title: 'API Gestión Deportiva',
+        sub: 'Java / .NET · JWT · Clean Architecture · Swagger',
+        heroStyle: 'background: linear-gradient(135deg,#07103a,#0d1f6b); display:flex; align-items:center; justify-content:center;',
+        heroContent: `<div style="display:flex;flex-direction:column;gap:8px;width:85%;max-width:460px;">
+          <div class="api-row"><span class="api-method get">GET</span><span class="api-path">/api/v1/users</span></div>
+          <div class="api-row"><span class="api-method post">POST</span><span class="api-path">/api/v1/bookings</span></div>
+          <div class="api-row"><span class="api-method del">DEL</span><span class="api-path">/api/v1/bookings/{id}</span></div>
+          <div class="api-row"><span class="api-method post">POST</span><span class="api-path">/api/v1/auth/refresh</span></div>
+          <div class="api-row"><span class="api-method get">GET</span><span class="api-path">/api/v1/facilities</span></div>
+        </div>`,
+        desc: 'API REST completa para gestión de instalaciones deportivas. Arquitectura limpia (Controller → Service → Repository) con autenticación stateless JWT, documentación Swagger/OpenAPI 3 e integración de tests unitarios con JUnit 5 y Mockito.',
+        features: ['Autenticación JWT con access + refresh tokens y roles','CRUD completo para usuarios, reservas e instalaciones','Validaciones en capa de servicio con manejo global de excepciones','Documentación interactiva con Swagger UI / OpenAPI 3','Tests unitarios sobre capa de servicio con JUnit 5 y Mockito'],
+        stack: ['Java','Spring Boot','.NET 8','JWT','Swagger','JUnit 5','Hibernate','MySQL'],
+        actions: `<a href="https://github.com/saul-expositojimenez" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Ver en GitHub →</a><a href="docs/api_docs.html" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Documentación</a>`
+      },
+      admin: {
+        tag: '<span class="bcard-tag blue">Frontend · Dashboard</span>',
+        title: 'Panel de Administración',
+        sub: 'React / Angular · Redux · TypeScript · Chart.js',
+        heroStyle: 'background: #090912; display:flex; align-items:center; justify-content:center;',
+        heroContent: `<div class="icon-cloud-container" style="width:100%; height:220px;">
+                        <canvas id="modal-icon-cloud-canvas" class="rounded-lg"></canvas>
+                      </div>`,
+        desc: 'Panel de administración completo para operar con la API de Gestión Deportiva. Visualización de datos en tiempo real, control de roles (Admin / Manager / Viewer) y exportación de informes. Diseñado con componentes reutilizables y estado global con Redux.',
+        features: ['Sistema de roles con vistas y permisos diferenciados','Gráficos interactivos de ocupación, reservas y tendencias','Tabla de usuarios con paginación, búsqueda y filtros avanzados','Exportación de informes en PDF y CSV','Integración completa con la API REST del proyecto deportivo'],
+        stack: ['React 18','TypeScript','Redux Toolkit','Angular 17','Chart.js','Axios','TailwindCSS'],
+        actions: `<a href="https://github.com/saul-expositojimenez" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Ver en GitHub →</a>`
+      },
+      landing: {
+        tag: '<span class="bcard-tag blue">Frontend · Vanilla JS</span>',
+        title: 'Landing Page JS Puro',
+        sub: 'HTML · CSS · JavaScript ES6+ · Sin dependencias',
+        heroStyle: 'background: linear-gradient(135deg,#07103a,#0d1f6b); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px;',
+        heroContent: `<div style="font-size:3rem;">⚡</div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <div style="width:28px;height:5px;border-radius:3px;background:#2979ff;"></div>
+            <div style="width:8px;height:5px;border-radius:3px;background:#333;"></div>
+            <div style="width:8px;height:5px;border-radius:3px;background:#333;"></div>
+          </div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:1px;">0 DEPENDENCIAS · 60FPS · LIGHTHOUSE &gt;95</div>`,
+        desc: 'Landing page construida completamente desde cero, sin ninguna librería externa. Slider de imágenes con soporte táctil (swipe), animaciones de entrada con IntersectionObserver, lazy loading nativo y Lighthouse score superior a 95 en todas las categorías.',
+        features: ['Slider con soporte táctil, teclado y indicadores','Animaciones de entrada con IntersectionObserver nativo','Lazy loading de imágenes con IntersectionObserver','Lighthouse: Performance 97 · Accesibilidad 100 · SEO 100','CSS custom properties, BEM y zero dependencias externas'],
+        stack: ['HTML5','CSS3','JavaScript ES6+','IntersectionObserver API','Web Animations API','Lighthouse'],
+        actions: `<a href="#" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;">Ver demo →</a><a href="https://github.com" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">GitHub</a>`
+      },
+      drupal: {
+        tag: '<span class="bcard-tag amber">Enterprise · CMS</span>',
+        title: 'Drupal Corp',
+        sub: 'PHP 8 · Drupal 9/10 · Twig · MySQL',
+        heroStyle: 'background: #0a0a0a; padding:20px; display:flex; gap:12px;',
+        heroContent: `<div style="width:110px;background:#111;border:1px solid #222;border-radius:8px;padding:12px;flex-shrink:0;">
+            <div style="font-size:9px;color:#e8a44a;margin-bottom:8px;font-weight:600;letter-spacing:0.4px;">CONTENIDO</div>
+            ${['Noticias','Eventos','Servicios','Equipo','Documentos','FAQ'].map(t=>`<div style="font-size:10px;color:#555;padding:4px 0;border-bottom:1px solid #1c1c1c;">${t}</div>`).join('')}
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:8px;">
+            <div style="height:10px;background:rgba(232,164,74,0.3);border-radius:3px;"></div>
+            <div style="height:6px;background:#1c1c1c;border-radius:3px;width:80%;"></div>
+            <div style="height:6px;background:#1c1c1c;border-radius:3px;width:55%;"></div>
+            <div style="height:6px;background:#1c1c1c;border-radius:3px;"></div>
+            <div style="flex:1;background:#111;border:1px solid #1c1c1c;border-radius:7px;padding:10px;margin-top:4px;">
+              <div style="font-size:10px;color:#555;margin-bottom:6px;">Vista previa</div>
+              <div style="height:6px;background:#1c1c1c;border-radius:3px;margin-bottom:5px;"></div>
+              <div style="height:6px;background:#1c1c1c;border-radius:3px;width:70%;"></div>
+            </div>
+          </div>`,
+        desc: 'Desarrollo de theme custom y módulos personalizados para cliente corporativo sobre Drupal. Content types complejos con campos paragraphs, vistas configuradas y workflows de publicación editorial para arquitectura de contenido a gran escala.',
+        features: ['Theme custom basado en Classy con componentes Twig reutilizables','Módulos PHP personalizados para flujos de contenido editorial','Content types con paragraphs y relaciones jerárquicas complejas','Vistas filtradas y exportables con Views module','Integración con APIs externas vía Drupal services y Guzzle'],
+        stack: ['PHP 8','Drupal 9/10','Twig','MySQL','Composer','Drush','JavaScript'],
+        actions: `<a href="https://github.com/saul-expositojimenez" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Ver en GitHub →</a>`
+      },
+      magento: {
+        tag: '<span class="bcard-tag amber">E-commerce · Magento 2</span>',
+        title: 'Magento Store',
+        sub: 'Magento 2 · PHP 8 · MySQL · Redis · XML',
+        heroStyle: 'background: #0a0a0a; padding:20px;',
+        heroContent: `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;">
+            ${[1,2,3].map(i=>`<div style="background:#111;border:1px solid #1c1c1c;border-radius:8px;padding:10px;">
+              <div style="height:52px;background:#1c1c1c;border-radius:5px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;">📦</div>
+              <div style="height:5px;background:#222;border-radius:2px;margin-bottom:4px;width:80%;"></div>
+              <div style="font-size:10px;color:#e8a44a;font-weight:600;">€ ${(19.99*i).toFixed(2)}</div>
+            </div>`).join('')}
+          </div>
+          <div style="margin-top:10px;background:#2979ff;border-radius:6px;height:28px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:white;width:100%;">Añadir al carrito</div>`,
+        desc: 'Tienda e-commerce completa sobre Magento 2 con catálogo de productos configurables, sistema de pedidos transaccional, pasarela de pago integrada y panel de gestión para administradores. Optimizaciones de rendimiento con Redis y caché de página completa.',
+        features: ['Catálogo con productos simples, configurables y agrupados','Checkout optimizado con múltiples métodos de pago (Stripe, PayPal)','Gestión de stock e inventario en tiempo real con alertas','Sistema de cupones, reglas de precio y grupos de clientes','Theme responsive con lazy load, minificación y Full Page Cache (Redis)'],
+        stack: ['Magento 2','PHP 8','MySQL','Redis','Elasticsearch','Less/CSS','XML Layout'],
+        actions: `<a href="https://github.com/saul-expositojimenez" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Ver en GitHub →</a>`
+      },
+      cpp: {
+        tag: '<span class="bcard-tag lime">System Logic · C++17</span>',
+        title: 'Gestor de Inventario C++',
+        sub: 'C++17 · STL · File I/O · OOP · Sin dependencias',
+        heroStyle: 'background: #0c0c0c; padding:0; align-items:stretch;',
+        heroContent: `<div class="mock-term" style="margin:0;border-radius:0;border:none;flex:1;height:100%;overflow:hidden;">
+            <span style="color:#444;">$ </span>./inventory --load db.bin<br>
+            <span style="color:#444;">Cargando base de datos... OK</span><br>
+            <span style="color:#444;">Registros: 148 · Stock bajo: 7</span><br><br>
+            ══════════════════════════<br>
+            &nbsp;GESTOR DE INVENTARIO v2.1<br>
+            ══════════════════════════<br><br>
+            1. Agregar Producto<br>
+            2. Buscar por ID / Nombre<br>
+            3. Listar Stock Bajo<br>
+            4. Exportar CSV<br>
+            5. Estadísticas<br>
+            6. Salir<br><br>
+            → <span class="cursor">_</span>
+          </div>`,
+        desc: 'Aplicación de consola para gestión de inventario en C++ puro, sin dependencias externas. Uso de la STL (vectores, algoritmos, iteradores), POO con herencia y polimorfismo, persistencia en archivos binarios y exportación CSV. Menú dinámico con validación robusta de entrada.',
+        features: ['Estructuras de datos con STL: vector, map, sort y algoritmos','POO completa: herencia, polimorfismo y encapsulación','Persistencia binaria y exportación CSV sin libs externas','Búsqueda binaria y ordenación con comparadores personalizados','Alertas automáticas de stock bajo y generación de reportes'],
+        stack: ['C++17','STL','File I/O','OOP','CMake','Make','Valgrind'],
+        actions: `<a href="https://github.com/saul-expositojimenez" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Ver código en GitHub →</a>`
+      },
+
+      diamond: {
+        tag: '<span class="bcard-tag blue">Frontend · HTML/CSS/JS</span>',
+        title: 'Diamond Gym',
+        sub: 'HTML · CSS · JavaScript · Responsive Design',
+        heroStyle: 'background:#07103a;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;',
+        heroContent: `
+  <img src="./img/logodiamond.png" alt="Logo" style="width:48px;height:48px;object-fit:contain;">
+  <div style="font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:1px;">
+    HTML · CSS · JS · RESPONSIVE
+  </div>
+`,
+        desc: 'Página web completa para un gimnasio con diseño responsive, secciones de servicios, planes de membresía, galería y formulario de contacto. Desarrollada con HTML, CSS y JavaScript puro sin ningún framework externo.',
+        features: ['Diseño responsive mobile-first con CSS Grid y Flexbox','Menú de navegación sticky con highlight activo por scroll','Galería de instalaciones con lightbox JavaScript puro','Formulario de contacto con validación en cliente','Animaciones de entrada con IntersectionObserver nativo'],
+        stack: ['HTML5','CSS3','JavaScript ES6+','CSS Grid','Flexbox','IntersectionObserver'],
+        actions: `<a href="https://diamondgymlinares.es/" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Ver sitio web →</a>`
+      },
+      caloriapp: {
+        tag: '<span class="bcard-tag green">Diseño UI · Figma</span>',
+        title: 'Caloriapp',
+        sub: 'Figma · UI/UX Design · Sistema de diseño · Prototipo interactivo',
+        heroStyle: 'background:#060e08;display:flex;align-items:center;justify-content:center;gap:20px;',
+        heroContent: `
+  <div style="text-align:center;">
+    <div style="width:64px;height:64px;border-radius:50%;background:rgba(94,200,122,0.2);display:flex;align-items:center;justify-content:center;">
+      <img src="./img/figma.png" alt="Swift" style="width:36px;height:36px;">
+    </div>
+  </div>
+  <div>
+    <div style="font-size:18px;font-weight:700;color:#5ec87a;line-height:1;">
+      1340 kcal
+    </div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:4px;">
+      de 2000 objetivo
+    </div>
+  </div>
+`,
+        desc: 'Diseño completo de una aplicación de seguimiento calórico maquetado íntegramente en Figma. Incluye sistema de diseño con tokens de color, tipografía y componentes atómicos, así como un prototipo interactivo con flujos de usuario completos.',
+        features: ['Sistema de diseño con componentes reutilizables (Atomic Design)','Prototipo interactivo con flujos de onboarding y registro diario','Pantallas: dashboard, añadir comida, historial, perfil y ajustes','Variables de Figma para modo claro y oscuro','User flows, wireframes y documentación de la guía de estilo'],
+        stack: ['Figma','UI Design','UX Research','Auto Layout','Figma Variables','Prototyping'],
+        actions: `<a href="#" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Ver en Figma →</a>`
+      },
+      primefoodist: {
+        tag: '<span class="bcard-tag blue">iOS · Swift · En desarrollo</span>',
+        title: 'PrimeFoodist',
+        sub: 'Swift · iOS · CoreLocation · MapKit · Actualmente en desarrollo',
+        heroStyle: 'background:linear-gradient(135deg,#07103a,#0d1f6b);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;',
+      heroContent: `
+  <img src="./img/swift.png" alt="Swift" style="width:48px;height:48px;object-fit:contain;">
+  <div style="font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:1px;">
+    Swift · iOS · En desarrollo
+  </div>
+`,
+        desc: 'Aplicación iOS en desarrollo activo para descubrir restaurantes mediante geolocalización. Muestra menús, precios, información de alérgenos y valoraciones de usuarios. Desarrollada en Swift con CoreLocation y MapKit.',
+        features: ['Geolocalización en tiempo real con CoreLocation','Mapa interactivo de restaurantes cercanos con MapKit','Detalle de menú con precios y alérgenos por plato','Sistema de valoraciones y reseñas de usuarios','Filtros por tipo de cocina, rango de precio y distancia'],
+        stack: ['Swift','iOS','CoreLocation','MapKit','SwiftUI','URLSession','JSON Codable'],
+        actions: `<a href="https://github.com/saul-exposito" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Ver repo →</a>`
+      },
+      cs50: {
+        tag: '<span class="bcard-tag amber">Académico · Harvard CS50</span>',
+        title: 'CS50 Web Programming',
+        sub: 'Python · Django · JavaScript · SQL · Harvard University',
+        heroStyle: 'background:#0a0a0a;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;',
+        heroContent: `
+  <img src="./img/python.png" alt="Python" style="width:48px;height:48px;object-fit:contain;">
+  <div style="font-size:11px;color:rgba(255,165,0,0.6);">
+    Harvard CS50W · 5 proyectos completados
+  </div>
+`,
+        desc: '5 aplicaciones web completas del curso CS50 Web Programming with Python and JavaScript de Harvard University. Cubre desde frontend puro hasta Django con autenticación, ORMs, SPAs con JavaScript asíncrono y redes sociales.',
+        features: ['Search: clon de Google con búsqueda avanzada en HTML/CSS puro','Wiki: enciclopedia en Django con Markdown y búsqueda dinámica','Commerce: subastas con watchlist, pujas y Django ORM','Mail: cliente de email SPA con JavaScript asíncrono y Django API','Network: red social con posts, seguimiento y paginación'],
+        stack: ['Python','Django','JavaScript','SQL','HTML/CSS','Django ORM','Fetch API'],
+        actions: `<a href="https://github.com/saul-exposito/Curso-CS50-s-Web-Programming-with-Python-and-JavaScript" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Ver en GitHub →</a>`
+      },
+      php: {
+        tag: '<span class="bcard-tag amber">Académico · PHP · Java</span>',
+        title: 'EjerciciosPHP & Juego de la Baraja',
+        sub: 'Java · PDO · OOP',
+        heroStyle: 'background:#0a0a0a;display:flex;align-items:center;justify-content:center;gap:28px;',
+        heroContent: `
+  <div style="text-align:center;">
+    <div style="font-size:2.5rem;"></div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:4px;">PHP 8</div>
+  </div>
+  <div style="font-size:20px;color:var(--text-dim);">+</div>
+  <div style="text-align:center;">
+    <img src="./img/java.png" alt="Java" style="width:40px;height:40px;object-fit:contain;">
+    <div style="font-size:11px;color:rgba(255,255,255,0.35);margin-top:4px;">Java</div>
+  </div>
+`,
+        desc: 'EjerciciosPHP: colección de ejercicios PHP cubriendo formularios POST/GET, sesiones, cookies, autenticación y PDO con MySQL. Juego de la Baraja: implementación en Java del clásico juego de cartas españolas con OOP completa, lógica de turnos y sistema de puntuación.',
+        features: ['PHP: formularios con validación server-side y sanitización','PHP: sesiones y cookies para autenticación básica','PHP: conexión MySQL con PDO y operaciones CRUD','Java: baraja española (40 cartas) modelada con clases y enums','Java: lógica de turnos, reglas del juego y sistema de puntuación final'],
+        stack: ['Java','PDO','OOP','Clases y herencia'],
+        actions: `<a href="https://github.com/saul-exposito/EjerciciosPHP" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">EjerciciosPHP →</a><a href="https://github.com/saul-exposito/JuegodelaBaraja" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Juego Baraja →</a>`
+      },
+      bbdd: {
+        tag: '<span class="bcard-tag amber">Académico · MySQL</span>',
+        title: 'Creación de Base de Datos',
+        sub: 'MySQL · DDL · DML · Diseño relacional · Actividad de clase',
+        heroStyle: 'background:#0a0a0a;display:flex;align-items:center;justify-content:center;',
+    heroContent: `
+  <img src="./img/mysqlworkbench.png" alt="MySQL" style="width:48px;height:48px;object-fit:contain;">
+`,
+        desc: 'Proyecto de clase para diseñar e implementar una base de datos relacional en MySQL. Incluye el modelo entidad-relación, creación de tablas con tipos apropiados, relaciones con claves foráneas e integridad referencial, y consultas SQL para las operaciones más comunes.',
+        features: ['Modelo entidad-relación (ER) dibujado y documentado','Tablas con constraints: PRIMARY KEY, NOT NULL, UNIQUE, FK','Relaciones 1:N y N:M implementadas con tablas de unión','Consultas SELECT con JOINs, GROUP BY, HAVING y subconsultas','Scripts de inserción de datos de prueba representativos'],
+        stack: ['MySQL','SQL','DDL','DML','ER Design','phpMyAdmin'],
+        actions: `<a href="https://github.com/saul-exposito/CreacionBasedeDatos" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Ver en GitHub →</a>`
+      },
+      voleibol: {
+        tag: '<span class="bcard-tag green">Mobile · Android · Java</span>',
+        title: 'App de Voleibol',
+        sub: 'Java · Android Studio · XML Layouts',
+        heroStyle: 'background:#060e08;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;',
+       heroContent: `
+  <div style="text-align:center;">
+    <img src="./img/java.png" alt="Java" style="width:56px;height:56px;object-fit:contain;">
+  </div>
+  <div style="font-size:11px;color:rgba(255,255,255,0.35);">
+    Android · Java · Marcador en tiempo real
+  </div>
+`,
+        desc: 'Aplicación Android para llevar el marcador de un partido de voleibol. Gestiona puntos por equipo, cambio de saque según reglas oficiales, conteo de sets y determina automáticamente el ganador del set y del partido.',
+        features: ['Marcador por equipo con botones de incremento y deshacer','Cambio automático de saque según reglas oficiales (por error)','Detección de ganador de set (25 puntos, diferencia mínima de 2)','Historial de puntos del set actual con posibilidad de anular','Diseño limpio y legible pensado para usar en pista durante el partido'],
+        stack: ['Java','Android Studio','XML Layouts','Activity Lifecycle','ViewBinding'],
+        actions: `<a href="https://github.com/saul-exposito/App-de-Voleibol" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Ver en GitHub →</a>`
+      },
+      gots: {
+        tag: '<span class="bcard-tag" style="background:rgba(192,132,252,0.1);border-color:rgba(192,132,252,0.3);color:#c084fc;">Mobile · Kotlin · Android</span>',
+        title: 'JuegoDeTronos API',
+        sub: 'Kotlin · Android Studio · Retrofit · API REST',
+        heroStyle: 'background:linear-gradient(135deg,#0a0a0f,#0d0a16);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;',
+        heroContent: `
+  <img src="./img/Android_Studio.png" alt="Android Studio" style="width:48px;height:48px;object-fit:contain;">
+  <div style="font-size:11px;color:rgba(192,132,252,0.5);">
+    Kotlin · Android · Game of Thrones API
+  </div>
+`,
+        desc: 'Aplicación Android creada en Android Studio con Kotlin como tarea de clase. Consume la API pública de Game of Thrones mostrando lista de personajes con RecyclerView, pantalla de detalle con información completa, manejo de estados de carga y navegación entre actividades.',
+        features: ['Consumo de API REST con Retrofit 2 y conversión Gson','RecyclerView con adaptador personalizado y ViewHolder pattern','Pantalla de detalle con información completa del personaje','Manejo de estados: cargando, éxito y error con mensajes claros','Navegación entre actividades con Intents y paso de datos'],
+        stack: ['Kotlin','Android Studio','Retrofit 2','Gson','RecyclerView','MVVM','Coroutines'],
+        actions: `<a href="https://github.com/saul-exposito/JuegoDeTronosAPI" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Ver en GitHub →</a>`
+      },
+      ibm: {
+        tag: '<span class="bcard-tag blue">Cloud · Certificación IBM</span>',
+        title: 'IBM Cloud Essentials',
+        sub: 'IBM Cloud · Certificación oficial · Cloud Native · DevOps · AI Watson',
+        heroStyle: 'background:linear-gradient(135deg,#060c2a,#051050);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;',
+        heroContent: `<div style="font-size:3rem;">☁️</div><div style="font-size:11px;color:rgba(130,168,255,0.6);">IBM Cloud Essentials · Certificación completada</div>`,
+        desc: 'Certificación IBM Cloud Essentials con laboratorios prácticos cubriendo el ecosistema completo de IBM Cloud, desde infraestructura tradicional con Virtual Servers y Bare Metal hasta servicios avanzados de IA con Watson, Analytics, Blockchain e IoT.',
+        features: ['Virtual Servers, Bare Metal y Block/File Storage','Object Storage, Network Services y Virtual Private Cloud (VPC)','VMware en IBM Cloud y gestión de Databases como servicio','Watson AI: NLP, Vision y servicios cognitivos · Analytics','DevOps con Toolchains, Cloud Paks, IoT y Blockchain'],
+        stack: ['IBM Cloud','Virtual Servers','Object Storage','Watson AI','Kubernetes','DevOps','Cloud Paks','Blockchain'],
+        actions: `<a href="https://courses.cognitiveclass.ai/certificates/1152cc6f86da423eb1fb48bb9f112695?trk=public_profile_see-credential" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Ver certificado →</a>`
+      },
+      aws: {
+        tag: '<span class="bcard-tag lime">Cloud · AWS</span>',
+        title: 'AWS Infraestructura',
+        sub: 'AWS · Arquitecturas cloud · Diagramas de soluciones resueltas',
+        heroStyle: 'background:linear-gradient(135deg,#050a02,#0a1505);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;',
+        heroContent: `<div style="font-size:3rem;">⚡</div><div style="font-size:11px;color:rgba(190,242,100,0.5);">AWS · Esquemas de arquitecturas resueltas</div>`,
+        desc: 'Repositorio de diagramas y esquemas de arquitecturas AWS resueltas a partir de problemas reales. Cada esquema documenta el problema planteado, los servicios seleccionados (EC2, S3, RDS, VPC, Lambda...) y la solución propuesta con justificación técnica.',
+        features: ['Alta disponibilidad: ALB + EC2 Auto Scaling Groups en múltiples AZs','Arquitecturas serverless con Lambda, API Gateway y DynamoDB','Soluciones de almacenamiento con S3, EFS, RDS y ElastiCache','VPC con subnets públicas/privadas, Security Groups y NAT Gateway','Patrones de microservicios con ECS, ECR y container orchestration'],
+        stack: ['AWS EC2','S3','RDS','VPC','Lambda','API Gateway','CloudFront','IAM','ECS','DynamoDB'],
+        actions: `<a href="https://github.com/saul-exposito" class="btn-sm btn-ghost" style="padding:9px 20px;font-size:13px;border-radius:8px;" target="_blank">Ver repositorio →</a>`
+      }
+    };
+
+    function openModal(id) {
+      const p = projects[id];
+      if (!p) return;
+
+      document.getElementById('modal-tag-el').innerHTML = p.tag;
+      document.getElementById('modal-title').textContent = p.title;
+      document.getElementById('modal-sub').textContent = p.sub;
+      document.getElementById('modal-hero').style.cssText = 'width:100%;height:220px;border-radius:18px 18px 0 0;overflow:hidden;border-bottom:1px solid var(--border);display:flex;position:relative;' + p.heroStyle;
+      document.getElementById('modal-hero').innerHTML = p.heroContent;
+      document.getElementById('modal-desc').textContent = p.desc;
+      document.getElementById('modal-features').innerHTML = p.features.map(f => `<div class="modal-feature">${f}</div>`).join('');
+      document.getElementById('modal-stack').innerHTML = p.stack.map(s => `<span class="stack-pill">${s}</span>`).join('');
+      document.getElementById('modal-actions').innerHTML = p.actions;
+
+      document.getElementById('modal-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      // Special handling for IconCloud in modal
+      if (id === 'admin') {
+        const modalIconCloudCanvas = document.getElementById('modal-icon-cloud-canvas');
+        if (modalIconCloudCanvas) {
+          initIconCloud(modalIconCloudCanvas, [
+            "typescript", "javascript", "react", "angular", "redux",
+            "chartdotjs", "tailwindcss", "nodedotjs", "express", "postgresql"
+          ]);
+        }
+      }
+    }
+
+    function closeModal() {
+      document.getElementById('modal-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+      // Stop IconCloud animation when modal closes
+      const modalIconCloudCanvas = document.getElementById('modal-icon-cloud-canvas');
+      if (modalIconCloudCanvas && modalIconCloudCanvas.__iconCloudAnimationRef) {
+          cancelAnimationFrame(modalIconCloudCanvas.__iconCloudAnimationRef);
+      }
+    }
+
+    function closeModalBg(e) {
+      if (e.target === document.getElementById('modal-overlay')) closeModal();
+    }
+
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+
+
+    function initIconCloud(canvasElement, slugs) {
+      const iconCloudImages = slugs.map(
+        (slug) => `https://cdn.simpleicons.org/${slug}`
+      );
+
+      let iconPositions = [];
+      let isDragging = false;
+      let lastMousePos = { x: 0, y: 0 };
+      let mousePos = { x: 0, y: 0 };
+      let targetRotation = null;
+      let rotation = { x: 0, y: 0 };
+      let animationFrameRef = null;
+      let iconCanvases = [];
+      let imagesLoaded = [];
+
+      function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function createIconCanvases() {
+        imagesLoaded = new Array(iconCloudImages.length).fill(false);
+        iconCanvases = iconCloudImages.map((imageUrl, index) => {
+          const offscreen = document.createElement("canvas");
+          offscreen.width = 40;
+          offscreen.height = 40;
+          const offCtx = offscreen.getContext("2d");
+          if (offCtx) {
+            const img = new Image();
+            img.crossOrigin = "anonymous"; // Important for loading external images
+            img.src = imageUrl;
+            img.onload = () => {
+              offCtx.clearRect(0, 0, offscreen.width, offscreen.height);
+              offCtx.beginPath();
+              offCtx.arc(20, 20, 20, 0, Math.PI * 2);
+              offCtx.closePath();
+              offCtx.clip();
+              offCtx.drawImage(img, 0, 0, 40, 40);
+              imagesLoaded[index] = true;
+            };
+            img.onerror = () => {
+              console.error(`Failed to load image: ${imageUrl}`);
+              // Fallback to text if image fails
+              offCtx.clearRect(0, 0, offscreen.width, offscreen.height);
+              offCtx.font = "16px Arial";
+              offCtx.textAlign = "center";
+              offCtx.textBaseline = "middle";
+              offCtx.fillStyle = "#fff";
+              offCtx.fillText(slugs[index].substring(0,2).toUpperCase(), 20, 20);
+              imagesLoaded[index] = true;
+            };
+          }
+          return offscreen;
+        });
+      }
+
+      function generateInitialIconPositions() {
+        const newIcons = [];
+        const numIcons = iconCloudImages.length || 20;
+        const offset = 2 / numIcons;
+        const increment = Math.PI * (3 - Math.sqrt(5));
+        for (let i = 0; i < numIcons; i++) {
+          const y = i * offset - 1 + offset / 2;
+          const r = Math.sqrt(1 - y * y);
+          const phi = i * increment;
+          const x = Math.cos(phi) * r;
+          const z = Math.sin(phi) * r;
+          newIcons.push({
+            x: x * 100,
+            y: y * 100,
+            z: z * 100,
+            scale: 1,
+            opacity: 1,
+            id: i,
+          });
+        }
+        iconPositions = newIcons;
+      }
+
+      const handleMouseDown = (e) => {
+        const rect = canvasElement.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        isDragging = true;
+        lastMousePos = { x: e.clientX, y: e.clientY };
+        targetRotation = null; 
+      };
+
+      const handleMouseMove = (e) => {
+        const rect = canvasElement.getBoundingClientRect();
+        if (rect) {
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          mousePos = { x, y };
+        }
+        if (isDragging) {
+          const deltaX = e.clientX - lastMousePos.x;
+          const deltaY = e.clientY - lastMousePos.y;
+          rotation.x += deltaY * 0.002;
+          rotation.y += deltaX * 0.002;
+          lastMousePos = { x: e.clientX, y: e.clientY };
+        }
+      };
+
+      const handleMouseUp = () => {
+        isDragging = false;
+      };
+
+      function animate() {
+        const ctx = canvasElement.getContext("2d");
+        if (!ctx) return;
+
+        ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+        const centerX = canvasElement.width / 2;
+        const centerY = canvasElement.height / 2;
+
+        const maxDistance = Math.sqrt(centerX * centerX + centerY * centerY);
+        const dx = mousePos.x - centerX;
+        const dy = mousePos.y - centerY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const speed = 0.003 + (distance / maxDistance) * 0.01;
+
+        if (targetRotation) {
+          const elapsed = performance.now() - targetRotation.startTime;
+          const progress = Math.min(1, elapsed / targetRotation.duration);
+          const easedProgress = easeOutCubic(progress);
+          rotation.x = targetRotation.startX + (targetRotation.x - targetRotation.startX) * easedProgress;
+          rotation.y = targetRotation.startY + (targetRotation.y - targetRotation.startY) * easedProgress;
+          if (progress >= 1) {
+            targetRotation = null;
+          }
+        } else if (!isDragging) {
+      
+          rotation.x += (dy / canvasElement.height) * speed;
+          rotation.y += (dx / canvasElement.width) * speed;
+        }
+
+        iconPositions.forEach((icon, index) => {
+          const cosX = Math.cos(rotation.x);
+          const sinX = Math.sin(rotation.x);
+          const cosY = Math.cos(rotation.y);
+          const sinY = Math.sin(rotation.y);
+
+          const rotatedX = icon.x * cosY - icon.z * sinY;
+          const rotatedZ = icon.x * sinY + icon.z * cosY;
+          const rotatedY = icon.y * cosX + rotatedZ * sinX;
+
+          const scale = (rotatedZ + 200) / 300;
+          const opacity = Math.max(0.2, Math.min(1, (rotatedZ + 150) / 200));
+
+          ctx.save();
+          ctx.translate(
+            canvasElement.width / 2 + rotatedX,
+            canvasElement.height / 2 + rotatedY
+          );
+          ctx.scale(scale, scale);
+          ctx.globalAlpha = opacity;
+
+          if (iconCanvases[index] && imagesLoaded[index]) {
+            ctx.drawImage(iconCanvases[index], -20, -20, 40, 40);
+          } else {
+ 
+            ctx.beginPath();
+            ctx.arc(0, 0, 20, 0, Math.PI * 2);
+            ctx.fillStyle = "#4444ff";
+            ctx.fill();
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.font = "16px Arial";
+            ctx.fillText(`${icon.id + 1}`, 0, 0);
+          }
+          ctx.restore();
+        });
+
+        animationFrameRef = requestAnimationFrame(animate);
+        canvasElement.__iconCloudAnimationRef = animationFrameRef; 
+      }
+
+      function setupCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const rect = canvasElement.parentElement.getBoundingClientRect();
+        canvasElement.width = Math.floor(rect.width * dpr);
+        canvasElement.height = Math.floor(rect.height * dpr);
+        canvasElement.style.width = rect.width + 'px';
+        canvasElement.style.height = rect.height + 'px';
+      }
+
+      // Initialize
+      setupCanvas();
+      createIconCanvases();
+      generateInitialIconPositions();
+      animate(); // Start animation loop
+
+      // Event listeners
+      canvasElement.addEventListener('mousedown', handleMouseDown);
+      canvasElement.addEventListener('mousemove', handleMouseMove);
+      canvasElement.addEventListener('mouseup', handleMouseUp);
+      canvasElement.addEventListener('mouseleave', handleMouseUp);
+
+      // Handle resize of canvas parent
+      const resizeObserver = new ResizeObserver(entries => {
+        for (let entry of entries) {
+          if (entry.target === canvasElement.parentElement) {
+            setupCanvas();
+          }
+        }
+      });
+      resizeObserver.observe(canvasElement.parentElement);
+
+      return () => {
+        if (animationFrameRef) {
+          cancelAnimationFrame(animationFrameRef);
+        }
+        canvasElement.removeEventListener('mousedown', handleMouseDown);
+        canvasElement.removeEventListener('mousemove', handleMouseMove);
+        canvasElement.removeEventListener('mouseup', handleMouseUp);
+        canvasElement.removeEventListener('mouseleave', handleMouseUp);
+        resizeObserver.disconnect();
+      };
+    }
+
+    // Initialize IconCloud for the Admin card (on page load)
+    const adminCardIconCloudCanvas = document.getElementById('icon-cloud-canvas');
+    if (adminCardIconCloudCanvas) {
+        initIconCloud(adminCardIconCloudCanvas, [
+            "typescript", "javascript", "react", "angular", "redux",
+            "chartdotjs", "tailwindcss", "nodedotjs", "express", "postgresql"
+        ]);
+    }
+
+    // ══════════════════════════════════════════════════
+    //  NEW PROJECTS: ANIMATED EFFECTS
+    // ══════════════════════════════════════════════════
+
+  
+    (function() {
+      var cv = document.getElementById('beam-diamond');
+      if (!cv) return;
+      var wrap = cv.parentElement;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      function resize() {
+        var W = wrap.offsetWidth || 300;
+        cv.width  = Math.floor(W * dpr);
+        cv.height = Math.floor(100 * dpr);
+        cv.style.width  = W + 'px';
+        cv.style.height = '100px';
+      }
+      resize();
+      window.addEventListener('resize', function(){ resize(); }, {passive:true});
+      var ctx = cv.getContext('2d');
+      var nodes = [
+        { l:'HTML', x:0.1,  y:0.25, c:'#e86a30' },
+        { l:'CSS',  x:0.1,  y:0.75, c:'#264de4' },
+        { l:'JS',   x:0.1,  y:0.5,  c:'#f0db4f' },
+        { l:'⚙️',   x:0.5,  y:0.5,  c:'#82a8ff' },
+        { l:'🏋️',   x:0.9,  y:0.5,  c:'#5ec87a' },
+      ];
+      var edges = [[0,3],[1,3],[2,3],[3,4]];
+      var beams = edges.map(function(e, i) {
+        return { edge: e, t: Math.random(), speed: 0.008 + i * 0.002, c0: ['#ff6a00','#264de4','#f0db4f','#82a8ff'][i] || '#82a8ff', c1: '#82a8ff' };
+      });
+      function draw() {
+        requestAnimationFrame(draw);
+        var W = cv.width/dpr, H = cv.height/dpr;
+        ctx.clearRect(0,0,cv.width,cv.height);
+        ctx.save(); ctx.scale(dpr,dpr);
+        edges.forEach(function(e) {
+          var a = nodes[e[0]], b = nodes[e[1]];
+          ctx.beginPath();
+          ctx.moveTo(a.x*W, a.y*H);
+          var cx = (a.x*W + b.x*W)/2;
+          ctx.quadraticCurveTo(cx, a.y*H, b.x*W, b.y*H);
+          ctx.strokeStyle = 'rgba(41,121,255,0.15)'; ctx.lineWidth = 1.5;
+          ctx.stroke();
+        });
+        beams.forEach(function(beam) {
+          beam.t = (beam.t + beam.speed) % 1;
+          var t = beam.t;
+          var a = nodes[beam.edge[0]], b = nodes[beam.edge[1]];
+          var cx2 = (a.x*W + b.x*W)/2;
+          var ax = a.x*W, ay = a.y*H, bx = b.x*W, by = b.y*H;
+          var px = (1-t)*(1-t)*ax + 2*(1-t)*t*cx2 + t*t*bx;
+          var py = (1-t)*(1-t)*ay + 2*(1-t)*t*ay + t*t*by;
+          var grd2 = ctx.createRadialGradient(px,py,0,px,py,8);
+          grd2.addColorStop(0,'rgba(41,121,255,0.85)');
+          grd2.addColorStop(0.4,'rgba(130,168,255,0.4)');
+          grd2.addColorStop(1,'rgba(41,121,255,0)');
+          ctx.beginPath(); ctx.arc(px,py,8,0,Math.PI*2);
+          ctx.fillStyle = grd2; ctx.fill();
+          ctx.beginPath(); ctx.arc(px,py,2.5,0,Math.PI*2);
+          ctx.fillStyle = '#fff'; ctx.fill();
+        });
+        nodes.forEach(function(n) {
+          var nx = n.x*W, ny = n.y*H;
+          var grd = ctx.createRadialGradient(nx,ny,0,nx,ny,18);
+          grd.addColorStop(0, n.c+'44'); grd.addColorStop(1,'rgba(0,0,0,0)');
+          ctx.beginPath(); ctx.arc(nx,ny,18,0,Math.PI*2);
+          ctx.fillStyle=grd; ctx.fill();
+          ctx.beginPath(); ctx.arc(nx,ny,n.l.length>2?18:14,0,Math.PI*2);
+          ctx.fillStyle='#111'; ctx.strokeStyle=n.c+'66'; ctx.lineWidth=1.5;
+          ctx.fill(); ctx.stroke();
+          ctx.font = n.l.length > 2 ? '9px Inter,sans-serif' : '8px Inter,sans-serif';
+          ctx.textAlign='center'; ctx.textBaseline='middle';
+          ctx.fillStyle=n.c; ctx.fillText(n.l, nx, ny);
+        });
+        ctx.restore();
+      }
+      draw();
+    })();
+
+    // ── 2. MagicUI Globe — IBM Cloud card ──
+    (function() {
+      var wrap = document.getElementById('globe-ibm-wrap');
+      var cv   = document.getElementById('globe-ibm');
+      if (!cv || !wrap) return;
+      var dpr = Math.min(window.devicePixelRatio||1,2);
+      var SIZE = 200;
+      cv.width  = SIZE * dpr; cv.height = SIZE * dpr;
+      cv.style.width = SIZE + 'px'; cv.style.height = SIZE + 'px';
+      cv.style.top = '50%'; cv.style.transform = 'translate(-50%,-50%)';
+      cv.style.position = 'absolute'; cv.style.marginTop = '0px';
+      var ctx = cv.getContext('2d');
+      var NUM_DOTS = 400, R = SIZE/2 * 0.72 * dpr, CX = SIZE/2*dpr, CY = SIZE/2*dpr;
+      var phi = 0, theta = 0.3;
+      var dots = [];
+      var goldenRatio = (1+Math.sqrt(5))/2;
+      for (var i=0; i<NUM_DOTS; i++) {
+        var lat = Math.acos(1 - 2*(i+0.5)/NUM_DOTS);
+        var lon = 2*Math.PI * i / goldenRatio;
+        dots.push({ lat: lat, lon: lon });
+      }
+      var markers = [
+        { lat: 40.7*Math.PI/180,  lon: -74*Math.PI/180  },
+        { lat: 51.5*Math.PI/180,  lon: -0.1*Math.PI/180  },
+        { lat: 35.7*Math.PI/180,  lon: 139.7*Math.PI/180 },
+        { lat: -23.5*Math.PI/180, lon: -46.6*Math.PI/180 },
+        { lat: 1.3*Math.PI/180,   lon: 103.8*Math.PI/180 },
+        { lat: 52.5*Math.PI/180,  lon: 13.4*Math.PI/180  },
+      ];
+      var startTime = performance.now();
+      function project(lat, lon, rotY, rotX) {
+        var x = Math.sin(lat) * Math.cos(lon + rotY);
+        var y = Math.cos(lat); var z = Math.sin(lat) * Math.sin(lon + rotY);
+        var y2 = y * Math.cos(rotX) - z * Math.sin(rotX);
+        var z2 = y * Math.sin(rotX) + z * Math.cos(rotX);
+        return { x: x, y: y2, z: z2 };
+      }
+      function draw() {
+        requestAnimationFrame(draw);
+        var elapsed = (performance.now() - startTime) * 0.001;
+        phi += 0.003;
+        ctx.clearRect(0,0,cv.width,cv.height);
+        for (var i=0; i<dots.length; i++) {
+          var d = dots[i];
+          var p = project(d.lat, d.lon, phi, theta);
+          if (p.z < 0) continue;
+          var scale = (p.z + 1) / 2;
+          var x = CX + p.x * R, y = CY - p.y * R;
+          var alpha = 0.15 + scale * 0.35;
+          ctx.beginPath(); ctx.arc(x, y, 1.2*dpr*scale, 0, Math.PI*2);
+          ctx.fillStyle = 'rgba(41,121,255,' + alpha + ')'; ctx.fill();
+        }
+        markers.forEach(function(m, i) {
+          var p = project(m.lat, m.lon, phi, theta);
+          if (p.z < 0.1) return;
+          var x = CX + p.x * R, y = CY - p.y * R;
+          var pulse = 1 + 0.3 * Math.sin(elapsed * 2 + i * 1.3);
+          var r = 3.5 * dpr * pulse;
+          var grd = ctx.createRadialGradient(x,y,0,x,y,r*2);
+          grd.addColorStop(0,'rgba(41,121,255,0.9)');
+          grd.addColorStop(0.5,'rgba(130,168,255,0.4)');
+          grd.addColorStop(1,'rgba(41,121,255,0)');
+          ctx.beginPath(); ctx.arc(x,y,r*2,0,Math.PI*2);
+          ctx.fillStyle=grd; ctx.fill();
+          ctx.beginPath(); ctx.arc(x,y,r*0.5,0,Math.PI*2);
+          ctx.fillStyle='#fff'; ctx.fill();
+        });
+      }
+      draw();
+      cv.style.opacity = '1';
+    })();
+
+    // ── 3. MagicUI Terminal animation — PHP/Baraja card ──
+    (function() {
+      var el = document.getElementById('term-php');
+      if (!el) return;
+      var lines = [
+        { text: '$ php EjerciciosPHP/poo.php',  cls: 't-wht',  delay: 300  },
+        { text: 'Clase Producto inicializada',    cls: 't-grn',  delay: 800  },
+        { text: 'precio: €29.99 · IVA: €6.30',  cls: 't-grn',  delay: 1200 },
+        { text: '',                               cls: '',        delay: 1600 },
+        { text: '$ java JuegodelaBaraja',         cls: 't-wht',  delay: 1900 },
+        { text: 'Barajando 40 cartas...',         cls: 't-dim',  delay: 2400 },
+        { text: '♠ Rey de Espadas — 3 pts',      cls: 't-blue', delay: 2900 },
+        { text: '♣ Caballo de Bastos — 2 pts',   cls: 't-blue', delay: 3300 },
+        { text: 'Turno 1 → Jugador gana set',    cls: 't-grn',  delay: 3800 },
+      ];
+      var started = false;
+      function startTerminal() {
+        if (started) return;
+        started = true;
+        lines.forEach(function(line, i) {
+          setTimeout(function() {
+            var span = document.createElement('span');
+            span.className = 'ani-term-line ' + line.cls;
+            span.textContent = line.text;
+            var cursor = el.querySelector('.t-cursor');
+            if (cursor) cursor.remove();
+            el.appendChild(span);
+            el.appendChild(document.createElement('br'));
+            if (i === lines.length - 1) {
+              var cur = document.createElement('span');
+              cur.className = 't-cursor';
+              el.appendChild(cur);
+            }
+            el.scrollTop = el.scrollHeight;
+          }, line.delay);
+        });
+      }
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) { startTerminal(); observer.disconnect(); }
+        });
+      }, { threshold: 0.3 });
+      var card = el.closest('.bcard');
+      if (card) observer.observe(card);
+      else startTerminal();
+    })();
+
+  </script>
+
+  <script>
+  (function(){
+    var btn = document.getElementById('hamburger-btn');
+    var panel = document.getElementById('mobile-menu-panel');
+    var overlay = document.getElementById('mobile-menu-overlay');
+    if(!btn || !panel || !overlay) return;
+    function openMenu(){ panel.classList.add('open'); overlay.classList.add('open'); }
+    function closeMenu(){ panel.classList.remove('open'); overlay.classList.remove('open'); }
+    btn.addEventListener('click', function(){ panel.classList.contains('open') ? closeMenu() : openMenu(); });
+    overlay.addEventListener('click', closeMenu);
+    panel.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+  })();
+  </script>
+</body>
+</html>

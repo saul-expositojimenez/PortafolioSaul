@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidad — Saúl Expósito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="./img/favicon.png">
+<link rel="apple-touch-icon" href="./img/favicon.png">
+<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #080808;
+  --bg2: #0f0f0f;
+  --bg3: #161616;
+  --surface: #1c1c1c;
+  --surface2: #222222;
+  --border: #232323;
+  --border2: #2e2e2e;
+  --text: #e2e2e2;
+  --text-muted: #7a7a7a;
+  --text-dim: #444;
+  --accent: #2979ff;
+  --accent2: #448aff;
+  --white: #ffffff;
+}
+
+html { scroll-behavior: smooth; }
+
+nav, main, section, footer, header,
+.privacy-hero, .privacy-content, .privacy-toc {
+  position: relative;
+  z-index: 1;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); }
+
+/* ===========================
+   NAV (identical to index)
+=========================== */
+nav {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 200;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: rgba(8,8,8,0.72);
+  backdrop-filter: blur(28px) saturate(200%) brightness(1.08);
+  -webkit-backdrop-filter: blur(28px) saturate(200%) brightness(1.08);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 30px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.45), 0 1px 0 rgba(255,255,255,0.04), inset 0 1px 0 rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+nav::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%, rgba(41,121,255,0.04) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+nav > * { position: relative; z-index: 1; }
+
+.nav-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+.nav-social-link img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.25s cubic-bezier(.34,1.56,.64,1);
+}
+.nav-social-link:hover img { transform: scale(1.22); }
+
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid var(--border2);
+  border-radius: 7px;
+  cursor: pointer;
+  padding: 0;
+}
+.hamburger-btn span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--text-muted);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+}
+
+.mobile-menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+}
+.mobile-menu-panel {
+  position: fixed;
+  top: 78px;
+  left: 16px; right: 16px;
+  z-index: 195;
+  background: rgba(12,12,12,0.97);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 20px 24px;
+  transform: translateY(-110%);
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+.mobile-menu-panel.open { transform: translateY(0); }
+.mobile-menu-panel ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 16px;
+}
+.mobile-menu-panel ul a {
+  display: block;
+  padding: 10px 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+}
+.mobile-menu-panel ul a:hover { background: var(--surface); color: var(--white); }
+.mobile-menu-panel .mobile-menu-bottom {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .hamburger-btn { display: flex; }
+  .mobile-menu-overlay.open { display: block; }
+  .nav-right { display: none !important; }
+}
+
+.nav-logo {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: -0.3px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-logo-dot {
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: -0.1px;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+
+.btn-sm {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.1px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--text-muted);
+}
+.btn-ghost:hover { border-color: #444; color: var(--white); }
+
+.btn-cv-nav {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  background: linear-gradient(to bottom, #4dc7d9 0%, #66a6ff 100%);
+  color: white;
+  padding: 0 14px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.25);
+  transition: all 0.3s;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.btn-cv-nav:hover { transform: translateY(-2px); box-shadow: 0px 6px 14px rgba(0,0,0,0.3); }
+.btn-cv-nav span { display: block; margin-left: 0.3em; transition: all 0.3s; font-weight: 500; }
+.btn-cv-nav svg { width: 15px; height: 15px; fill: white; transition: all 0.3s; }
+.btn-cv-nav .svg-wrapper {
+  display: flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 50%;
+  background-color: rgba(255,255,255,0.2); transition: all 0.3s;
+}
+.btn-cv-nav:hover .svg-wrapper { background-color: rgba(255,255,255,0.45); }
+.btn-cv-nav:hover svg { transform: rotate(45deg); }
+.svg-wrapper-1 { display: flex; align-items: center; justify-content: center; }
+
+/* ===========================
+   PARTICLES BG (same shader)
+=========================== */
+#particles-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===========================
+   PRIVACY HERO
+=========================== */
+.privacy-hero {
+  padding: 160px 0 72px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.privacy-hero-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.privacy-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 100px;
+  padding: 4px 14px 4px 10px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: -0.1px;
+  margin-bottom: 28px;
+}
+.privacy-tag-dot {
+  width: 5px; height: 5px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: blink 2.5s ease infinite;
+}
+@keyframes blink {
+  0%,100% { opacity:1; }
+  50% { opacity:0.3; }
+}
+.privacy-hero h1 {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 600;
+  letter-spacing: -2.5px;
+  line-height: 1.05;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+.privacy-hero h1 .dim { color: var(--text-muted); }
+.privacy-hero p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 500px;
+  margin: 0 auto;
+  letter-spacing: -0.1px;
+}
+.privacy-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.privacy-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--text-dim);
+  letter-spacing: -0.1px;
+}
+.privacy-meta-item span.dot {
+  width: 3px; height: 3px;
+  background: var(--text-dim);
+  border-radius: 50%;
+}
+
+/* ===========================
+   LAYOUT
+=========================== */
+.privacy-layout {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 64px 24px 120px;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .privacy-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 48px 20px 80px;
+  }
+  .privacy-toc { display: none; }
+}
+
+/* ===========================
+   TABLE OF CONTENTS (sticky)
+=========================== */
+.privacy-toc {
+  position: sticky;
+  top: 88px;
+}
+.toc-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toc-label::before {
+  content: '';
+  width: 12px; height: 1px;
+  background: var(--text-dim);
+}
+.toc-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.toc-list a {
+  display: block;
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--text-dim);
+  text-decoration: none;
+  border-radius: 6px;
+  letter-spacing: -0.1px;
+  transition: color 0.15s, background 0.15s;
+  border-left: 2px solid transparent;
+}
+.toc-list a:hover,
+.toc-list a.active {
+  color: var(--text-muted);
+  background: var(--surface);
+  border-left-color: var(--accent);
+}
+.toc-back {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.toc-back a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.toc-back a:hover { color: var(--text-muted); }
+
+/* ===========================
+   PRIVACY CONTENT
+=========================== */
+.privacy-content {
+  min-width: 0;
+}
+
+.privacy-section {
+  padding: 56px 0;
+  border-bottom: 1px solid var(--border);
+}
+.privacy-section:first-child { padding-top: 0; }
+.privacy-section:last-child { border-bottom: none; }
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 14px;
+}
+.section-tag::before {
+  content: '';
+  width: 14px; height: 1px;
+  background: var(--text-dim);
+  display: block;
+}
+.section-number {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.privacy-section h2 {
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 600;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+.privacy-section h2 .dim { color: var(--text-muted); }
+
+.privacy-section p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  letter-spacing: -0.1px;
+  margin-bottom: 14px;
+}
+.privacy-section p:last-child { margin-bottom: 0; }
+
+.privacy-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.3px;
+  margin: 24px 0 8px;
+}
+
+/* Info card */
+.info-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 20px 0;
+}
+.info-card-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.info-card-row:last-child { border-bottom: none; padding-bottom: 0; }
+.info-card-row:first-child { padding-top: 0; }
+.info-card-label {
+  font-weight: 500;
+  color: var(--text-dim);
+  min-width: 130px;
+  flex-shrink: 0;
+  font-size: 12px;
+  letter-spacing: -0.1px;
+}
+.info-card-value {
+  color: var(--text-muted);
+  font-size: 12.5px;
+  letter-spacing: -0.1px;
+}
+
+/* List items */
+.priv-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 16px 0;
+}
+.priv-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  letter-spacing: -0.1px;
+}
+.priv-list li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+
+/* Rights grid */
+.rights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+  margin: 20px 0;
+}
+.right-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  transition: border-color 0.2s;
+}
+.right-card:hover { border-color: var(--border2); }
+.right-card-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.2px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.right-card-title .icon {
+  font-size: 14px;
+}
+.right-card-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.5;
+  letter-spacing: -0.1px;
+}
+
+/* Cookie table */
+.cookie-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 12.5px;
+}
+.cookie-table th {
+  background: var(--bg3);
+  color: var(--text-dim);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border2);
+}
+.cookie-table th:first-child { border-radius: 6px 0 0 0; }
+.cookie-table th:last-child { border-radius: 0 6px 0 0; }
+.cookie-table td {
+  padding: 10px 14px;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.cookie-table tr:last-child td { border-bottom: none; }
+.cookie-table tr:hover td { background: rgba(255,255,255,0.015); }
+.cookie-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+.cookie-badge.necesaria { background: rgba(41,121,255,0.12); color: #448aff; border: 1px solid rgba(41,121,255,0.2); }
+.cookie-badge.analitica { background: rgba(0,188,212,0.10); color: #00bcd4; border: 1px solid rgba(0,188,212,0.2); }
+.cookie-badge.preferencia { background: rgba(255,152,0,0.10); color: #ff9800; border: 1px solid rgba(255,152,0,0.2); }
+
+/* Contact highlight */
+.contact-highlight {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.contact-highlight-icon {
+  width: 38px; height: 38px;
+  background: rgba(41,121,255,0.1);
+  border: 1px solid rgba(41,121,255,0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 16px;
+}
+.contact-highlight-text { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
+.contact-highlight-text a {
+  color: var(--accent2);
+  text-decoration: none;
+  font-weight: 500;
+}
+.contact-highlight-text a:hover { text-decoration: underline; }
+
+/* Alert box */
+.alert-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(41,121,255,0.06);
+  border: 1px solid rgba(41,121,255,0.18);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 20px 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.alert-box .alert-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.alert-box a { color: var(--accent2); text-decoration: none; }
+.alert-box a:hover { text-decoration: underline; }
+
+/* ===========================
+   FOOTER (identical to index)
+=========================== */
+.footer-rule { height: 1px; background: var(--border); }
+
+footer {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 48px 24px 32px;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 60px;
+  margin-bottom: 40px;
+}
+.footer-brand-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: -0.3px;
+  margin-bottom: 8px;
+}
+.footer-brand-desc {
+  font-size: 12.5px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  letter-spacing: -0.1px;
+}
+.footer-cols {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+.footer-col-head {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+.footer-col-links { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.footer-col-links a {
+  font-size: 12.5px;
+  color: var(--text-dim);
+  text-decoration: none;
+  letter-spacing: -0.1px;
+  transition: color 0.15s;
+}
+.footer-col-links a:hover { color: var(--text-muted); }
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: -0.1px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.footer-social { display: flex; align-items: center; gap: 16px; }
+.footer-social a {
+  font-size: 12px;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.footer-social a:hover { color: var(--text-muted); }
+
+.footer-watermark {
+  text-align: center;
+  padding: 32px 0 20px;
+  font-size: clamp(56px, 10vw, 120px);
+  font-weight: 700;
+  letter-spacing: -4px;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--border2);
+  user-select: none;
+  pointer-events: none;
+  overflow: hidden;
+  line-height: 1;
+}
+.footer-watermark span {
+  display: inline-block;
+  color: var(--text-dim);
+  -webkit-text-stroke: 0;
+  font-size: 0.3em;
+  vertical-align: middle;
+  margin: 0 8px;
+}
+
+@media (max-width: 900px) {
+  .footer-top { grid-template-columns: 1fr; gap: 40px; }
+  .footer-cols { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .footer-cols { grid-template-columns: 1fr; }
+}
+.cookie-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* ===========================
+   COOKIE BANNER
+=========================== */
+#cookie-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9998;
+  width: calc(100% - 48px);
+  max-width: 780px;
+  background: rgba(18,18,18,0.97);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.55);
+  animation: cookieSlideUp 0.45s cubic-bezier(.4,0,.2,1) both;
+}
+#cookie-banner.hidden { display: none; }
+@keyframes cookieSlideUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(24px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.cookie-icon { font-size: 22px; flex-shrink: 0; }
+.cookie-text { flex: 1; font-size: 12.5px; color: var(--text-muted); line-height: 1.55; letter-spacing: -0.1px; }
+.cookie-text a { color: var(--accent2); text-decoration: none; font-weight: 500; }
+.cookie-text a:hover { text-decoration: underline; }
+.cookie-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.cookie-btn-accept {
+  font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+  padding: 7px 16px; border-radius: 7px; cursor: pointer;
+  background: var(--accent); border: 1px solid var(--accent); color: #fff;
+  transition: background 0.15s; white-space: nowrap;
+}
+.cookie-btn-accept:hover { background: var(--accent2); }
+.cookie-btn-reject {
+  font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+  padding: 7px 16px; border-radius: 7px; cursor: pointer;
+  background: transparent; border: 1px solid var(--border2);
+  color: var(--text-muted); transition: all 0.15s; white-space: nowrap;
+}
+.cookie-btn-reject:hover { border-color: #444; color: var(--white); }
+
+/* ===========================
+   ANIMATIONS
+=========================== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.on { opacity: 1; transform: none; }
+
+/* ===========================
+   MEDIA QUERIES
+=========================== */
+
+/* ---- Tablet grande / desktop pequeño ---- */
+@media (max-width: 1100px) {
+  .privacy-layout {
+    max-width: 100%;
+    padding: 56px 32px 100px;
+    gap: 48px;
+  }
+  footer {
+    padding: 40px 32px 28px;
+  }
+}
+
+/* ---- Tablet ---- */
+@media (max-width: 900px) {
+  /* Hero */
+  .privacy-hero {
+    padding: 120px 0 56px;
+  }
+  .privacy-hero-wrap {
+    padding: 0 20px;
+  }
+  .privacy-hero h1 {
+    letter-spacing: -1.8px;
+  }
+
+  /* Layout */
+  .privacy-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 40px 20px 72px;
+  }
+  .privacy-toc {
+    display: none;
+  }
+
+  /* Secciones */
+  .privacy-section {
+    padding: 40px 0;
+  }
+
+  /* Info card filas: apila label encima del valor */
+  .info-card-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .info-card-label {
+    min-width: unset;
+  }
+
+  /* Rights grid */
+  .rights-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Cookie table: scroll horizontal */
+  .cookie-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Contact highlight */
+  .contact-highlight {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  /* Footer */
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .footer-cols {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  @media (max-width: 900px) {
+  .hamburger-btn { display: flex; }
+  .mobile-menu-overlay.open { display: block; }
+  .nav-right { display: none !important; }
+  .nav-links { display: none; } /* ← añade esta línea */
+}
+
+  /* Cookie banner */
+  #cookie-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    bottom: 12px;
+    width: calc(100% - 32px);
+  }
+  .cookie-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+/* ---- Móvil ---- */
+@media (max-width: 600px) {
+  /* Nav */
+  nav {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 48px;
+    padding: 0 14px;
+  }
+  .nav-links {
+    display: none;
+  }
+
+  /* Hero */
+  .privacy-hero {
+    padding: 100px 0 48px;
+  }
+  .privacy-hero h1 {
+    letter-spacing: -1.2px;
+  }
+  .privacy-meta {
+    gap: 10px;
+  }
+  .privacy-meta-item:has(.dot) {
+    display: none;
+  }
+
+  /* Layout */
+  .privacy-layout {
+    padding: 32px 16px 60px;
+  }
+
+  /* Secciones */
+  .privacy-section {
+    padding: 32px 0;
+  }
+  .privacy-section h2 {
+    letter-spacing: -0.6px;
+  }
+
+  /* Rights grid: 1 columna */
+  .rights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Footer */
+  .footer-cols {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  footer {
+    padding: 36px 16px 24px;
+  }
+  .footer-watermark {
+    letter-spacing: -2px;
+  }
+
+  /* Cookie banner */
+  #cookie-banner {
+    border-radius: 10px;
+    bottom: 10px;
+    width: calc(100% - 20px);
+  }
+  .cookie-btn-accept,
+  .cookie-btn-reject {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+/* ---- Móvil pequeño ---- */
+@media (max-width: 380px) {
+  nav {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    height: 44px;
+    padding: 0 12px;
+  }
+  .nav-logo {
+    font-size: 13px;
+  }
+
+  .privacy-hero {
+    padding: 88px 0 40px;
+  }
+  .privacy-hero-wrap {
+    padding: 0 14px;
+  }
+  .privacy-tag {
+    font-size: 10.5px;
+    padding: 3px 10px 3px 8px;
+  }
+
+  .privacy-layout {
+    padding: 28px 14px 52px;
+  }
+
+  .info-card {
+    padding: 14px 14px;
+  }
+
+  .privacy-section {
+    padding: 28px 0;
+  }
+
+  footer {
+    padding: 28px 14px 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== PARTICLES BG ===== -->
+<canvas id="particles-bg"></canvas>
+
+<!-- ========== NAV ========== -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="./img/logo.png" alt="Logo" style="height:32px;object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <span class="nav-logo-dot" style="display:none;"></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="proyectos.html">Proyectos</a></li>
+    <li><a href="index.html#fusion-section">Skills</a></li>
+    <li><a href="index.html#habilidades-toolkit">Habilidades</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://es.linkedin.com/in/sa%C3%BAl-exp%C3%B3sito-jim%C3%A9nez-25b630386" class="nav-social-link" target="_blank" rel="noopener">
+      <img src="./img/linkedin.png" alt="LinkedIn">
+    </a>
+    <a href="https://github.com/saul-expositojimenez" class="nav-social-link" target="_blank" rel="noopener">
+      <img src="./img/github.png" alt="GitHub">
+    </a>
+    <a href="./CV-SaulExposito.pdf" download class="btn-cv-nav">
+      <div class="svg-wrapper-1">
+        <div class="svg-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+          </svg>
+        </div>
+      </div>
+      <span>Descargar CV</span>
+    </a>
+  </div>
+  <button class="hamburger-btn" id="hamburger-btn" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+<div class="mobile-menu-panel" id="mobile-menu-panel">
+  <ul>
+    <li><a href="proyectos.html">Proyectos</a></li>
+    <li><a href="index.html#fusion-section">Skills</a></li>
+    <li><a href="index.html#habilidades-toolkit">Habilidades</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+  </ul>
+  <div class="mobile-menu-bottom">
+    <a href="https://es.linkedin.com/in/sa%C3%BAl-exp%C3%B3sito-jim%C3%A9nez-25b630386" class="nav-social-link" target="_blank" rel="noopener">
+      <img src="./img/linkedin.png" alt="LinkedIn">
+    </a>
+    <a href="https://github.com/saul-expositojimenez" class="nav-social-link" target="_blank" rel="noopener">
+      <img src="./img/github.png" alt="GitHub">
+    </a>
+    <a href="./CV-SaulExposito.pdf" download class="btn-cv-nav">
+      <div class="svg-wrapper-1">
+        <div class="svg-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+            <path fill="none" d="M0 0h24v24H0z"></path>
+            <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+          </svg>
+        </div>
+      </div>
+      <span>Descargar CV</span>
+    </a>
+  </div>
+</div>
+
+<!-- ========== HERO ========== -->
+<div class="privacy-hero">
+  <div class="privacy-hero-wrap">
+    <div class="privacy-tag">
+      <span class="privacy-tag-dot"></span>
+      Transparencia y privacidad
+    </div>
+    <h1>Política de <span class="dim">Privacidad</span></h1>
+    <p>Información detallada sobre cómo se recopilan, usan y protegen tus datos al visitar este portfolio.</p>
+    <div class="privacy-meta">
+      <span class="privacy-meta-item"> Última actualización: marzo 2026</span>
+      <span class="privacy-meta-item"><span class="dot"></span></span>
+      <span class="privacy-meta-item">Ámbito: España / UE</span>
+      <span class="privacy-meta-item"><span class="dot"></span></span>
+      <span class="privacy-meta-item"> RGPD / LOPDGDD</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========== LAYOUT ========== -->
+<div class="privacy-layout">
+
+  <!-- Tabla de contenidos (sticky sidebar) -->
+  <aside class="privacy-toc">
+    <div class="toc-label">Contenido</div>
+    <ul class="toc-list" id="toc-list">
+      <li><a href="#responsable">1. Responsable</a></li>
+      <li><a href="#datos">2. Datos recopilados</a></li>
+      <li><a href="#finalidad">3. Finalidad</a></li>
+      <li><a href="#base-legal">4. Base legal</a></li>
+      <li><a href="#destinatarios">5. Destinatarios</a></li>
+      <li><a href="#derechos">6. Tus derechos</a></li>
+      <li><a href="#cookies">7. Cookies</a></li>
+      <li><a href="#seguridad">8. Seguridad</a></li>
+      <li><a href="#menores">9. Menores</a></li>
+      <li><a href="#aviso">10. Aviso legal</a></li>
+      <li><a href="#cambios">11. Cambios</a></li>
+      <li><a href="#contacto">12. Contacto</a></li>
+    </ul>
+    <div class="toc-back">
+      <a href="index.html">← Volver al inicio</a>
+    </div>
+  </aside>
+
+  <!-- Contenido principal -->
+  <div class="privacy-content">
+
+    <!-- 1. RESPONSABLE -->
+    <div class="privacy-section reveal" id="responsable">
+      <div class="section-tag"><span class="section-number">01</span> Responsable del tratamiento</div>
+      <h2>¿Quién es el <span class="dim">responsable</span>?</h2>
+      <p>En cumplimiento del Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica de Protección de Datos y Garantía de los Derechos Digitales (LOPDGDD), te informamos de que el responsable del tratamiento de tus datos personales es:</p>
+      <div class="info-card">
+        <div class="info-card-row">
+          <span class="info-card-label">Titular</span>
+          <span class="info-card-value">Saúl Expósito Jiménez</span>
+        </div>
+        <div class="info-card-row">
+          <span class="info-card-label">Actividad</span>
+          <span class="info-card-value">Portfolio personal — Desarrollador Multiplataforma & Técnico en Diseño</span>
+        </div>
+        <div class="info-card-row">
+          <span class="info-card-label">Domicilio</span>
+          <span class="info-card-value">Linares, Jaén (España)</span>
+        </div>
+        <div class="info-card-row">
+          <span class="info-card-label">Correo electrónico</span>
+          <span class="info-card-value">saul.exposito@escuelaestech.es</span>
+        </div>
+        <div class="info-card-row">
+          <span class="info-card-label">Marco normativo</span>
+          <span class="info-card-value">RGPD (UE) 2016/679 · LOPDGDD 3/2018 · LSSI-CE 34/2002</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. DATOS RECOPILADOS -->
+    <div class="privacy-section reveal" id="datos">
+      <div class="section-tag"><span class="section-number">02</span> Datos personales</div>
+      <h2>¿Qué datos <span class="dim">recopilamos</span>?</h2>
+      <p>Este sitio web es un portfolio personal de carácter informativo. Los datos que podemos recopilar son:</p>
+      <h3>Datos proporcionados por el usuario</h3>
+      <ul class="priv-list">
+        <li>Nombre y apellidos, cuando se faciliten a través del formulario de contacto.</li>
+        <li>Dirección de correo electrónico, para poder responder a tu consulta.</li>
+        <li>Mensaje o contenido del texto enviado voluntariamente.</li>
+        <li>Enlace a perfil profesional (LinkedIn, GitHub) si lo incluyes en tu comunicación.</li>
+      </ul>
+      <h3>Datos recogidos automáticamente</h3>
+      <ul class="priv-list">
+        <li>Dirección IP (anonimizada en la medida de lo posible).</li>
+        <li>Tipo y versión del navegador, sistema operativo y dispositivo.</li>
+        <li>Páginas visitadas, tiempo de permanencia y origen de la visita.</li>
+        <li>Preferencias almacenadas en localStorage (ej.: consentimiento de cookies).</li>
+      </ul>
+      <div class="alert-box">
+        <span class="alert-icon"></span>
+        <span>No se recopilan datos especialmente sensibles (salud, ideología, religión, etc.). No se toman decisiones automatizadas ni se elaboran perfiles personales para fines comerciales.</span>
+      </div>
+    </div>
+
+    <!-- 3. FINALIDAD -->
+    <div class="privacy-section reveal" id="finalidad">
+      <div class="section-tag"><span class="section-number">03</span> Finalidad</div>
+      <h2>¿Para qué se <span class="dim">utilizan</span>?</h2>
+      <p>Los datos personales facilitados se tratan exclusivamente para las siguientes finalidades:</p>
+      <ul class="priv-list">
+        <li><strong style="color:var(--text);font-weight:500;">Gestión de consultas:</strong> responder a mensajes y solicitudes enviadas a través del formulario de contacto o por correo electrónico.</li>
+        <li><strong style="color:var(--text);font-weight:500;">Comunicación profesional:</strong> mantener correspondencia relacionada con oportunidades laborales, colaboraciones o proyectos freelance.</li>
+        <li><strong style="color:var(--text);font-weight:500;">Análisis estadístico:</strong> obtener métricas agregadas y anónimas sobre el uso del sitio con el fin de mejorar la experiencia de navegación.</li>
+        <li><strong style="color:var(--text);font-weight:500;">Preferencias de navegación:</strong> recordar tu decisión respecto al uso de cookies para no solicitar el consentimiento repetidamente.</li>
+      </ul>
+      <p>Los datos no se utilizarán para ninguna otra finalidad distinta a las indicadas sin informarte previamente y, en su caso, recabar tu consentimiento.</p>
+    </div>
+
+    <!-- 4. BASE LEGAL -->
+    <div class="privacy-section reveal" id="base-legal">
+      <div class="section-tag"><span class="section-number">04</span> Base legal</div>
+      <h2>Legitimación del <span class="dim">tratamiento</span></h2>
+      <p>El tratamiento de tus datos personales se ampara en las siguientes bases legales reconocidas por el artículo 6 del RGPD:</p>
+      <div class="info-card">
+        <div class="info-card-row">
+          <span class="info-card-label">Consentimiento</span>
+          <span class="info-card-value">Formulario de contacto y cookies no esenciales (art. 6.1.a RGPD).</span>
+        </div>
+        <div class="info-card-row">
+          <span class="info-card-label">Interés legítimo</span>
+          <span class="info-card-value">Análisis estadístico básico y seguridad del sitio (art. 6.1.f RGPD).</span>
+        </div>
+        <div class="info-card-row">
+          <span class="info-card-label">Ejecución de contrato</span>
+          <span class="info-card-value">Gestión de servicios profesionales contratados (art. 6.1.b RGPD).</span>
+        </div>
+        <div class="info-card-row">
+          <span class="info-card-label">Obligación legal</span>
+          <span class="info-card-value">Cumplimiento de la LOPDGDD y normativa fiscal aplicable (art. 6.1.c RGPD).</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. DESTINATARIOS -->
+    <div class="privacy-section reveal" id="destinatarios">
+      <div class="section-tag"><span class="section-number">05</span> Destinatarios</div>
+      <h2>¿Con quién se <span class="dim">comparten</span>?</h2>
+      <p>Con carácter general, los datos personales no se ceden a terceros. No obstante, para el funcionamiento técnico de este portfolio se utilizan los siguientes prestadores de servicios que pueden tener acceso a datos en su calidad de encargados de tratamiento:</p>
+      <ul class="priv-list">
+        <li><strong style="color:var(--text);font-weight:500;">Proveedor de hosting:</strong> el servidor donde está alojado el sitio web puede almacenar registros de acceso temporales.</li>
+        <li><strong style="color:var(--text);font-weight:500;">GitHub Pages / Netlify / Vercel</strong> (según el servicio de despliegue): plataformas sujetas a sus propias políticas de privacidad y al RGPD.</li>
+        <li><strong style="color:var(--text);font-weight:500;">Google Fonts:</strong> se cargan tipografías externas que pueden implicar una transferencia de IP a servidores de Google en EE.UU. (amparada en las Cláusulas Contractuales Tipo).</li>
+      </ul>
+      <p>No se realizan transferencias internacionales de datos fuera del Espacio Económico Europeo sin las garantías adecuadas exigidas por el RGPD.</p>
+    </div>
+
+    <!-- 6. DERECHOS -->
+    <div class="privacy-section reveal" id="derechos">
+      <div class="section-tag"><span class="section-number">06</span> Derechos</div>
+      <h2>Tus derechos sobre <span class="dim">tus datos</span></h2>
+      <p>En virtud de la normativa aplicable, tienes los siguientes derechos respecto al tratamiento de tus datos personales:</p>
+      <div class="rights-grid">
+        <div class="right-card">
+          <div class="right-card-title"><span class="icon"></span> Acceso</div>
+          <div class="right-card-desc">Saber qué datos tuyos se están tratando y obtener una copia.</div>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title"><span class="icon"></span> Rectificación</div>
+          <div class="right-card-desc">Corregir datos inexactos o completar los que sean incompletos.</div>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title"><span class="icon"></span> Supresión</div>
+          <div class="right-card-desc">Solicitar la eliminación de tus datos cuando no sean necesarios.</div>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title"><span class="icon"></span> Limitación</div>
+          <div class="right-card-desc">Pedir que se limite el tratamiento en determinadas circunstancias.</div>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title"><span class="icon"></span> Portabilidad</div>
+          <div class="right-card-desc">Recibir tus datos en formato estructurado y de uso común.</div>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title"><span class="icon"></span> Oposición</div>
+          <div class="right-card-desc">Oponerte al tratamiento basado en interés legítimo.</div>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title"><span class="icon"></span> Decisión automatizada</div>
+          <div class="right-card-desc">No ser objeto de decisiones basadas exclusivamente en tratamientos automatizados.</div>
+        </div>
+        <div class="right-card">
+          <div class="right-card-title"><span class="icon">↩</span> Retirar consentimiento</div>
+          <div class="right-card-desc">Revocar el consentimiento otorgado en cualquier momento.</div>
+        </div>
+      </div>
+      <p>Para ejercer cualquiera de estos derechos, puedes dirigirte a través del formulario de contacto o por correo electrónico. Se responderá en el plazo máximo de <strong style="color:var(--text);">30 días</strong>. Asimismo, tienes derecho a presentar una reclamación ante la <a href="https://www.aepd.es" target="_blank" rel="noopener" style="color:var(--accent2);text-decoration:none;font-weight:500;">Agencia Española de Protección de Datos (AEPD)</a>.</p>
+    </div>
+
+    <!-- 7. COOKIES -->
+    <div class="privacy-section reveal" id="cookies">
+      <div class="section-tag"><span class="section-number">07</span> Política de cookies</div>
+      <h2>¿Qué son <span class="dim">las cookies</span>?</h2>
+      <p>Las cookies son pequeños archivos de texto que un sitio web almacena en tu dispositivo cuando lo visitas. Permiten recordar información entre páginas y sesiones, mejorando la experiencia de navegación.</p>
+      <h3>Cookies utilizadas en este sitio</h3>
+      <table class="cookie-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Duración</th>
+            <th>Finalidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code style="font-size:11px;color:var(--accent2);background:rgba(41,121,255,0.08);padding:2px 6px;border-radius:3px;">cookieConsent</code></td>
+            <td><span class="cookie-badge necesaria">Necesaria</span></td>
+            <td>1 año</td>
+            <td>Almacena la decisión del usuario sobre el consentimiento de cookies (localStorage).</td>
+          </tr>
+          <tr>
+            <td><code style="font-size:11px;color:var(--accent2);background:rgba(41,121,255,0.08);padding:2px 6px;border-radius:3px;">_ga</code></td>
+            <td><span class="cookie-badge analitica">Analítica</span></td>
+            <td>2 años</td>
+            <td>Google Analytics — distingue usuarios únicos para estadísticas de uso (solo si se acepta).</td>
+          </tr>
+          <tr>
+            <td><code style="font-size:11px;color:var(--accent2);background:rgba(41,121,255,0.08);padding:2px 6px;border-radius:3px;">_gid</code></td>
+            <td><span class="cookie-badge analitica">Analítica</span></td>
+            <td>24 horas</td>
+            <td>Google Analytics — identifica la sesión del usuario.</td>
+          </tr>
+          <tr>
+            <td><code style="font-size:11px;color:var(--accent2);background:rgba(41,121,255,0.08);padding:2px 6px;border-radius:3px;">theme-pref</code></td>
+            <td><span class="cookie-badge preferencia">Preferencia</span></td>
+            <td>Permanente</td>
+            <td>Guarda preferencias visuales del usuario en localStorage.</td>
+          </tr>
+        </tbody>
+      </table>
+      <h3>Cómo gestionar las cookies</h3>
+      <p>Puedes aceptar o rechazar las cookies no esenciales a través del banner de consentimiento que aparece al visitar el sitio. Además, puedes configurar tu navegador para bloquear o eliminar cookies:</p>
+      <ul class="priv-list">
+        <li><strong style="color:var(--text);font-weight:500;">Chrome:</strong> Configuración → Privacidad y seguridad → Cookies.</li>
+        <li><strong style="color:var(--text);font-weight:500;">Firefox:</strong> Ajustes → Privacidad y seguridad → Cookies y datos del sitio.</li>
+        <li><strong style="color:var(--text);font-weight:500;">Safari:</strong> Preferencias → Privacidad → Gestionar datos de sitios web.</li>
+        <li><strong style="color:var(--text);font-weight:500;">Edge:</strong> Configuración → Privacidad, búsqueda y servicios → Cookies.</li>
+      </ul>
+      <div class="alert-box">
+        <span class="alert-icon"></span>
+        <span>Deshabilitar cookies esenciales puede afectar al correcto funcionamiento del sitio.</span>
+      </div>
+    </div>
+
+    <!-- 8. SEGURIDAD -->
+    <div class="privacy-section reveal" id="seguridad">
+      <div class="section-tag"><span class="section-number">08</span> Seguridad</div>
+      <h2>Medidas de <span class="dim">seguridad</span></h2>
+      <p>Se han adoptado las medidas técnicas y organizativas necesarias para garantizar la seguridad de los datos personales y evitar su alteración, pérdida, tratamiento o acceso no autorizado, habida cuenta del estado de la tecnología, la naturaleza de los datos almacenados y los riesgos a que están expuestos:</p>
+      <ul class="priv-list">
+        <li>Transmisión de datos mediante protocolo <strong style="color:var(--text);font-weight:500;">HTTPS/TLS</strong> con certificado SSL válido.</li>
+        <li>Acceso restringido a los datos almacenados, con autenticación de doble factor donde sea posible.</li>
+        <li>Almacenamiento mínimo de datos: solo se conservan los datos estrictamente necesarios.</li>
+        <li>Revisión periódica de las medidas de seguridad implantadas.</li>
+        <li>No se almacenan contraseñas en texto plano ni datos de pago en este sitio.</li>
+      </ul>
+      <p>En caso de detectarse una brecha de seguridad que afecte a tus datos personales, se notificará a la AEPD en el plazo de 72 horas y a los afectados si existiera riesgo alto para sus derechos y libertades.</p>
+    </div>
+
+    <!-- 9. MENORES -->
+    <div class="privacy-section reveal" id="menores">
+      <div class="section-tag"><span class="section-number">09</span> Menores de edad</div>
+      <h2>Protección de <span class="dim">menores</span></h2>
+      <p>Este sitio web está dirigido a un público adulto y profesional. No está orientado a menores de 14 años ni se recopilan conscientemente datos de menores. Si tienes conocimiento de que un menor ha facilitado datos personales sin consentimiento parental, te rogamos que lo comuniques para proceder a su eliminación inmediata.</p>
+    </div>
+
+    <!-- 10. AVISO LEGAL -->
+    <div class="privacy-section reveal" id="aviso">
+      <div class="section-tag"><span class="section-number">10</span> Aviso legal</div>
+      <h2>Aviso <span class="dim">legal</span></h2>
+      <h3>Titularidad del sitio</h3>
+      <p>El presente sitio web es propiedad de Saúl Expósito Jiménez, con domicilio en Linares, Jaén (España). El acceso y uso de este sitio implica la aceptación de los presentes términos.</p>
+      <h3>Propiedad intelectual</h3>
+      <p>Todos los contenidos de este sitio web (textos, gráficos, logotipos, imágenes, código fuente, diseño y estructura) son propiedad exclusiva de Saúl Expósito Jiménez o de terceros que han autorizado su uso. Queda prohibida su reproducción, distribución, comunicación pública o transformación sin autorización expresa, salvo para uso personal y privado.</p>
+      <h3>Exclusión de responsabilidad</h3>
+      <p>El titular no se responsabiliza de los daños o perjuicios derivados del uso del sitio, de la información contenida en él ni de los sitios enlazados. La información tiene carácter meramente informativo y puede no estar actualizada en todo momento.</p>
+      <h3>Legislación aplicable</h3>
+      <p>Las presentes condiciones se rigen por la legislación española. Para cualquier controversia, ambas partes se someten a los juzgados y tribunales de Linares (Jaén), con renuncia a cualquier otro fuero que pudiera corresponderles.</p>
+    </div>
+
+    <!-- 11. CAMBIOS -->
+    <div class="privacy-section reveal" id="cambios">
+      <div class="section-tag"><span class="section-number">11</span> Actualizaciones</div>
+      <h2>Cambios en esta <span class="dim">política</span></h2>
+      <p>Esta política de privacidad puede ser modificada para adaptarse a cambios legislativos, jurisprudenciales o de las prácticas del sitio. Cualquier modificación relevante se comunicará mediante un aviso visible en el sitio web. La fecha de última actualización aparece indicada en la cabecera de este documento.</p>
+      <p>Te recomendamos revisar periódicamente esta página para estar al tanto de posibles cambios. El uso continuado del sitio tras la publicación de modificaciones implica la aceptación de las mismas.</p>
+    </div>
+
+    <!-- 12. CONTACTO -->
+    <div class="privacy-section reveal" id="contacto">
+      <div class="section-tag"><span class="section-number">12</span> Contacto</div>
+      <h2>¿Tienes <span class="dim">preguntas</span>?</h2>
+      <p>Para cualquier consulta relacionada con la protección de tus datos personales, el ejercicio de tus derechos o para solicitar más información sobre esta política, puedes ponerte en contacto a través de los siguientes canales:</p>
+      <div class="contact-highlight">
+        <div class="contact-highlight-icon"></div>
+        <div class="contact-highlight-text">
+          Envíame un mensaje a través de la <a href="contacto.html">página de contacto</a> o directamente por correo electrónico. Me comprometo a responderte en un plazo máximo de <strong style="color:var(--text);">30 días</strong> hábiles desde la recepción de tu solicitud.
+        </div>
+      </div>
+      <p style="margin-top:16px;">Si consideras que tus derechos no han sido debidamente atendidos, tienes derecho a presentar una reclamación ante la <a href="https://www.aepd.es" target="_blank" rel="noopener" style="color:var(--accent2);text-decoration:none;font-weight:500;">Agencia Española de Protección de Datos (AEPD)</a>, autoridad de control competente en España.</p>
+    </div>
+
+  </div><!-- /privacy-content -->
+</div><!-- /privacy-layout -->
+
+<!-- ========== FOOTER ========== -->
+<div class="footer-rule"></div>
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">Saúl Expósito</div>
+      <p class="footer-brand-desc">Desarrollador Multiplataforma & Técnico en Diseño. Linares, Jaén (España).</p>
+    </div>
+    <div class="footer-cols">
+      <div>
+        <div class="footer-col-head">Navegación</div>
+        <ul class="footer-col-links">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="proyectos.html">Proyectos</a></li>
+          <li><a href="index.html#fusion-section">Skills</a></li>
+          <li><a href="index.html#habilidades-toolkit">Habilidades</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Tecnologías</div>
+        <ul class="footer-col-links">
+          <li><a href="#">Frontend</a></li>
+          <li><a href="#">Backend</a></li>
+          <li><a href="#">Cloud & DevOps</a></li>
+          <li><a href="#">Diseño</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Certificaciones</div>
+        <ul class="footer-col-links">
+          <li><a href="#">CS50 Harvard</a></li>
+          <li><a href="#">IBM Cloud</a></li>
+          <li><a href="#">Azure AZ-900</a></li>
+          <li><a href="#">Azure AI-900</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Legal</div>
+        <ul class="footer-col-links">
+          <li><a href="privacidad.html">Política de Privacidad</a></li>
+          <li><a href="privacidad.html#cookies">Política de Cookies</a></li>
+          <li><a href="privacidad.html#aviso">Aviso Legal</a></li>
+          <li><a href="privacidad.html#seguridad">Seguridad</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-head">Contacto</div>
+        <p style="font-size:12.5px;color:var(--text-dim);letter-spacing:-0.1px;margin-bottom:10px;line-height:1.5;">¿Tienes un proyecto o una oportunidad? Hablemos.</p>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <a href="https://es.linkedin.com/in/sa%C3%BAl-exp%C3%B3sito-jim%C3%A9nez-25b630386" class="btn-sm btn-ghost" style="justify-content:center;">LinkedIn →</a>
+          <a href="https://github.com/saul-expositojimenez" class="btn-sm btn-ghost" style="justify-content:center;">GitHub →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Saúl Expósito · Linares, Jaén (España)</span>
+    <div class="footer-social">
+      <a href="https://es.linkedin.com/in/sa%C3%BAl-exp%C3%B3sito-jim%C3%A9nez-25b630386">LinkedIn</a>
+      <a href="https://github.com/saul-expositojimenez">GitHub</a>
+      <a href="contacto.html">Contacto</a>
+    </div>
+  </div>
+</footer>
+<div class="footer-watermark">SAÚL<span>✳</span></div>
+
+<!-- ========== COOKIE BANNER ========== -->
+<div id="cookie-banner">
+ <img src="./img/Cookie.png" alt="Cookie" class="cookie-icon">
+  <p class="cookie-text">
+    Usamos cookies propias y de terceros para mejorar tu experiencia. Consulta nuestra
+    <a href="privacidad.html#cookies">Política de Cookies</a> y <a href="privacidad.html">Política de Privacidad</a>.
+  </p>
+  <div class="cookie-actions">
+    <button class="cookie-btn-reject" id="cookie-reject">Rechazar</button>
+    <button class="cookie-btn-accept" id="cookie-accept">Aceptar todo</button>
+  </div>
+</div>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+// Hamburger
+(function(){
+  var btn = document.getElementById('hamburger-btn');
+  var panel = document.getElementById('mobile-menu-panel');
+  var overlay = document.getElementById('mobile-menu-overlay');
+  if(!btn||!panel||!overlay) return;
+  function openMenu(){ panel.classList.add('open'); overlay.classList.add('open'); }
+  function closeMenu(){ panel.classList.remove('open'); overlay.classList.remove('open'); }
+  btn.addEventListener('click', function(){ panel.classList.contains('open')?closeMenu():openMenu(); });
+  overlay.addEventListener('click', closeMenu);
+  panel.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+})();
+
+// Cookie banner
+(function(){
+  var banner = document.getElementById('cookie-banner');
+  if(!banner) return;
+  if(localStorage.getItem('cookieConsent')) banner.classList.add('hidden');
+  document.getElementById('cookie-accept').addEventListener('click', function(){
+    localStorage.setItem('cookieConsent','accepted');
+    banner.classList.add('hidden');
+  });
+  document.getElementById('cookie-reject').addEventListener('click', function(){
+    localStorage.setItem('cookieConsent','rejected');
+    banner.classList.add('hidden');
+  });
+})();
+
+// Scroll reveal
+(function(){
+  var items = document.querySelectorAll('.reveal');
+  if(!items.length) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.08});
+  items.forEach(function(el){ io.observe(el); });
+})();
+
+// TOC active highlight on scroll
+(function(){
+  var sections = document.querySelectorAll('.privacy-section[id]');
+  var links = document.querySelectorAll('#toc-list a');
+  if(!sections.length||!links.length) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        links.forEach(function(l){ l.classList.remove('active'); });
+        var active = document.querySelector('#toc-list a[href="#'+e.target.id+'"]');
+        if(active) active.classList.add('active');
+      }
+    });
+  }, {rootMargin:'-20% 0px -70% 0px'});
+  sections.forEach(function(s){ io.observe(s); });
+})();
+
+// Particles background (same as index)
+(function(){
+  var canvas = document.getElementById('particles-bg');
+  if(!canvas) return;
+  var gl = canvas.getContext('webgl',{alpha:true,depth:false})||
+           canvas.getContext('experimental-webgl',{alpha:true,depth:false});
+  if(!gl) return;
+  gl.clearColor(0,0,0,0);
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
+
+  var vs='attribute vec2 a_pos;void main(){gl_Position=vec4(a_pos,0,1);}';
+  var fs='precision mediump float;uniform float u_time;uniform vec2 u_res;void main(){vec2 uv=gl_FragCoord.xy/u_res;float t=u_time*0.3;float v=sin(uv.x*12.0+t)*sin(uv.y*12.0+t)*0.5+0.5;float a=v*0.025;gl_FragColor=vec4(0.16,0.47,1.0,a);}';
+
+  function mkSh(type,src){var s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);return s;}
+  var prog=gl.createProgram();
+  gl.attachShader(prog,mkSh(gl.VERTEX_SHADER,vs));
+  gl.attachShader(prog,mkSh(gl.FRAGMENT_SHADER,fs));
+  gl.linkProgram(prog);gl.useProgram(prog);
+
+  var buf=gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+  var loc=gl.getAttribLocation(prog,'a_pos');
+  gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+
+  var uTime=gl.getUniformLocation(prog,'u_time');
+  var uRes=gl.getUniformLocation(prog,'u_res');
+
+  function resize(){
+    canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+    gl.viewport(0,0,canvas.width,canvas.height);
+    gl.uniform2f(uRes,canvas.width,canvas.height);
+  }
+  resize();window.addEventListener('resize',resize,{passive:true});
+
+  var start=performance.now();
+  function loop(){
+    requestAnimationFrame(loop);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.uniform1f(uTime,(performance.now()-start)*0.001);
+    gl.drawArrays(gl.TRIANGLES,0,3);
+  }
+  loop();
+})();
+</script>
+</body>
+</html>
